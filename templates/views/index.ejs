@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('../partials/head.ejs') %> 
+    <title>Eesh web - Shop Clothing Online</title>
+</head>
+<body>
+    <div class="container mx-auto">
+        <%- include('../partials/navbar.ejs') %>
+
+        <div class="w-full px-4 my-2">
+            <h1 class="font-bold uppercase text-xl">find your style</h1>
+        </div>
+
+        <!-- categories -->
+        <div class="w-full px-4 my-4 flex itmes-center justify-evenly">
+            <div 
+            style="border: 1px solid #ececec;"
+            class="inline-block hover:bg-gray-50 px-4 py-2 rounded-md w-max cursor-pointer text-sm">
+                All
+            </div>
+            <div 
+            style="border: 1px solid #ececec;"
+            class="px-4 py-2 hover:bg-gray-50 inline-block rounded-md w-max mx-2 cursor-pointer text-sm">
+                Solid T-Shirts
+            </div>
+            <div 
+            style="border: 1px solid #ececec;"
+            class="px-4 py-2 hover:bg-gray-50 inline-block rounded-md w-max cursor-pointer text-sm">
+                Printed T-Shirts
+            </div>
+        </div>
+
+        <!-- hero slider -->
+        <div class="w-full flex-center mt-12">
+            <div class="w-max h-max cursor-pointer">
+                <div class="h-96 rounded-xl overflow-hidden relative">
+                    <img 
+                    class="absolute cursor-pointer right-4 top-4 w-6 h-6"
+                    src="/images/like.png" 
+                    alt="wishlist">
+                    <img 
+                    class="h-full"
+                    src="/images/model.jpg" 
+                    alt="model">
+                </div>
+                <div class="w-full block py-2 text-center">
+                    XYZ Printed T-Shirt
+                    <h1 class="font-bold">
+                        <span class="text-yellow-500 inline-block">Rs. </span>
+                        599
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- new arrivals -->
+        <div class="w-full px-4 my-6">
+            <div class="flex items-center mb-6 justify-between">
+                <h1 class="font-bold uppercase text-lg">new arrivals</h1>
+                <a 
+                href="#" 
+                class="text-yellow-500 font-semibold hover:text-yellow-600">
+                View all
+            </a>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2">
+                <div class="w-max h-max cursor-pointer">
+                    <div class="h-64 rounded-xl overflow-hidden relative">
+                        <img 
+                        class="absolute right-4 top-4 w-6 h-6"
+                        src="/images/like.png" 
+                        alt="wishlist">
+                        <img 
+                        class="h-full"
+                        src="/images/model.jpg" 
+                        alt="model">
+                    </div>
+                    <div class="w-full block py-2 text-center">
+                        XYZ Printed T-Shirt
+                        <h1 class="font-bold">
+                            <span class="text-yellow-500 inline-block">Rs. </span>
+                            599
+                        </h1>
+                    </div>
+                </div>
+                <div class="w-max h-max cursor-pointer">
+                    <div class="h-64 rounded-xl overflow-hidden relative">
+                        <img 
+                        class="absolute right-4 top-4 w-6 h-6"
+                        src="/images/like.png" 
+                        alt="wishlist">
+                        <img 
+                        class="h-full"
+                        src="/images/model.jpg" 
+                        alt="model">
+                    </div>
+                    <div class="w-full block py-2 text-center">
+                        XYZ Printed T-Shirt
+                        <h1 class="font-bold">
+                            <span class="text-yellow-500 inline-block">Rs. </span>
+                            599
+                        </h1>
+                    </div>
+                </div>
+                <div class="w-max h-max cursor-pointer">
+                    <div class="h-64 rounded-xl overflow-hidden relative">
+                        <img 
+                        class="absolute right-4 top-4 w-6 h-6"
+                        src="/images/like.png" 
+                        alt="wishlist">
+                        <img 
+                        class="h-full"
+                        src="/images/model.jpg" 
+                        alt="model">
+                    </div>
+                    <div class="w-full block py-2 text-center">
+                        XYZ Printed T-Shirt
+                        <h1 class="font-bold">
+                            <span class="text-yellow-500 inline-block">Rs. </span>
+                            599
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- deals of the day -->
+        <div class="w-full h-2 bg-gray-100"></div>
+        <div class="w-full flex-center flex-col mt-12 pb-8">
+            <h1 class="font-extrabold uppercase text-2xl mb-12">deal of the day</h1>
+
+            <img 
+            class="w-28"
+            src="/images/gift.png" 
+            alt="gift">
+
+            <h3 class="font-bold mt-4 text-lg">Use promo</h3>
+            <h1 class="text-4xl text-yellow-500 font-bold">AMAN100</h1>
+            <p class="capitalize">To get flat Rs.100 off</p>
+        </div>
+        <div class="w-full h-2 bg-gray-100"></div>
+
+
+        <!-- most popular -->
+        <div class="w-full px-4 my-6">
+            <div class="flex items-center mb-6 justify-between">
+                <h1 class="font-bold uppercase text-lg">most popular</h1>
+                <a 
+                href="#" 
+                class="text-yellow-500 font-semibold hover:text-yellow-600">
+                View all
+            </a>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2">
+                <div class="w-max h-max cursor-pointer">
+                    <div class="h-64 rounded-xl overflow-hidden relative">
+                        <img 
+                        class="absolute right-4 top-4 w-6 h-6"
+                        src="/images/like.png" 
+                        alt="wishlist">
+                        <img 
+                        class="h-full"
+                        src="/images/model.jpg" 
+                        alt="model">
+                    </div>
+                    <div class="w-full block py-2 text-center">
+                        XYZ Printed T-Shirt
+                        <h1 class="font-bold">
+                            <span class="text-yellow-500 inline-block">Rs. </span>
+                            599
+                        </h1>
+                    </div>
+                </div>
+                <div class="w-max h-max cursor-pointer">
+                    <div class="h-64 rounded-xl overflow-hidden relative">
+                        <img 
+                        class="absolute right-4 top-4 w-6 h-6"
+                        src="/images/like.png" 
+                        alt="wishlist">
+                        <img 
+                        class="h-full"
+                        src="/images/model.jpg" 
+                        alt="model">
+                    </div>
+                    <div class="w-full block py-2 text-center">
+                        XYZ Printed T-Shirt
+                        <h1 class="font-bold">
+                            <span class="text-yellow-500 inline-block">Rs. </span>
+                            599
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- on sale -->
+        <div class="w-full px-4 my-6">
+            <div class="flex items-center mb-6 justify-between">
+                <h1 class="font-bold uppercase text-lg">on sale</h1>
+                <a 
+                href="#" 
+                class="text-yellow-500 font-semibold hover:text-yellow-600">
+                View all
+            </a>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2">
+                <div class="w-max h-max cursor-pointer">
+                    <div class="h-64 rounded-xl overflow-hidden relative">
+                        <img 
+                        class="absolute right-4 top-4 w-6 h-6"
+                        src="/images/like.png" 
+                        alt="wishlist">
+                        <img 
+                        class="h-full"
+                        src="/images/model.jpg" 
+                        alt="model">
+                    </div>
+                    <div class="w-full block py-2 text-center">
+                        XYZ Printed T-Shirt
+                        <h1 class="font-bold">
+                            <span class="text-yellow-500 inline-block">Rs. </span>
+                            599
+                        </h1>
+                    </div>
+                </div>
+                <div class="w-max h-max cursor-pointer">
+                    <div class="h-64 rounded-xl overflow-hidden relative">
+                        <img 
+                        class="absolute right-4 top-4 w-6 h-6"
+                        src="/images/like.png" 
+                        alt="wishlist">
+                        <img 
+                        class="h-full"
+                        src="/images/model.jpg" 
+                        alt="model">
+                    </div>
+                    <div class="w-full block py-2 text-center">
+                        XYZ Printed T-Shirt
+                        <h1 class="font-bold">
+                            <span class="text-yellow-500 inline-block">Rs. </span>
+                            599
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- footer -->
+        <footer class="w-full bg-black py-4">
+            <h1 class="text-2xl font-bold uppercase text-white my-4 text-center">quick links</h1>
+
+            <div class="flex items-center justify-between">
+                <div>
+                    <ul>
+                        <li class="mx-2 my-4 text-center text-sm">
+                            <a 
+                            class="text-white hover:text-yellow-500"
+                            href="#">Home</a>
+                        </li>
+                        <li class="mx-2 my-4 text-center text-sm">
+                            <a 
+                            class="text-white hover:text-yellow-500"
+                            href="#">Cart</a>
+                        </li>
+                        <li class="mx-2 my-4 text-center text-sm">
+                            <a 
+                            class="text-white hover:text-yellow-500"
+                            href="#">Wishlist</a>
+                        </li>
+                        <li class="mx-2 my-4 text-center text-sm">
+                            <a 
+                            class="text-white hover:text-yellow-500"
+                            href="#">My Orders</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                        <li class="mx-2 my-4 text-center text-sm">
+                            <a 
+                            class="text-white hover:text-yellow-500"
+                            href="#">New Arrivals</a>
+                        </li>
+                        <li class="mx-2 my-4 text-center text-sm">
+                            <a 
+                            class="text-white hover:text-yellow-500"
+                            href="#">A Collection</a>
+                        </li>
+                        <li class="mx-2 my-4 text-center text-sm">
+                            <a 
+                            class="text-white hover:text-yellow-500"
+                            href="#">Shop for Men</a>
+                        </li>
+                        <li class="mx-2 my-4 text-center text-sm">
+                            <a 
+                            class="text-white hover:text-yellow-500"
+                            href="#">Shop Accessories</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                        <li class="mx-2 my-4 text-center text-sm">
+                            <a 
+                            class="text-white hover:text-yellow-500"
+                            href="#">Policies</a>
+                        </li>
+                        <li class="mx-2 my-4 text-center text-sm">
+                            <a 
+                            class="text-white hover:text-yellow-500"
+                            href="#">Contact Us</a>
+                        </li>
+                        <li class="mx-2 my-4 text-center text-sm">
+                            <a 
+                            class="text-white hover:text-yellow-500"
+                            href="#">Cancellations</a>
+                        </li>
+                        <li class="mx-2 my-4 text-center text-sm">
+                            <a 
+                            class="text-white hover:text-yellow-500"
+                            href="#">T&C</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <p class="text-white mt-6 text-center text-sm">eeshweb &copy; || All rights reserved</p>
+        </footer>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.border {
+    border: 2px solid red;
+}
+.bars {
+    transition: 0.3s;
+    height: 4px;
+}
+.bars:first-child.open {
+    transform: translateX(50px);
+    opacity: 0;
+}
+.bars:last-child.open {
+    transform: translateX(-50px);
+    opacity: 0;
+}
+.sideMenu {
+    left: 1500px;
+}
