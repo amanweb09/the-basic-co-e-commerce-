@@ -22,6 +22,11 @@
                 <h1 class="text-center font-semibold"><%= errMessage %></h1>
             </div>
             <% } %> 
+        <% if (successMessage.length) { %> 
+            <div class="w-5/6 h-10 my-4 rounded-lg mx-auto bg-green-200 flex-center">
+                <h1 class="text-center font-semibold"><%= successMessage %></h1>
+            </div>
+            <% } %> 
 
         <form method="POST" action="/signup">
             <label 
@@ -31,11 +36,11 @@
                 <span class="text-red-500 font-bold">*</span>
             </label>
             <input 
-            
-            style="border: 1px solid #ececec;"
+            styl"border: 1px solid #ececec;"
             class="block mx-auto w-5/6 px-2 h-8 rounded-full singup_input"
             placeholder="Name here ..."
             type="text" 
+            required
             name="name">
 
             <label 
@@ -45,12 +50,12 @@
                 <span class="text-red-500 font-bold">*</span>
             </label>
             <input 
-            
             style="border: 1px solid #ececec;"
             class="block mx-auto w-5/6 px-2 h-8 rounded-full singup_input"
             placeholder="Email here ..."
+            required
             type="email" 
-            name="name">
+            name="email">
 
             <label 
             class="text-center block mt-8"
@@ -59,10 +64,10 @@
                 <span class="text-red-500 font-bold">*</span>
             </label>
             <input
-            
             style="border: 1px solid #ececec;"
             class="block mx-auto w-5/6 px-2 h-8 rounded-full singup_input"
             placeholder="Contact number here ..."
+            required
             type="tel" 
             name="tel">
 
@@ -73,16 +78,15 @@
                 <span class="text-red-500 font-bold">*</span>
             </label>
             <input
-             
             style="border: 1px solid #ececec;"
             class="block mx-auto w-5/6 px-2 h-8 rounded-full singup_input"
             placeholder="Password here ..."
+            required
             type="password" 
             name="password">
 
             <div class="w-max block mx-auto mt-8">
                 <input 
-                
                 type="checkbox" 
                 name="mail-list">
                 <label for="mail-list text-sm">I agree to the terms and conditions</label>
@@ -90,6 +94,7 @@
 
             <div class="w-max block mx-auto mt-4">
                 <input 
+                required
                 checked
                 type="checkbox" 
                 name="mail-list">

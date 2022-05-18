@@ -1,6 +1,7 @@
 const userService = require('../../services/userService')
 const userValidator = require('../../validators/userValidator')
-const { ValidationError } = require('joi')
+const { ValidationError } = require('joi');
+const { hash } = require('../../services/hashingService');
 
 class SignupController {
     render(req, res) {
@@ -22,6 +23,14 @@ class SignupController {
                 .redirect('/signup')
         }
 
+        const validate = await userValidator({ name, email, tel, password })
+
+        if (validate instanceof ValidationError) {
+            req.flash('errMessage', validate.details[0].message)
+            return res
+                .redirect('/signup')
+        }
+
         const existingUsers = await userService.findUsers({ $or: [{ email }, { tel }] })
 
         if (existingUsers.length) {
@@ -30,14 +39,25 @@ class SignupController {
                 .redirect('/signup')
         }
 
-        const validate = await userValidator(req.body)
+        const hashedPassword = hash(password, process.env.PASSWORD_SECRET)
 
-        if (validate instanceof ValidationError) {
-            req.flash('errMessage', validate.details[0].message)
+        const user = {
+            name, email, tel, password: hashedPassword
+        }
+
+        const saveUser = await userService.createUser(user)
+
+        if (saveUser) {
+            req.flash('successMessage', 'Signup successful! Please login')
+            return res
+                .redirect('/login')
+        }
+
+        else {
+            req.flash('errMessage', 'Something went wrong!')
             return res
                 .redirect('/signup')
         }
-
 
     }
 }

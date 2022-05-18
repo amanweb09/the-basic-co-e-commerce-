@@ -10,6 +10,14 @@ class UserService {
         }
     }
 
+    async createUser(user) {
+        try {
+            return await Users.create(user)
+        } catch (error) {
+            return error
+        }
+    }
+
 }
 
 module.exports = new UserService()
