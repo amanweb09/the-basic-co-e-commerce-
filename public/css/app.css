@@ -21,3 +21,10 @@
 .sideMenu {
     left: 1500px;
 }
+input {
+    outline: none;
+}
+
+input:focus {
+    border-bottom: 2px solid orange;
+}

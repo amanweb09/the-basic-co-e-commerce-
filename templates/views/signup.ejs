@@ -13,7 +13,101 @@
 <body>
     <%- include('../partials/navbar.ejs') %>
     <div class="container mx-auto">
+        <h4 class="text-center text-lg mt-10">Welcome</h4>
 
+        <h1 class="text-center text-3xl font-semibold mt-4 mb-12">Create an Account</h1>
+
+        <% if (errMessage.length) { %> 
+            <div class="w-5/6 h-10 my-4 rounded-lg mx-auto bg-red-200 flex-center">
+                <h1 class="text-center font-semibold"><%= errMessage %></h1>
+            </div>
+            <% } %> 
+
+        <form method="POST" action="/signup">
+            <label 
+            class="text-center block mt-8"
+            for="name">
+                Name 
+                <span class="text-red-500 font-bold">*</span>
+            </label>
+            <input 
+            
+            style="border: 1px solid #ececec;"
+            class="block mx-auto w-5/6 px-2 h-8 rounded-full singup_input"
+            placeholder="Name here ..."
+            type="text" 
+            name="name">
+
+            <label 
+            class="text-center block mt-8"
+            for="email">
+                Email
+                <span class="text-red-500 font-bold">*</span>
+            </label>
+            <input 
+            
+            style="border: 1px solid #ececec;"
+            class="block mx-auto w-5/6 px-2 h-8 rounded-full singup_input"
+            placeholder="Email here ..."
+            type="email" 
+            name="name">
+
+            <label 
+            class="text-center block mt-8"
+            for="tel">
+                Contact Number
+                <span class="text-red-500 font-bold">*</span>
+            </label>
+            <input
+            
+            style="border: 1px solid #ececec;"
+            class="block mx-auto w-5/6 px-2 h-8 rounded-full singup_input"
+            placeholder="Contact number here ..."
+            type="tel" 
+            name="tel">
+
+            <label 
+            class="text-center block mt-8"
+            for="password">
+                Password
+                <span class="text-red-500 font-bold">*</span>
+            </label>
+            <input
+             
+            style="border: 1px solid #ececec;"
+            class="block mx-auto w-5/6 px-2 h-8 rounded-full singup_input"
+            placeholder="Password here ..."
+            type="password" 
+            name="password">
+
+            <div class="w-max block mx-auto mt-8">
+                <input 
+                
+                type="checkbox" 
+                name="mail-list">
+                <label for="mail-list text-sm">I agree to the terms and conditions</label>
+            </div>
+
+            <div class="w-max block mx-auto mt-4">
+                <input 
+                checked
+                type="checkbox" 
+                name="mail-list">
+                <label for="mail-list">Keep me updated about new offers</label>
+            </div>
+
+            <button 
+
+            type="submit"
+            class="w-56 h-10 font-bold text-white block mx-auto mt-12 mb-6 rounded-full bg-orange-500 hover:bg-orange-600">
+                Signup
+            </button>
+        </form>
+
+        <p class="text-center mb-6">Already have an account? 
+            <a
+            class="font-bold hover:text-orange-500" 
+            href="#">Login</a></p>
     </div>   
     
 
