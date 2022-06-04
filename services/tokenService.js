@@ -1,4 +1,4 @@
-const { sign } = require('jsonwebtoken')
+const { sign, verify } = require('jsonwebtoken')
 
 class TokenService {
 
@@ -6,6 +6,12 @@ class TokenService {
         return sign(payload, secret, {
             expiresIn: exp
         })
+    }
+
+    validateToken(token, secret) {
+        const val = verify(token, secret)
+        console.log(val);
+        return val
     }
 
 }   

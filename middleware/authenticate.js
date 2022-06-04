@@ -1,30 +1,32 @@
-const tokenService = require('../services/token-service');
-const userService = require('../services/user-service')
+const { validateToken } = require('../services/tokenService');
+const { findUsers } = require('../services/userService')
 
-const authenticate = async (req, res, next) => {
+const authenticate = (req, res, next) => {
     const { accessToken } = req.cookies;
 
     if (!accessToken) {
+        req.flash('errMessage', 'Please login to continue!')
         return res
             .status(401)
-            .json({ err: 'Unauthorized access!' })
+            .redirect('/login')
     }
 
-    const payload = await tokenService.validateToken(accessToken)
+    const payload = validateToken(accessToken, process.env.AT_SECRET)
 
     if (payload) {
-        const authUser = await userService.findUser({ _id: payload._id });
-        req._id = authUser._id;
-        req.name = authUser.name;
-        req.email = authUser.email;
-        req.tel = authUser.tel;
+        const authUser = await findUsers({ _id: payload._id });
+        req._id = authUser[0]._id;
+        req.name = authUser[0].name;
+        req.email = authUser[0].email;
+        req.tel = authUser[0].tel;
 
         return next()
     }
 
+    req.flash('errMessage', 'Please login to continue!')
     return res
         .status(401)
-        .json({ err: 'Unauthorized access!', expErr: true })
+        .redirect('/login')
 
 }
 

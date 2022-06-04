@@ -1,0 +1,65 @@
+[
+    {
+        "_id": "1",
+        "title": "black solid t-shirt",
+        "price": "699",
+        "desc": "best t-shirt in the market",
+        "category": "t-shirt",
+        "sub-category": "solids",
+        "tags": ["t-shirt", "solids"],
+        "images": {
+            "primary": "test.png",
+            "sec": ["test.png", "test.png"]
+        },
+        "variants": {
+            "colors": ["black", "red", "blue", "white"],
+            "sizes": ["S", "M", "L", "XL"]
+        },
+        "availability": {
+            "inStock": true,
+            "units": 5
+        }
+    },
+    {
+        "_id": "2",
+        "title": "striped t-shirt",
+        "price": "899",
+        "desc": "best t-shirt in the market",
+        "category": "t-shirt",
+        "sub-category": "strips",
+        "tags": ["t-shirt", "strips"],
+        "images": {
+            "primary": "test.png",
+            "sec": ["test.png", "test.png"]
+        },
+        "variants": {
+            "colors": ["black", "red", "blue", "white"],
+            "sizes": ["S", "M", "L", "XL"]
+        },
+        "availability": {
+            "inStock": true,
+            "units": 5
+        }
+    },
+    {
+        "_id": "3",
+        "title": "printed t-shirt",
+        "price": "999",
+        "desc": "best t-shirt in the market",
+        "category": "t-shirt",
+        "sub-category": "printed",
+        "tags": ["t-shirt", "printed"],
+        "images": {
+            "primary": "test.png",
+            "sec": ["test.png", "test.png"]
+        },
+        "variants": {
+            "colors": ["black", "red", "blue", "white"],
+            "sizes": ["S", "M", "L", "XL"]
+        },
+        "availability": {
+            "inStock": true,
+            "units": 5
+        }
+    }
+]

@@ -36,6 +36,7 @@ app.use(express.static(static_path))
 
 
 app.use(require('./router/routes'))
+app.use('/admin', require('./router/admin'))
 
 server
     .listen(PORT, () => console.log(`Listening server on port ${PORT}!`))
