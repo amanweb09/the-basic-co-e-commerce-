@@ -13,46 +13,92 @@ class ProductController {
                     .redirect('/')
             }
 
-            const products = await getProducts({ [searchIn]: qa })
-            return res
-                .status(200)
-                .json(products)
+            const products = await getProducts({ [searchIn.title]: qa })
+
             // return res
             //     .status(200)
-            //     .render('products', {
-            //         products
-            //     })
+            //     .json(products)
+            return res
+                .status(200)
+                .render('products', {
+                    products
+                })
         }
         else if (req.query.type === 'multiple') {
             const { qa, searchIna, qb, searchInb } = req.query
 
             if (!qa || !searchIna || !qb || !searchInb) {
-                // req.flash('err', 'No products found')
-                // return res
-                //     .redirect('/products')
-                return res.json('invalid params')
+                req.flash('err', 'No products found')
+                return res
+                    .redirect('/products')
+                // return res.json('invalid params')
             }
 
-            const products = await getProducts({ [searchIna]: qa, [searchInb]: qb })
-            return res
-                .status(200)
-                .json(products)
+            const products = await getProducts({ [searchIna.title]: qa, [searchInb.title]: qb })
+
             // return res
             //     .status(200)
-            //     .render('products', {
-            //         products
-            //     })
+            //     .json(products)
+            return res
+                .status(200)
+                .render('products', {
+                    products
+                })
         }
-        
+
+        else if (req.query.type === 'tags') {
+
+            if (!req.query.tag) {
+                req.flash('err', 'No products found')
+                return res
+                    .redirect('/products')
+                // return res.json('invalid params')
+            }
+
+            const products = await getProducts({ tags: req.query.tag })
+            // return res
+            //     .status(200)
+            //     .json(products)
+            return res
+                .status(200)
+                .render('products', {
+                    products
+                })
+        }
+
         const products = await getProducts()
-        return res
-            .status(200)
-            .json(products)
         // return res
         //     .status(200)
-        //     .render('products', {
-        //         products
-        //     })
+        //     .json(products)
+        return res
+            .status(200)
+            .render('products', {
+                products
+            })
+    }
+
+    async showIndividualProduct(req, res) {
+        const { _id } = req.params
+
+        if (!_id) {
+            req.flash('err', 'Invalid product')
+            return res
+                .redirect('/product')
+        }
+
+        const product = await getProducts({ _id })
+
+        if (product) {
+            return res
+                .status(200)
+                .render('product', {
+                    product: product[0]
+                })
+        }
+
+        req.flash('err', 'Product not found!')
+        return res
+            .redirect('/product')
     }
 
 }

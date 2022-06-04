@@ -17,6 +17,7 @@ router.get('/login', loginController.render)
 router.post('/login', loginController.loginUser)
 
 router.get('/products', productController.renderProductsPage)
+router.get('/product/:_id', productController.showIndividualProduct)
 
 
 

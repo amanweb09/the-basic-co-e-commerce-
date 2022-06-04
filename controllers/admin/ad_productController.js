@@ -21,8 +21,8 @@ class AdminProductController {
 
         const product = {
             ...req.body,
-            category: cat._id,
-            subCategory: subCat._id
+            category: { categoryId: cat._id, title: category },
+            subCategory: { subCategoryId: subCat._id, title: subCategory }
         }
 
         const saveProduct = await productService.createProduct(product)
@@ -35,7 +35,7 @@ class AdminProductController {
             if (!subCat.products) {
                 subCat.products = []
             }
-            
+
             cat.products.unshift(saveProduct._id)
             subCat.products.unshift(saveProduct._id)
 
@@ -49,9 +49,6 @@ class AdminProductController {
         req.flash('err', 'Server unavailable! Please try again')
         return res
             .redirect('/admin/products/create')
-        return res
-            .status(201)
-            .json('db error')
     }
 
 }

@@ -5,15 +5,25 @@ const productSchema = new Schema({
     price: { type: String, required: true },
     desc: { type: String, required: true },
     category: {
-        type: Schema.Types.ObjectId,
-        ref: 'categories',
-        unique: false
+        categoryId: {
+            type: Schema.Types.ObjectId,
+            ref: 'categories',
+            unique: false
+        },
+        title: {
+            type: String, required: true
+        }
     },
     subCategory: {
-        type: Schema.Types.ObjectId,
-        ref: 'subCategories',
-        unique: false,
-        required: false
+        subCategoryId: {
+            type: Schema.Types.ObjectId,
+            ref: 'subCategories',
+            unique: false,
+            required: false
+        },
+        title: {
+            type: String, required: true            
+        }
     },
     tags: {
         type: [String],
