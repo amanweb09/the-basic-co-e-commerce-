@@ -38,7 +38,7 @@ class LoginController {
             const at = generateTokens({ _id: user._id }, process.env.AT_SECRET, '3d')
             const rt = generateTokens({ _id: user._id }, process.env.RT_SECRET, '1y')
 
-            req.flash('successMessage', 'Logged in Successfully!')
+            // req.flash('successMessage', 'Logged in Successfully!')
             res.cookie('at', at)
             res.cookie('rt', rt)
             return res

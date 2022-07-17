@@ -15,7 +15,7 @@
   \****************************/
 /***/ (() => {
 
-eval("const hamb = document.querySelector('#hamb')\r\n\r\nhamb.addEventListener('click', (e) => {\r\n    alert('clicked')\r\n})\n\n//# sourceURL=webpack://eesh-web/./public/js/index.js?");
+eval("\r\n\r\ndocument.getElementById('atc').addEventListener('click', () => addToCart())\r\n\r\nconst addToCart = async (itemId) => {\r\n    try {\r\n        const { data } = await axios.post('http://localhost:3100/cart', {\r\n            itemId: '629b35b4599bf9d4642c1312', color: 'red', size: 'S'\r\n        })\r\n\r\n        console.log(data);\r\n\r\n    } catch (err) {\r\n        console.log(err);\r\n    }\r\n}\n\n//# sourceURL=webpack://eesh-web/./public/js/index.js?");
 
 /***/ })
 

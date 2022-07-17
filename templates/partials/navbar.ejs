@@ -1,8 +1,36 @@
+<style>
+    .menu.open {
+        left: 0;
+        display: block;
+        left: 0;
+    }
+
+    .menu {
+        transition: 0.5s;
+        z-index: 999;
+        height: 100vh;
+        left: -2000px;
+    }
+
+    .nav-link {
+        border: 1px solid #dcdcdc;
+        margin-top: 1px;
+    }
+
+    .close {
+        right: -3rem;
+        z-index: 999;
+    }
+</style>
+<div class="w-full h-12 bg-black text-white flex-center text-xs tet-center">
+    Enjoy Free Shipping Throughout India!
+</div>
+<div class="w-full h-12 bg-orange-400 font-bold flex-center text-sm tet-center">
+    Use Promo Code "AMAN50" to Get Flat 50% Off!
+</div>
 <div class="max-w-full overflow-hidden h-20 bg-white flex items-center justify-between px-2">
 
-    <div 
-    onclick="toggleMenu()"
-    class="ham w-16 h-16 flex-center flex-col cursor-pointer">
+    <div class="ham w-16 h-16 flex-center flex-col cursor-pointer">
         <div class="bars w-10 bg-black rounded-full mb-2"></div>
         <div class="bars w-10 bg-black rounded-full"></div>
     </div>
@@ -12,26 +40,63 @@
     </div>
 
     <div class="cart px-2 relative">
-        <div class="w-6 h-6 rounded-full bg-orange-500 absolute left-4 bottom-6 flex-center">
+        <div class="w-6 h-6 rounded-full bg-orange-400 absolute left-4 bottom-6 flex-center">
             <span class="font-bold text-white">0</span>
         </div>
-        <img 
-        class="w-6 h-8"
-        src="/images/cart.png" 
-        alt="cart">
+        <img class="w-6 h-8" src="/images/cart.png" alt="cart">
     </div>
 
-    <!-- <div
-    style="z-index: 999;" 
-    class="sideMenu w-screen h-screen bg-black absolute top-0 hidden"></div> -->
+    <div class="fixed w-10/12 bg-white menu top-0 shadow-xl pt-6">
+        <div class="close absolute w-12 h-12 text-4xl text-white flex-center bg-red-500 shadow-2xl font-bold">&times;
+        </div>
+        <div class="w-full py-2 px-4 nav-link mt-6">
+            <a class="hover:text-orange-600 text-lg" href="/login">Login</a>
+        </div>
+        <div class="w-full py-2 px-4 nav-link">
+            <a class="hover:text-orange-600 text-lg" href="/products">New Arrivals</a>
+        </div>
+        <div class="w-full py-2 px-4 nav-link">
+            <a class="hover:text-orange-600 text-lg" href="/collections">Our Collections</a>
+        </div>
+        <div class="w-full py-2 px-4 nav-link">
+            <a class="hover:text-orange-600 text-lg" href="/ordera">My Orders</a>
+        </div>
+        <div class="w-full py-2 px-4 nav-link">
+            <a class="hover:text-orange-600 text-lg" href="/cart">Cart</a>
+        </div>
+        <div class="w-full py-2 px-4 nav-link">
+            <a class="hover:text-orange-600 text-lg" href="/profile">My Profile</a>
+        </div>
+        <div class="w-full py-2 px-4 nav-link">
+            <a class="hover:text-orange-600 text-lg" href="/about">About Us</a>
+        </div>
+    </div>
 
     <script>
-        function toggleMenu() {
-            const bars = document.querySelectorAll('div.bars')
+        const bars = document.querySelectorAll('div.bars')
+        const menu = document.querySelector('div.menu')
+
+        document
+            .querySelector('div.close')
+            .addEventListener('click', closeMenu)
+
+        function closeMenu() {
+            bars.forEach((bar) => {
+                bar.classList.remove('open')
+            })
+            menu.classList.remove('open')
+        }
+
+        document
+            .querySelector('div.ham')
+            .addEventListener('click', openMenu)
+
+        function openMenu() {
 
             bars.forEach((bar) => {
-                bar.classList.toggle('open')
+                bar.classList.add('open')
             })
+            menu.classList.add('open')
         }
     </script>
 </div>

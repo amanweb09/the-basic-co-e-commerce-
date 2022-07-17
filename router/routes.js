@@ -2,6 +2,7 @@ const router = require('express').Router()
 
 const loginController = require('../controllers/auth/loginController')
 const signupController = require('../controllers/auth/signupController')
+const cartController = require('../controllers/product/cartController')
 const productController = require('../controllers/product/productController')
 
 router.get('/', (req, res) => {
@@ -19,6 +20,8 @@ router.post('/login', loginController.loginUser)
 router.get('/products', productController.renderProductsPage)
 router.get('/product/:_id', productController.showIndividualProduct)
 
+router.post('/cart', cartController.addToCart)
+router.get('/cart', cartController.renderCart)
 
 
 module.exports = router

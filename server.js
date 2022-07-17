@@ -19,19 +19,23 @@ app.set('views', views_path)
 const session = require('express-session')
 const flash = require('connect-flash')
 
+const MongoStore = require('connect-mongo');
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
         secure: false,
-        maxAge: 1000*60*60*24*3
-    }
+        maxAge: 1000 * 60 * 60 * 24 * 3
+    },
+    store: MongoStore.create({
+        mongoUrl: process.env.LOCAL_DB_URL,
+    })
 }))
 app.use(flash())
 
 app.use(express.json())
-app.use(express.urlencoded({extended: false}))
+app.use(express.urlencoded({ extended: false }))
 app.use(express.static(static_path))
 
 
