@@ -36,7 +36,10 @@
     </div>
 
     <div class="logo">
-        <h1 class="text-xl font-extrabold">EESHWEB</h1>
+        <h1 
+        onclick="redirect('/')"
+        id="logo" 
+        class="text-xl font-extrabold">TBC</h1>
     </div>
 
     <div class="cart px-2 relative">
@@ -97,6 +100,10 @@
                 bar.classList.add('open')
             })
             menu.classList.add('open')
+        }
+
+        function redirect(dest) {
+            window.location.href('/')
         }
     </script>
 </div>

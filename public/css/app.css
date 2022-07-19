@@ -6,6 +6,9 @@
 .border {
     border: 2px solid red;
 }
+.category-container-home::-webkit-scrollbar {
+    display: none;
+}
 .bars {
     transition: 0.3s;
     height: 4px;
@@ -27,4 +30,22 @@ input {
 
 input:focus {
     border-bottom: 2px solid orange;
+}
+.slide-wrapper::-webkit-scrollbar {
+    display: none;
+}
+.color-badge {
+    box-shadow: 3px 5px 10px #ececec, -3px 5px 10px #ececec;
+}
+.size-badge {
+    border: 1px solid #dcdcdc;
+}
+div#black {
+    background: #000;
+}
+div#white {
+    background: #fff;
+}
+div#red {
+    background: red;
 }
