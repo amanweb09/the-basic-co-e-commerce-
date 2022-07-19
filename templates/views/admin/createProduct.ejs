@@ -1,0 +1,141 @@
+<html>
+
+<head>
+    <title>Create Product - The Basic Company</title>
+    <%- include('../../partials/head.ejs') %>
+</head>
+
+<body>
+    <%- include('../../partials/navbar.ejs') %>
+
+        <div class="container mx-auto">
+            <h1 class="font-bold text-xl text-center my-4">Create a Product</h1>
+
+            <form action="/admin/products/create" method="POST" enctype="multipart/form-data">
+                <label for="title">Product Title<span class="text-red-500">*</span></label>
+                <input name="title"
+                    class="sm:w-9/12 w-11/12 h-8 border-b-2 border-b-solid border-b-orange-200 focus:bg-orange-100 block mb-4"
+                    type="text">
+
+                <label for="price">Price<span class="text-red-500">*</span></label>
+                <input name="price"
+                    class="sm:w-9/12 w-11/12 h-8 border-b-2 border-b-solid border-b-orange-200 focus:bg-orange-100 block mb-4"
+                    type="text">
+
+                <label for="desc">Description<span class="text-red-500">*</span></label>
+                <input name="desc" spellcheck="true"
+                    class="sm:w-9/12 w-11/12 h-8 border-b-2 border-b-solid border-b-orange-200 focus:bg-orange-100 block mb-4"
+                    type="text">
+
+                <label class="mt-8 block" for="category">Select a Category <span class="text-red-500">*</span></label>
+                <select class="w-64 py-2 block sm:bg-gray-100" name="category" id="category">
+                    <option value=""></option>
+                    <% categories.map((cat)=> { %>
+                        <option value="<%= cat.title %>">
+                            <%= cat.title %>
+                        </option>
+                        <% }) %>
+                </select>
+
+                <label class="mt-8 block" for="subcategory">Select a Sub-Category</label>
+                <select class="w-64 py-2 block sm:bg-gray-100 mb-4" name="subCategory" id="subCategory">
+                    <option value=""></option>
+                    <% subCategories.map((subcat)=> { %>
+                        <option value="<%= subcat.title %>">
+                            <%= subcat.title %>
+                        </option>
+                        <% }) %>
+                </select>
+
+                <label class="mt-8 block" for="tags">Tags</label>
+                <input name="tags" placeholder="Separated by commas without any spaces"
+                    class="sm:w-9/12 w-11/12 h-8 border-b-2 border-b-solid border-b-orange-200 focus:bg-orange-100 block mb-4"
+                    type="text">
+
+                <label class="mt-8 block" for="img_primary">Primary Image <span class="text-red-500">*</span></label>
+                <input class="mt-2 mb-8" accept="image/*" type="file" name="imgPrimary" id="img_p">
+
+                <label class=" block" for="img_primary">Secondary Images</label>
+                <input class="mt-2 mb-8" multiple accept="image/*" type="file" name="imgSec" id="img_p">
+
+                <label class="block" for="colors">Colors Available</label>
+                <div class="flex items-center justify-start">
+                    <input placeholder="Enter a color" id="color_selector"
+                        class="sm:w-5/12 w-6/12 h-8 border-b-2 border-b-solid border-b-orange-200 focus:bg-orange-100 block mb-4"
+                        type="text">
+                    <div onclick="addToColors()"
+                        class="w-8 h-8 ml-2 cursor-pointer rounded-full bg-orange-500 text-2xl font-bold flex-center">
+                        &#8594;</div>
+                </div>
+                <div class="flex items-center justify-start p-2 badge_container"></div>
+
+                <label for="colors">Sizes Available</label>
+                <div class="flex items-center justify-start">
+                    <input placeholder="Enter a Size" id="size_selector"
+                        class="sm:w-5/12 w-6/12 h-8 border-b-2 border-b-solid border-b-orange-200 focus:bg-orange-100 block mb-4"
+                        type="text">
+                    <div onclick="addToSizes()"
+                        class="w-8 h-8 ml-2 cursor-pointer rounded-full bg-orange-500 text-2xl font-bold flex-center">
+                        &#8594;</div>
+                </div>
+                <div class="flex items-center justify-start p-2 size_badge_container"></div>
+
+                <label class="mt-8 block" for="category">Select Season <span class="text-red-500">*</span></label>
+                <select class="w-64 py-2 block sm:bg-gray-100" name="season" id="season">
+                    <option value=""></option>
+                    <option value="winter">Winter</option>
+                    <option value="summer">Summer</option>
+                </select>
+
+                <input type="hidden" name="sizes" value="" id="sizes_hidden">
+                <input type="hidden" name="colors" value="" id="colors_hidden">
+
+                <button type="submit"
+                    class="my-8 block w-1/2 h-12 font-bold mx-auto bg-orange-500 hover:bg-orange-600 text-white">
+                    CREATE PRODUCT
+                </button>
+            </form>
+        </div>
+
+        <script>
+
+            let colorsAvailable = []
+            let sizesAvailable = []
+
+            function addToColors() {
+                const color = document.querySelector('input#color_selector')
+                const colorBadge = document.createElement('div')
+                colorBadge.classList.add('w-max', 'px-4', 'rounded-lg', 'bg-gray-200', 'mr-4')
+                colorBadge.innerText = color.value
+
+                const badgeContainer = document.querySelector('.badge_container')
+                badgeContainer.appendChild(colorBadge)
+
+                colorsAvailable.push(color.value)
+
+                const colorsHidden = document.querySelector('input#colors_hidden')
+                colorsHidden.value = colorsAvailable
+
+                color.value = ''
+            }
+
+            function addToSizes() {
+                const size = document.querySelector('input#size_selector')
+                const sizeBadge = document.createElement('div')
+                sizeBadge.classList.add('w-max', 'px-4', 'rounded-lg', 'bg-gray-200', 'mr-4')
+                sizeBadge.innerText = size.value
+
+                const badgeContainer = document.querySelector('.size_badge_container')
+                badgeContainer.appendChild(sizeBadge)
+
+                sizesAvailable.push(size.value)
+
+                const sizesHidden = document.querySelector('input#sizes_hidden')
+                colorsHidden.value = sizesHidden
+
+                size.value = ''
+            }
+        </script>
+</body>
+
+</html>

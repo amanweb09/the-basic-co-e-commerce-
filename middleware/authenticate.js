@@ -1,7 +1,7 @@
 const { validateToken } = require('../services/tokenService');
 const { findUsers } = require('../services/userService')
 
-const authenticate = (req, res, next) => {
+const authenticate = async (req, res, next) => {
     const { accessToken } = req.cookies;
 
     if (!accessToken) {
