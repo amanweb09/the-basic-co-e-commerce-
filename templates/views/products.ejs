@@ -11,21 +11,20 @@
 
         <%- include('../partials/navbar.ejs') %>
 
-            <div class="grid grid-cols-2 gap-6 px-2">
+            <div class="grid sm:grid-cols-5 grid-cols-2 gap-6 px-2">
                 
                 <% products.length && products.map((product)=> { %>
 
-                    <div class="flex-center flex-col">
+                    <div class="flex-center flex-col w-full shadow-xl">
                         <img class="w-full" src="/images/model.jpg" alt="product">
                         <div class="flex-1">
                             <p class="capitalize"><%= product.title %></p>
                             <p class="text-center font-bold">&#8377;<%= product.price %></p>
                             <button
                             onclick="redirect('/product/<%= product._id %>')" 
-                            class="bg-orange-400 font-bold p-2 my-2 text-sm">View Product</button>
+                            class="bg-orange-400 w-32 font-bold p-2 my-2 text-sm">View Product</button>
                         </div>
                     </div>
-
                         <% }) %>
 
             </div>

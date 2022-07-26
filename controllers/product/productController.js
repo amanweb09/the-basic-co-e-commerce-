@@ -1,3 +1,4 @@
+const ProductDTO = require('../../dtos/productDTO')
 const { getProducts } = require('../../services/productService')
 
 class ProductController {
@@ -89,10 +90,13 @@ class ProductController {
         const product = await getProducts({ _id })
 
         if (product) {
+
+            const modProduct = new ProductDTO(product[0])
+
             return res
                 .status(200)
                 .render('product', {
-                    product: product[0]
+                    product: modProduct
                 })
         }
 

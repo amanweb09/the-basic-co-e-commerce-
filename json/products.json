@@ -1,6 +1,5 @@
 [
     {
-        "_id": "1",
         "title": "black solid t-shirt",
         "price": "699",
         "desc": "best t-shirt in the market",
@@ -21,7 +20,7 @@
         }
     },
     {
-        "_id": "2",
+      
         "title": "striped t-shirt",
         "price": "899",
         "desc": "best t-shirt in the market",
@@ -42,7 +41,7 @@
         }
     },
     {
-        "_id": "3",
+       
         "title": "printed t-shirt",
         "price": "999",
         "desc": "best t-shirt in the market",

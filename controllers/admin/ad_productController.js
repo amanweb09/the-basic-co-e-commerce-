@@ -13,7 +13,11 @@ class AdminProductController {
 
             return res
                 .status(200)
-                .render('admin/createProduct', { categories, subCategories })
+                .render('admin/createProduct', {
+                    categories, subCategories,
+                    successMessage: req.flash('success'),
+                    errMessage: req.flash('err')
+                })
         } catch (error) {
             console.log(error);
             return res
@@ -24,51 +28,79 @@ class AdminProductController {
     }
 
     async createProduct(req, res) {
-        console.log(req.body);
-    //     const { title, price, desc, category, subCategory, tags, images, variants, availability, season } = req.body
 
-    //     if (!title || !price || !desc || !category || !images || !variants || !availability || !season) {
-    //         req.flash('err', 'All fields are required')
-    //         return res
-    //             .redirect('/admin/products/create')
-    //         // return res
-    //         //     .status(422)
-    //         //     .json('all fields are required')
-    //     }
+        const { title, price, desc, category, subCategory, imgPrimary, season, sizes: sizeString, colors: colorsString } = req.body
 
-    //     const cat = await categoryService.findCategory(category)
-    //     const subCat = await categoryService.findSubCategory(subCategory)
+        if (!title || !price || !desc || !category || !subCategory || !imgPrimary || !sizeString || !colorsString || !season) {
+            req.flash('err', 'All fields are required')
+            return res
+                .redirect('/admin/products/create')
+        }
 
-    //     const product = {
-    //         ...req.body,
-    //         category: { categoryId: cat._id, title: category },
-    //         subCategory: { subCategoryId: subCat._id, title: subCategory }
-    //     }
+        const cat = await categoryService.findCategory(category)
+        const subCat = await categoryService.findSubCategory(subCategory)
 
-    //     const saveProduct = await productService.createProduct(product)
+        const sizes = sizeString.split(',')
+        const colors = colorsString.split(',')
 
-    //     if (saveProduct) {
+        let tags = [];
 
-    //         if (!cat.products) {
-    //             cat.products = []
-    //         }
-    //         if (!subCat.products) {
-    //             subCat.products = []
-    //         }
+        if (req.body.tags) {
+            tags = req.body.tags
+            tags = tags.split(',')
+        }
 
-    //         cat.products.unshift(saveProduct._id)
-    //         subCat.products.unshift(saveProduct._id)
+        const product = {
+            title, price, desc, season, tags,
+            variants: {
+                colors,
+                sizes: sizes
+            },
+            images: {
+                primary: imgPrimary,
+                sec: req.body.imgSec ? req.body.imgSec : []
+            },
+            category: { categoryId: cat._id, title: category },
+            subCategory: { subCategoryId: subCat._id, title: subCategory },
+            availability: {
+                inStock: true,
+                units: req.body.units || 5
+            }
+        }
 
-    //         req.flash('success', 'Product created successfully!')
-    //         return res
-    //             .redirect('/admin/products/create')
-    //         // return res
-    //         //     .status(201)
-    //         //     .json('success')
-    //     }
-    //     req.flash('err', 'Server unavailable! Please try again')
-    //     return res
-    //         .redirect('/admin/products/create')
+        const saveProduct = await productService.createProduct(product)
+
+        if (saveProduct) {
+
+            if (!cat.products) {
+                cat.products = []
+            }
+            if (!subCat.products) {
+                subCat.products = []
+            }
+
+            cat.products.unshift(saveProduct._id)
+            subCat.products.unshift(saveProduct._id)
+
+            try {
+                await cat.save()
+                await subCat.save()
+
+                req.flash('success', 'Product created successfully!')
+                return res
+                    .redirect('/admin/products/create')
+
+            } catch (error) {
+                console.log(error);
+                req.flash('err', 'Server unavailable! Please try again')
+                return res
+                    .redirect('/admin/products/create')
+            }
+
+        }
+        req.flash('err', 'Server unavailable! Please try again')
+        return res
+            .redirect('/admin/products/create')
     }
 
 }
