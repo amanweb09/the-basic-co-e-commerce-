@@ -21,14 +21,29 @@
         right: -3rem;
         z-index: 999;
     }
+
+    .loader {
+        border-top: 10px solid transparent;
+        animation: spin 1s infinite ease-in-out
+    }
+
+    @keyframes spin {
+        100% {
+            transform: rotateZ(360deg);
+        }
+    }
 </style>
+<div class="loading_overlay w-full h-screen inset-0 fixed flex-center">
+    <div class="w-16 h-16 loader rounded-full border-8 border-solid border-orange-500"></div>
+</div>
+
 <div class="w-full h-12 bg-black text-white flex-center text-xs tet-center">
     Enjoy Free Shipping Throughout India!
 </div>
 <div class="w-full h-12 bg-orange-400 font-bold flex-center text-sm tet-center">
     Use Promo Code "AMAN50" to Get Flat 50% Off!
 </div>
-<div class="max-w-full overflow-hidden h-20 bg-white flex items-center justify-between px-2">
+<div onload="showLoading()" class="max-w-full overflow-hidden h-20 bg-white flex items-center justify-between px-2 nav">
 
     <div class="ham w-16 h-16 flex-center flex-col cursor-pointer">
         <div class="bars w-10 bg-black rounded-full mb-2"></div>
@@ -36,21 +51,20 @@
     </div>
 
     <div class="logo">
-        <h1 
-        onclick="redirect('/')"
-        id="logo" 
-        class="text-xl font-extrabold">TBC</h1>
+        <h1 onclick="redirect('/')" id="logo" class="text-xl font-extrabold">TBC</h1>
     </div>
 
     <div class="cart px-2 relative">
         <div class="w-6 h-6 rounded-full bg-orange-400 absolute left-4 bottom-6 flex-center">
-            <span class="font-bold text-white">0</span>
+            <span class="font-bold text-white cart_counter">0</span>
         </div>
         <img class="w-6 h-8" src="/images/cart.png" alt="cart">
     </div>
 
     <div class="fixed w-10/12 bg-white menu top-0 shadow-xl pt-6">
-        <div class="close absolute w-12 h-12 text-4xl text-white flex-center bg-red-500 shadow-2xl font-bold">&times;
+        <div
+            class="close absolute w-12 h-12 text-4xl text-white flex-center bg-red-500 shadow-2xl font-bold cursor-pointer">
+            &times;
         </div>
         <div class="w-full py-2 px-4 nav-link mt-6">
             <a class="hover:text-orange-600 text-lg" href="/login">Login</a>
@@ -75,35 +89,27 @@
         </div>
     </div>
 
+    <script src="/js/app.js"></script>
     <script>
-        const bars = document.querySelectorAll('div.bars')
-        const menu = document.querySelector('div.menu')
 
-        document
-            .querySelector('div.close')
-            .addEventListener('click', closeMenu)
+        function showLoading() {
+            const loadingOverlay = document.querySelector('.loading_overlay')
+            loadingOverlay.classList.add('open')
 
-        function closeMenu() {
-            bars.forEach((bar) => {
-                bar.classList.remove('open')
-            })
-            menu.classList.remove('open')
+            const cart = window.localStorage.getItem('cart')
+            let items = 0
+
+            if (cart) {
+                items = JSON
+                    .parse(cart)
+                    .totalQty
+            }
+
+            const cartCounter = document.querySelector('.cart_counter')
+            cartCounter.innerText = items
+            loadingOverlay.classList.remove('open')
         }
+        showLoading()
 
-        document
-            .querySelector('div.ham')
-            .addEventListener('click', openMenu)
-
-        function openMenu() {
-
-            bars.forEach((bar) => {
-                bar.classList.add('open')
-            })
-            menu.classList.add('open')
-        }
-
-        function redirect(dest) {
-            window.location.href('/')
-        }
     </script>
 </div>
