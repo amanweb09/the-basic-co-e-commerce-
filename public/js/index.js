@@ -1,3 +1,4 @@
+//hamburger
 const bars = document.querySelectorAll('div.bars')
 const menu = document.querySelector('div.menu')
 
@@ -28,12 +29,14 @@ function openMenu() {
         .add('open')
 }
 
+//utils
 function redirect(dest) {
     window
         .location
         .href('/')
 }
 
+//product slideshow
 const slides = document
     .querySelectorAll('.slide-img')
 const main_image = document
@@ -49,6 +52,7 @@ slides.forEach((slide) => {
     })
 })
 
+//add to cart
 const addToCartBtn = document
     .querySelector('#add_to_cart_btn')
 addToCartBtn
@@ -142,3 +146,19 @@ async function addToCart(e) {
             .remove('show')
     }, 2500)
 }
+
+const descBadge = document.querySelector('.desc-badge')
+descBadge.addEventListener('click', () => {
+    const desc = document.querySelector('.desc')
+    const descChev = document.querySelector('.desc_chev')
+    desc.classList.toggle('open')
+    descChev.classList.toggle('open')
+})
+
+const careBadge = document.querySelector('.care-badge')
+careBadge.addEventListener('click', () => {
+    const care = document.querySelector('.care')
+    const careChev = document.querySelector('.care_chev')
+    care.classList.toggle('open')
+    careChev.classList.toggle('open')
+})

@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="w-full px-4">
-                    <span class="text-gray-600 font-bold text-sm block mb-2 mt-8">Select a Color</span>
+                    <span class="text-gray-600 font-bold text-sm block mb-2 mt-8">Select a Color <span class="text-red-500 font-bold">*</span></span>
                     <div class="flex-center block py-2 w-full">
 
                         <% product.variants.colors.map((color)=> { %>
@@ -47,12 +47,11 @@
                             <% }) %>
                     </div>
 
-                    <span class="text-gray-600 font-bold text-sm block mb-2 mt-8">Select a Size</span>
+                    <span class="text-gray-600 font-bold text-sm block mb-2 mt-8">Select a Size<span class="text-red-500 font-bold">*</span></span>
                     <div class="w-full flex py-2">
 
                         <select name="size" id="size" class="w-40 shadow-xl h-10 bg-orange-50 font-bold">
-                            <option 
-                            value="">select a size</option>
+                            <option value="">select a size</option>
                             <% product.variants.sizes && product.variants.sizes.map((size)=> { %>
                                 <option value="<%= size %>">
                                     <%= size %>
@@ -62,15 +61,61 @@
                     </div>
                 </div>
                 <div class="flex-center px-2 my-8">
-                    <button id="add_to_cart_btn" data-product="<%= product._id %>" data-price="<%= product.price %>"
-                        class="flex-1 mr-4 w-64 font-bold bg-orange-400 hover:bg-orange-500 h-12">ADD TO
-                        CART</button>
+                    <button 
+                    id="add_to_cart_btn" 
+                    data-product="<%= product._id %>" 
+                    data-price="<%= product.price %>"
+                        class="flex-1 border-b-solid border-b-4 border-b-orange-600 mr-4 w-64 font-bold bg-orange-400 hover:bg-orange-500 h-12">
+                        ADD TO CART
+                        <span class="w-16 font-bold text-white text-xl">&#8594;</span>
+                    </button>
                 </div>
             </div>
 
-        </div>
+            <div>
+                <div
+                    class="w-full text-gray-600 font-semibold h-10 px-4 mb-6 flex items-center justify-between desc-badge">
+                    Material Description
+                    <span class="desc_chev">&#8964;</span>
+                </div>
+                <div class="w-full px-8 overflow-hidden desc">
 
-        <script src="/js/app.js"></script>
+                    <p class="mb-2 capitalize">
+                        <span class="font-bold text-orange-600">&check; </span>
+                        220 GSM Premium tshirt
+                    </p>
+                    <p class="mb-2 capitalize">
+                        <span class="font-bold text-orange-600">&check; </span>
+                        Biowashed tshirt
+                    </p>
+                    <p class="mb-2 capitalize">
+                        <span class="font-bold text-orange-600">&check; </span>
+                        Premium Design
+                    </p>
+                </div>
+
+                <div
+                    class="w-full text-gray-600 font-semibold h-10 px-4 mb-6 flex items-center justify-between care-badge">
+                    Care Instructions
+                    <span class="care_chev">&#8964;</span>
+                </div>
+                <div class="w-full px-8 overflow-hidden care">
+                    <p class="mb-2 capitalize">
+                        <span class="font-bold text-orange-600">&check; </span>
+                        Iron Only
+                    </p>
+                    <p class="mb-2 capitalize">
+                        <span class="font-bold text-orange-600">&check; </span>
+                        Machine Wash
+                    </p>
+                    <p class="mb-2 capitalize">
+                        <span class="font-bold text-orange-600">&check; </span>
+                        Don't iron on design
+                    </p>
+                </div>
+            </div>
+
+            <script src="/js/app.js"></script>
 </body>
 
 </html>

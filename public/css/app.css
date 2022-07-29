@@ -110,3 +110,31 @@ input[type='radio'].color_badge#green::before {
     left: 50%;
     transform: translateX(-50%);
 }
+.desc {
+    height: 0;
+    transition: 0.4s;
+}
+.desc.open {
+    height: max-content;
+}
+.care {
+    height: 0;
+    transition: 0.4s;
+}
+.care.open {
+    height: max-content;
+}
+.care_chev {
+    transform: rotateZ(0deg);
+    transition: 0.2s;
+}
+.care_chev.open {
+    transform: rotateZ(180deg);
+}
+.desc_chev {
+    transform: rotateZ(0deg);
+    transition: 0.2s;
+}
+.desc_chev.open {
+    transform: rotateZ(180deg);
+}
