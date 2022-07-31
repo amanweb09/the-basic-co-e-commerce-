@@ -13,7 +13,7 @@
     }
 
     .nav-link {
-        border: 1px solid #dcdcdc;
+        /* border: 1px solid #dcdcdc; */
         margin-top: 1px;
     }
 
@@ -41,7 +41,7 @@
     <img class="h-6 mr-2" alt="truck" src="https://img.icons8.com/color/48/FA5252/free-shipping.png" />
     Enjoy Free Shipping Throughout India!
 </div>
-<div class="w-full h-12 bg-orange-400 text-sm flex-center">
+<div class="w-full h-12 bg-orange-50 text-sm flex-center">
     <img class="h-6 mr-2" alt="promo" src="https://img.icons8.com/office/16/000000/discount.png" />
     Use Promo Code "AMAN50" to Get Flat 50% Off!
 </div>
@@ -53,10 +53,12 @@
     </div>
 
     <div class="logo">
-        <h1 onclick="redirect('/')" id="logo" class="text-xl font-extrabold">TBC</h1>
+        <h1 onclick="window.location.href = '/'" id="logo" class="text-xl font-extrabold cursor-pointer">TBC</h1>
     </div>
 
-    <div class="cart px-2 relative">
+    <div 
+    onclick="showCart()"
+    class="cart px-2 relative cursor-pointer">
         <div class="w-6 h-6 rounded-full bg-orange-400 absolute left-4 bottom-6 flex-center">
             <span class="font-bold text-white cart_counter">0</span>
         </div>
@@ -113,5 +115,8 @@
         }
         showLoading()
 
+        function showCart() {
+            window.location.href = '/cart'
+        }
     </script>
 </div>

@@ -1,10 +1,11 @@
+import axios from 'axios'
+
 //hamburger
 const bars = document.querySelectorAll('div.bars')
 const menu = document.querySelector('div.menu')
+const closeButton = document.querySelector('div.close')
 
-document
-    .querySelector('div.close')
-    .addEventListener('click', closeMenu)
+if (closeButton) closeButton.addEventListener('click', closeMenu)
 
 function closeMenu() {
     bars.forEach((bar) => {
@@ -13,12 +14,10 @@ function closeMenu() {
     menu.classList.remove('open')
 }
 
-document
-    .querySelector('div.ham')
-    .addEventListener('click', openMenu)
+const ham = document.querySelector('div.ham')
+if (ham) ham.addEventListener('click', openMenu)
 
 function openMenu() {
-
     bars.forEach((bar) => {
         bar
             .classList
@@ -53,10 +52,9 @@ slides.forEach((slide) => {
 })
 
 //add to cart
-const addToCartBtn = document
-    .querySelector('#add_to_cart_btn')
-addToCartBtn
-    .addEventListener('click', addToCart)
+const addToCartBtn = document.querySelector('#add_to_cart_btn')
+
+if (addToCartBtn) addToCartBtn.addEventListener('click', addToCart)
 
 async function addToCart(e) {
     e.preventDefault()
@@ -162,3 +160,13 @@ careBadge.addEventListener('click', () => {
     care.classList.toggle('open')
     careChev.classList.toggle('open')
 })
+
+// document.querySelector('body.cart').addEventListener('load', getItemsInCart)
+async function getItemsInCart() {
+    try {
+        const { data } = await axios.post('http://localhost:3100/cart', { cart: window.localStorage.cart })
+        console.log(data);
+    } catch (error) {
+        console.log(error);
+    }
+}

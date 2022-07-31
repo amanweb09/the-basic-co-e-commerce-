@@ -1,75 +1,45 @@
 const { getProducts } = require('../../services/productService')
-
+const ProductDTO = require('../../dtos/productDTO')
 class CartController {
 
     async addToCart(req, res) {
 
-        const { itemId, color, size } = req.body
-        let cart = req.session.cart
+        const { cart: cartString } = req.body
 
-        if (cart === null || cart === undefined || cart === false || !cart) {
-            cart = {
-                items: {},
-                totalItems: 0,
-                totalPrice: 0
-            }
-        }
+        if (cartString) {
+            const cart = JSON.parse(cartString)
+            const items = Object.keys(cart.items)
 
-        const item = await getProducts({ _id: itemId })
+            const products = await getProducts({ $in: { _id: items } })
+            const modProducts = []
+            let totalPrice = 0
 
-        if (!item.length) {
+            // {items: {_id: {qty, color, price},{_id: {qty, color, price},}}
+
+            products.forEach((product) => {
+                const modProduct = new ProductDTO(product)
+                modProducts.push(modProduct)
+
+                const qty = cart.items[product._id].qty
+                const price = product.price
+
+                totalPrice = qty*price
+            })
+
             return res
-                .status(422)
-                .json({ message: 'invalid product!' })
+                .status(200)
+                .json({ products: modProducts, totalPrice })
         }
 
-        if (!cart.items[itemId]) {
-            console.log('not there', req.session.cart);
-            // cart = {
-            //     ...cart,
-            //     items: {
-            //         ...cart.items,
-            //         [itemId]: { color, size, qty: 1 }
-            //     },
-            //     totalItems: cart.totalItems + 1,
-            //     totalPrice: cart.totalPrice + parseInt(item[0].price)
-            // }
-            // cart.items[itemId] = { color, size, qty: 1 }
-            // cart.totalItems += 1
-            // cart.totalPrice += parseInt(item[0].price)
-
-            // return res
-            //     .status(200)
-            //     .json({ message: "Added to cart", cart })
-        }
-
-        else {
-            // cart = {
-            //     ...cart,
-            //     items: {
-            //         ...cart.items,
-            //         [itemId]: { color, size, qty: cart.items[itemId].qty + 1 }
-            //     },
-            //     totalItems: cart.totalItems + 1,
-            //     totalPrice: cart.totalPrice + parseInt(item[0].price)
-            // }
-            // cart.items[itemId].qty += 1
-            // cart.totalItems += 1
-            // cart.totalPrice += parseInt(item[0].price)
-
-            console.log('already there', req.session.cart);
-            // return res
-            //     .status(200)
-            //     .json({ message: "Qty increased", cart })
-        }
+        return res
+            .status(200)
+            .json({ products: [] })
     }
 
     renderCart(req, res) {
         return res
             .status(200)
-            .render('cart', {
-                cart: req.session.cart ? req.session.cart : {}
-            })
+            .render('cart')
     }
 
 }

@@ -1,35 +1,159 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <%- include('../partials/head.ejs') %>
-        <title>Cart - The Basic Co.</title>
+        <title>Cart - The Basic Company</title>
+        <style>
+            .overlay {
+                background: linear-gradient(135deg, rgb(0, 0, 0, 0.5), rgb(0, 0, 0, 0.5))
+            }
+        </style>
 </head>
 
-<body>
+<body onload="getItemsInCart()">
+    <div class="container mx-auto">
+        <%- include('../partials/navbar.ejs') %>
+            <!-- <div class="w-full h-screen fixed inset-0"></div> -->
+            <div class="flex justify-center mt-6">
+                <div class="sm:w-3/4 sm:px-8">
+                    <div class="flex items-center justify-between">
+                        <h1 class="font-extrabold text-xl">Shopping Cart</h1>
+                        <p class="text-lg font-semibold"><span id="cart_count">3</span> Items</p>
+                    </div>
 
-    <button id="atc">add to cart</button>
+                    <hr class="w-10/12 text-gray-400 text-bold my-4 block mx-auto">
+                    <div id="markup_container" class="w-full"></div>
+                    <!-- <div class="flex items-center justify-between mt-6">
+                        <div class="h-20">
+                            <img class="w-full h-full" src="/images/model.jpg" alt="product">
+                        </div>
 
-    <script src="/js/index.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js" integrity="sha512-xIPqqrfvUAc/Cspuj7Bq0UtHNo/5qkdyngx6Vwt+tmbvTLDszzXM0G6c91LXmGrRx8KEPulT+AfOOez+TeVylg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!-- <script>
-            function addToCart(itemId) {
-                fetch('http://localhost:3100/cart', {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Accept: 'application/json'
-                    },
-                    method: 'POST',
-                    body: { itemId: '629b35b4599bf9d4642c1312', color: 'red', size: 'S' }
-                })
-                    .then((res) => {
-                        const resp = res.json()
-                            .then((ab) => { console.log(ab) })
-                            .catch((err) => { console.log(err) })
+                        <div class="px-4">
+                            <h1 class="font-semibold">Striped T-Shirt</h1>
+                        </div>
+
+                        <div>
+                            <button
+                                class="w-8 h-8 bg-black focus:bg-orange-500 text-white font-bold text-xl cursor-pointer rounded-md">-</button>
+                            <input disabled class="w-8 text-center bg-gray-50 h-8" type="text" value="1">
+                            <button
+                                class="w-8 h-8 bg-black focus:bg-orange-500 text-white font-bold text-xl cursor-pointer rounded-md">+</button>
+                        </div>
+
+                        <div class="text-orange-500 font-bold">&#8377;599</div>
+                        <span class="text-sm cursor-pointer hover:text-red-500">Remove</span>
+                    </div>
+                </div> -->
+                <div class="sm:w-1/4 px-8 bg-gray-50 min-h-screen">
+                    <h1 class="font-bold my-4 text-xl">Order Summary</h1>
+                    <hr class="w-10/12 text-gray-400 text-bold my-4 block mx-auto">
+
+                    <p class="font-bold uppercase text-sm">shipping</p>
+                    <select name="shipping" id="shipping" class="w-full h-10 mt-4">
+                        <option value="standard">Standard Shipping - <span>&#8377;</span>30</option>
+                        <option value="express">Express Shipping - <span>&#8377;</span>100</option>
+                    </select>
+
+                    <p class="font-bold uppercase text-sm mt-8">promo code</p>
+                    <input type="text"
+                        class="w-full h-10 mt-4 focus:border-b-2 focus:border-b-solid focus:border-b-orange-500">
+                    <button class="bg-black text-white font-bold w-24 h-10 hover:bg-orange-500 mt-4">APPLY</button>
+
+                    <hr class="w-10/12 text-gray-400 text-bold my-4 block mx-auto">
+
+                    <div class="flex items-center justify-between">
+                        <p class="font-bold text-sm">TOTAL PRICE</p>
+                        <span class="font-bold text-sm">&#8377;<span id="total">0</span></span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <p class="text-sm">Discount</p>
+                        <span id="total" class="font-bold text-sm">&#8377;0</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <p class="text-sm">Shipping</p>
+                        <span id="total" class="font-bold text-sm">&#8377;30</span>
+                    </div>
+                    <div class="flex items-center justify-between mt-6">
+                        <p class="font-bold">Billed Amount</p>
+                        <span id="total" class="font-bold text-sm">&#8377;<span id="billed_amt"></span></span>
+                    </div>
+                    <button class="bg-orange-500 w-full mt-4 text-white h-10 hover:bg-orange-600 font-bold">
+                        CHECKOUT
+                    </button>
+                </div>
+            </div>
+    </div>
+
+    <script src="/js/app.js"></script>
+    <script>
+
+        function calculateShipping(totalPrice) {
+            const standardShipping = 30
+            const expressShipping = 100
+            const shippingOption = document.querySelector('select#shipping')
+            const billedAmount = document.querySelector('span#billed_amt')
+
+            shippingOption.value === 'express' ? billedAmount.innerText = totalPrice + expressShipping : billedAmount.innerText = totalPrice + standardShipping
+
+        }
+        function generateMarkup({ _id, img, title, price }) {
+            return `
+            <div class="flex items-center justify-between mt-6">
+                        <div class="h-20">
+                            <img class="w-full h-full" src=${img} alt="product">
+                        </div>
+
+                        <div class="px-4">
+                            <h1 class="font-semibold">${title}</h1>
+                        </div>
+
+                        <div>
+                            <button
+                                class="w-8 h-8 bg-black focus:bg-orange-500 text-white font-bold text-xl cursor-pointer rounded-md">-</button>
+                            <input disabled class="w-8 text-center bg-gray-50 h-8" type="text" value="1">
+                            <button
+                                class="w-8 h-8 bg-black focus:bg-orange-500 text-white font-bold text-xl cursor-pointer rounded-md">+</button>
+                        </div>
+
+                        <div class="text-orange-500 font-bold">&#8377;${price}</div>
+                        <span class="text-sm cursor-pointer hover:text-red-500">Remove</span>
+                    </div>
+            `
+        }
+        async function getItemsInCart() {
+            const cart = window.localStorage.cart
+            if (cart) {
+                try {
+                    const { data } = await axios
+                        .post('http://localhost:3100/cart', { cart })
+                    console.log(data);
+
+                    const totalPrice = data.totalPrice
+                    const products = data.products || []
+
+                    document
+                        .getElementById('total')
+                        .innerText = totalPrice
+
+                    calculateShipping(totalPrice)
+
+                    products.length && products.forEach((product) => {
+                        const markup = generateMarkup({ _id: product._id, title: product.title, price: product.price, img: '/images/model.jpg' })
+                        const markupContainer = document.getElementById('markup_container')
+
+                        markupContainer.appendChild(markup)
+                        
                     })
-                    .catch((err) => { console.log(err) })
+
+                } catch (error) {
+                    console.log(error);
+                }
             }
-        </script> -->
+            else {
+                return
+            }
+        }
+    </script>
 </body>
 
 </html>
