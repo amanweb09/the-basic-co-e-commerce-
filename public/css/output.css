@@ -1008,6 +1008,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-top: 1rem;
 }
 
+.pb-6 {
+  padding-bottom: 1.5rem;
+}
+
 .text-center {
   text-align: center;
 }
@@ -1209,6 +1213,14 @@ Ensure the default browser behavior of the `hidden` attribute.
     margin-right: 1rem;
   }
 
+  .sm\:mb-0 {
+    margin-bottom: 0px;
+  }
+
+  .sm\:h-8 {
+    height: 2rem;
+  }
+
   .sm\:min-h-screen {
     min-height: 100vh;
   }
@@ -1237,6 +1249,10 @@ Ensure the default browser behavior of the `hidden` attribute.
     width: 25%;
   }
 
+  .sm\:w-8 {
+    width: 2rem;
+  }
+
   .sm\:grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
@@ -1257,5 +1273,24 @@ Ensure the default browser behavior of the `hidden` attribute.
   .sm\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;
+  }
+
+  .sm\:px-0 {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  .sm\:pb-0 {
+    padding-bottom: 0px;
+  }
+
+  .sm\:text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+
+  .sm\:text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
   }
 }

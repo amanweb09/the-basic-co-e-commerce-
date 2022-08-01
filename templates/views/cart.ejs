@@ -13,10 +13,9 @@
 <body>
     <div class="container mx-auto">
         <%- include('../partials/navbar.ejs') %>
-            <!-- <div class="w-full h-screen fixed inset-0"></div> -->
 
-            <div class="flex justify-center mt-6">
-                <div class="sm:w-3/4 sm:px-8">
+            <div class="flex justify-center sm:flex-row flex-col mt-6 px-2 sm:px-0">
+                <div class="sm:w-3/4 sm:px-8 pb-6 sm:pb-0">
                     <div class="flex items-center justify-between">
                         <h1 class="font-extrabold text-xl">Shopping Cart</h1>
                         <p class="text-lg font-semibold"><span id="cart_count">
@@ -46,23 +45,23 @@
                                     </div>
                                 </div>
 
-                                <div>
+                                <div class="flex-center">
                                     <button
-                                        class="w-8 h-8 bg-black focus:bg-orange-500 text-white font-bold text-xl cursor-pointer rounded-md">-</button>
-                                    <input disabled class="w-8 text-center bg-gray-50 h-8" type="text"
+                                        class="sm:w-8 sm:h-8 h-6 w-6 flex-center bg-black focus:bg-orange-500 text-white font-bold sm:text-xl text-lg cursor-pointer rounded-md">-</button>
+                                    <input disabled class="sm:w-8 sm:h-8 h-6 w-6 text-center bg-gray-50" type="text"
                                         value="<%= product.qty %>">
                                     <button
-                                        class="w-8 h-8 bg-black focus:bg-orange-500 text-white font-bold text-xl cursor-pointer rounded-md">+</button>
+                                        class="sm:w-8 sm:h-8 h-6 w-6 flex-center bg-black focus:bg-orange-500 text-white font-bold text-xl cursor-pointer rounded-md">+</button>
                                 </div>
 
                                 <div class="text-orange-500 font-bold">&#8377;<%= cartProduct.product.price%>
                                 </div>
-                                <span class="text-sm cursor-pointer hover:text-red-500">Remove</span>
+                                <span class="sm:text-sm text-xs cursor-pointer hover:text-red-500">Remove</span>
                             </div>
                             <% }) }) %>
 
                 </div>
-                <div class="sm:w-1/4 px-8 bg-gray-50 min-h-screen">
+                <div class="sm:w-1/4 px-8 bg-gray-50 sm:min-h-screen pb-8 sm:pb-0">
                     <h1 class="font-bold my-4 text-xl">Order Summary</h1>
                     <hr class="w-10/12 text-gray-400 text-bold my-4 block mx-auto">
 
