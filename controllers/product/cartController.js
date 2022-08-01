@@ -39,13 +39,15 @@ class CartController {
             if (pid[0].color !== color || pid[0].size !== size) {
 
                 req.session.cart.items[_id].unshift({ color, size, qty: 1 })
+                req.session.cart.totalQty += 1
+                req.session.cart.totalPrice += parseInt(product.price)
+
                 return res.status(200).json({ message: 'ADDED TO CART', cart: req.session.cart })
             }
 
             req.session.cart.items[_id][0].qty += 1
             req.session.cart.totalPrice = req.session.cart.totalPrice + parseInt(product.price)
             req.session.cart.totalQty += 1
-            console.log(req.session.cart);
 
             return res.status(200).json({ message: 'ADDED TO CART' })
 
@@ -63,7 +65,7 @@ class CartController {
         let cartProducts = []
         if (req.session.cart) {
             const products = await getProducts({ $in: { _id: Object.keys(req.session.cart.items) } })
-    
+
             // console.log(products);
             function transformProduct(_id) {
                 const product = products.filter((product) => {
@@ -75,7 +77,7 @@ class CartController {
                 }
                 cartProducts.push(modProduct)
             }
-    
+
             const productsInCart = Object.keys(req.session.cart.items)
             productsInCart.forEach((id) => {
                 transformProduct(id)
@@ -84,7 +86,11 @@ class CartController {
 
         return res
             .status(200)
-            .render('cart', { cart: cartProducts })
+            .render('cart', {
+                cart: cartProducts,
+                totalPrice: req.session.cart ? req.session.cart.totalPrice : 0,
+                totalQty: req.session.cart ? req.session.cart.totalQty : 0
+            })
     }
 
 }
