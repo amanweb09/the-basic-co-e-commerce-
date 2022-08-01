@@ -59,16 +59,10 @@ if (addToCartBtn) addToCartBtn.addEventListener('click', addToCart)
 async function addToCart(e) {
     e.preventDefault()
 
-    const productId = addToCartBtn
-        .dataset
-        .product
-    const productPrice = addToCartBtn
-        .dataset
-        .price
-    const colors = document
-        .getElementsByName('color')
+    const productId = addToCartBtn.dataset.product
+    const colors = document.getElementsByName('color')
+    const size = document.querySelector('#size')
     let color
-
 
     for (let i = 0; i < colors.length; i++) {
         if (colors[i].checked) {
@@ -76,60 +70,21 @@ async function addToCart(e) {
         }
     }
 
-    //cart = {items: {_id: {color, size, qty}}, _id: {color, size, qty}}, totalQty, totalPrice}
-
-    const cart = window
-        .localStorage
-        .getItem('cart')
-    let _cart = cart
-
-    if (!cart || cart == null) {
-        _cart = {
-            items: {},
-            totalQty: 0
-        }
-    }
-    else {
-        _cart = JSON
-            .parse(cart)
-    }
-
-    if (document.querySelector('#size').value === '' || color === '' || color === undefined) {
+    if (size.value === '' || color === '' || color === undefined) {
         alert('please select a valid a color and size')
         return
     }
-
-    if (!_cart.items[productId]) {
-        _cart.items[productId] = {
-            size: document
-                .querySelector('#size')
-                .value,
-            color: color,
-            qty: 1
-        }
-        _cart.totalQty += 1
-    }
-    else {
-        _cart
-            .items[productId]
-            .qty += 1
-        _cart
-            .totalQty += 1
-    }
-
-    window
-        .localStorage
-        .setItem('cart', JSON.stringify(_cart))
+    axios.post('/cart', { cart: { _id: productId, color, size: size.value } })
 
     const cartCounter = document.querySelector('.cart_counter')
 
-    if (cart) {
-        let totalItems = JSON.parse(cart).totalQty
-        cartCounter.innerText = totalItems + 1
-    }
-    else {
-        cartCounter.innerText = 1
-    }
+    // if (cart) {
+    //     let totalItems = JSON.parse(cart).totalQty
+    //     cartCounter.innerText = totalItems + 1
+    // }
+    // else {
+    //     cartCounter.innerText = 1
+    // }
 
 
     const successBadge = document

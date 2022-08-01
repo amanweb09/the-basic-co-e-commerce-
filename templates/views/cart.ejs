@@ -22,8 +22,7 @@
                     </div>
 
                     <hr class="w-10/12 text-gray-400 text-bold my-4 block mx-auto">
-                    <div id="markup_container" class="w-full"></div>
-                    <!-- <div class="flex items-center justify-between mt-6">
+                    <div class="flex items-center justify-between mt-6">
                         <div class="h-20">
                             <img class="w-full h-full" src="/images/model.jpg" alt="product">
                         </div>
@@ -43,7 +42,7 @@
                         <div class="text-orange-500 font-bold">&#8377;599</div>
                         <span class="text-sm cursor-pointer hover:text-red-500">Remove</span>
                     </div>
-                </div> -->
+                </div>
                 <div class="sm:w-1/4 px-8 bg-gray-50 min-h-screen">
                     <h1 class="font-bold my-4 text-xl">Order Summary</h1>
                     <hr class="w-10/12 text-gray-400 text-bold my-4 block mx-auto">
@@ -87,72 +86,6 @@
     <script src="/js/app.js"></script>
     <script>
 
-        function calculateShipping(totalPrice) {
-            const standardShipping = 30
-            const expressShipping = 100
-            const shippingOption = document.querySelector('select#shipping')
-            const billedAmount = document.querySelector('span#billed_amt')
-
-            shippingOption.value === 'express' ? billedAmount.innerText = totalPrice + expressShipping : billedAmount.innerText = totalPrice + standardShipping
-
-        }
-        function generateMarkup({ _id, img, title, price }) {
-            return `
-            <div class="flex items-center justify-between mt-6">
-                        <div class="h-20">
-                            <img class="w-full h-full" src=${img} alt="product">
-                        </div>
-
-                        <div class="px-4">
-                            <h1 class="font-semibold">${title}</h1>
-                        </div>
-
-                        <div>
-                            <button
-                                class="w-8 h-8 bg-black focus:bg-orange-500 text-white font-bold text-xl cursor-pointer rounded-md">-</button>
-                            <input disabled class="w-8 text-center bg-gray-50 h-8" type="text" value="1">
-                            <button
-                                class="w-8 h-8 bg-black focus:bg-orange-500 text-white font-bold text-xl cursor-pointer rounded-md">+</button>
-                        </div>
-
-                        <div class="text-orange-500 font-bold">&#8377;${price}</div>
-                        <span class="text-sm cursor-pointer hover:text-red-500">Remove</span>
-                    </div>
-            `
-        }
-        async function getItemsInCart() {
-            const cart = window.localStorage.cart
-            if (cart) {
-                try {
-                    const { data } = await axios
-                        .post('http://localhost:3100/cart', { cart })
-                    console.log(data);
-
-                    const totalPrice = data.totalPrice
-                    const products = data.products || []
-
-                    document
-                        .getElementById('total')
-                        .innerText = totalPrice
-
-                    calculateShipping(totalPrice)
-
-                    products.length && products.forEach((product) => {
-                        const markup = generateMarkup({ _id: product._id, title: product.title, price: product.price, img: '/images/model.jpg' })
-                        const markupContainer = document.getElementById('markup_container')
-
-                        markupContainer.appendChild(markup)
-                        
-                    })
-
-                } catch (error) {
-                    console.log(error);
-                }
-            }
-            else {
-                return
-            }
-        }
     </script>
 </body>
 

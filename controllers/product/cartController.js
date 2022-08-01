@@ -4,42 +4,50 @@ class CartController {
 
     async addToCart(req, res) {
 
-        const { cart: cartString } = req.body
+        const { cart } = req.body
 
-        if (cartString) {
-            const cart = JSON.parse(cartString)
-            const items = Object.keys(cart.items)
+        if (cart) {
+            const { _id, color, size } = cart
 
-            const products = await getProducts({ $in: { _id: items } })
-            const modProducts = []
-            let totalPrice = 0
+            if (!_id || !color || !size) {
+                return res.status(422).json({ err: 'Please select a valid product/size/color' })
+            }
 
-            // {items: {_id: {qty, color, price},{_id: {qty, color, price},}}
+            const [product] = await getProducts({ _id })
 
-            products.forEach((product) => {
-                const modProduct = new ProductDTO(product)
-                modProducts.push(modProduct)
+            let _cart = req.session.cart
 
-                const qty = cart.items[product._id].qty
-                const price = product.price
+            if (!_cart || _cart == undefined) {
+                req.session.cart = {
+                    items: {}, totalPrice: 0, totalQty: 0
+                }
+            }
+            if (!req.session.cart.items[_id]) {
+                req.session.cart = {
+                    items: {
+                        ...req.session.cart.items,
+                        [_id]: { color, size, qty: 1 }
+                    },
+                    totalPrice: req.session.cart.totalPrice += parseInt(product.price),
+                    totalQty: req.session.cart.totalQty += 1
+                }
+                console.log(req.session.cart)
+                return res.status(200).json({ message: 'ADDED TO CART', cart: req.session.cart })
+            }
+            req.session.cart.items[_id].qty += 1
+            req.session.cart.totalPrice = req.session.cart.totalPrice + parseInt(product.price)
+            req.session.cart.totalQty += 1
 
-                totalPrice = qty*price
-            })
+            console.log(_cart)
+            return res.status(200).json({ message: 'ADDED TO CART', cart: _cart })
 
-            return res
-                .status(200)
-                .json({ products: modProducts, totalPrice })
         }
-
-        return res
-            .status(200)
-            .json({ products: [] })
     }
 
     renderCart(req, res) {
         return res
             .status(200)
-            .render('cart')
+            .render('cart', { cart: req.session.cart })
     }
 
 }

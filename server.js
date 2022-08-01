@@ -29,7 +29,7 @@ app.use(session({
         maxAge: 1000 * 60 * 60 * 24 * 3
     },
     store: MongoStore.create({
-        mongoUrl: process.env.LOCAL_DB_URL,
+        mongoUrl: process.env.CLOUD_DB_URL,
     })
 }))
 app.use(flash())
