@@ -23,31 +23,69 @@ class CartController {
                 }
             }
             if (!req.session.cart.items[_id]) {
+
                 req.session.cart = {
                     items: {
                         ...req.session.cart.items,
-                        [_id]: { color, size, qty: 1 }
+                        [_id]: [{ color, size, qty: 1 }]
                     },
                     totalPrice: req.session.cart.totalPrice += parseInt(product.price),
                     totalQty: req.session.cart.totalQty += 1
                 }
-                console.log(req.session.cart)
+                // console.log(req.session.cart)
                 return res.status(200).json({ message: 'ADDED TO CART', cart: req.session.cart })
             }
-            req.session.cart.items[_id].qty += 1
+
+            const pid = req.session.cart.items[_id]
+            if (pid[0].color !== color || pid[0].size !== size) {
+
+                req.session.cart.items[_id].unshift({ color, size, qty: 1 })
+                // console.log(req.session.cart);
+                return res.status(200).json({ message: 'ADDED TO CART', cart: req.session.cart })
+            }
+
+            req.session.cart.items[_id][0].qty += 1
             req.session.cart.totalPrice = req.session.cart.totalPrice + parseInt(product.price)
             req.session.cart.totalQty += 1
 
-            console.log(_cart)
-            return res.status(200).json({ message: 'ADDED TO CART', cart: _cart })
+            // console.log(req.session.cart)
+            return res.status(200).json({ message: 'ADDED TO CART' })
 
         }
     }
 
-    renderCart(req, res) {
+    async renderCart(req, res) {
+
+        // {
+        //     items: {_id: [{ color, size, qty: 1 }, { color, size, qty: 1 } ]},
+        //     totalPrice: 599,
+        //     totalQty: 2
+        // }
+
+        const products = await getProducts({ $in: { _id: Object.keys(req.session.cart.items) } })
+
+        // console.log(products);
+        let cartProducts = []
+        function transformProduct(_id) {
+            const product = products.filter((product) => {
+                return product._id.toString() === _id
+            })
+            const modProduct = {
+                product: new ProductDTO(product[0]),
+                variants: req.session.cart.items[_id]
+            }
+            cartProducts.push(modProduct)
+        }
+
+
+        const productsInCart = Object.keys(req.session.cart.items)
+        productsInCart.forEach((id) => {
+            transformProduct(id)
+        })
+
         return res
             .status(200)
-            .render('cart', { cart: req.session.cart })
+            .render('cart', { cart: cartProducts })
     }
 
 }

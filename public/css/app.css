@@ -138,3 +138,15 @@ input[type='radio'].color_badge#green::before {
 .desc_chev.open {
     transform: rotateZ(180deg);
 }
+.cart_color_badge[data-color="red"] {
+    background: red;
+}
+.cart_color_badge[data-color="black"] {
+    background: black;
+}
+.cart_color_badge[data-color="blue"] {
+    background: blue;
+}
+.cart_size_badge {
+    border: 1px solid #ececec;
+}

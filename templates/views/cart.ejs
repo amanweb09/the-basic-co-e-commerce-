@@ -14,6 +14,7 @@
     <div class="container mx-auto">
         <%- include('../partials/navbar.ejs') %>
             <!-- <div class="w-full h-screen fixed inset-0"></div> -->
+
             <div class="flex justify-center mt-6">
                 <div class="sm:w-3/4 sm:px-8">
                     <div class="flex items-center justify-between">
@@ -22,26 +23,35 @@
                     </div>
 
                     <hr class="w-10/12 text-gray-400 text-bold my-4 block mx-auto">
-                    <div class="flex items-center justify-between mt-6">
-                        <div class="h-20">
-                            <img class="w-full h-full" src="/images/model.jpg" alt="product">
-                        </div>
 
-                        <div class="px-4">
-                            <h1 class="font-semibold">Striped T-Shirt</h1>
-                        </div>
+                    <% cart.map((cartProduct)=> { %>
+                        <% cartProduct.variants.map((product) => { %> 
+                        <div class="flex items-center justify-between mt-6">
+                            <div class="h-20">
+                                <img class="w-full h-full" src="/images/model.jpg" alt="product">
+                            </div>
 
-                        <div>
-                            <button
-                                class="w-8 h-8 bg-black focus:bg-orange-500 text-white font-bold text-xl cursor-pointer rounded-md">-</button>
-                            <input disabled class="w-8 text-center bg-gray-50 h-8" type="text" value="1">
-                            <button
-                                class="w-8 h-8 bg-black focus:bg-orange-500 text-white font-bold text-xl cursor-pointer rounded-md">+</button>
-                        </div>
+                            <div class="px-4">
+                                <h1 class="capitalize"><%= cartProduct.product.title %></h1>
+                                <div class="flex">
+                                    <div class="w-6 h-6 rounded-md bg-red-500 cart_color_badge" data-color="<%= product.color %>"></div>
+                                    <div class="w-6 h-6 rounded-md cart_size_badge ml-4 flex-center text-sm"><%= product.size %></div>
+                                </div>
+                            </div>
 
-                        <div class="text-orange-500 font-bold">&#8377;599</div>
-                        <span class="text-sm cursor-pointer hover:text-red-500">Remove</span>
-                    </div>
+                            <div>
+                                <button
+                                    class="w-8 h-8 bg-black focus:bg-orange-500 text-white font-bold text-xl cursor-pointer rounded-md">-</button>
+                                <input disabled class="w-8 text-center bg-gray-50 h-8" type="text" value="1">
+                                <button
+                                    class="w-8 h-8 bg-black focus:bg-orange-500 text-white font-bold text-xl cursor-pointer rounded-md">+</button>
+                            </div>
+
+                            <div class="text-orange-500 font-bold">&#8377;<%= cartProduct.product.price%></div>
+                            <span class="text-sm cursor-pointer hover:text-red-500">Remove</span>
+                        </div>
+                        <% }) }) %>
+
                 </div>
                 <div class="sm:w-1/4 px-8 bg-gray-50 min-h-screen">
                     <h1 class="font-bold my-4 text-xl">Order Summary</h1>
