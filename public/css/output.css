@@ -701,6 +701,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 2.5rem;
 }
 
+.h-24 {
+  height: 6rem;
+}
+
 .max-h-16 {
   max-height: 4rem;
 }
@@ -1111,6 +1115,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   color: rgb(156 163 175 / var(--tw-text-opacity));
 }
 
+.text-gray-500 {
+  --tw-text-opacity: 1;
+  color: rgb(107 114 128 / var(--tw-text-opacity));
+}
+
 .shadow-xl {
   --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
@@ -1221,6 +1230,10 @@ Ensure the default browser behavior of the `hidden` attribute.
     height: 2rem;
   }
 
+  .sm\:h-20 {
+    height: 5rem;
+  }
+
   .sm\:min-h-screen {
     min-height: 100vh;
   }
@@ -1292,5 +1305,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   .sm\:text-sm {
     font-size: 0.875rem;
     line-height: 1.25rem;
+  }
+
+  .sm\:text-base {
+    font-size: 1rem;
+    line-height: 1.5rem;
   }
 }

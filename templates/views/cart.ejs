@@ -29,11 +29,11 @@
                         <% cartProduct.variants.map((product)=> { %>
                             <div class="flex items-center justify-between mt-6">
                                 <div class="h-20">
-                                    <img class="w-full h-full" src="/images/model.jpg" alt="product">
+                                    <img class="h-full" src="/images/model.jpg" alt="product">
                                 </div>
 
                                 <div class="px-4">
-                                    <h1 class="capitalize">
+                                    <h1 class="capitalize sm:text-base text-sm mb-2 sm:mb-0">
                                         <%= cartProduct.product.title %>
                                     </h1>
                                     <div class="flex">
@@ -56,12 +56,12 @@
 
                                 <div class="text-orange-500 font-bold">&#8377;<%= cartProduct.product.price%>
                                 </div>
-                                <span class="sm:text-sm text-xs cursor-pointer hover:text-red-500">Remove</span>
+                                <span class="cursor-pointer text-gray-500 hover:text-red-500">&times;</span>
                             </div>
                             <% }) }) %>
 
                 </div>
-                <div class="sm:w-1/4 px-8 bg-gray-50 sm:min-h-screen pb-8 sm:pb-0">
+                <div class="sm:w-1/4 sm:px-8 px-4 bg-gray-50 sm:min-h-screen pb-8 sm:pb-0">
                     <h1 class="font-bold my-4 text-xl">Order Summary</h1>
                     <hr class="w-10/12 text-gray-400 text-bold my-4 block mx-auto">
 
