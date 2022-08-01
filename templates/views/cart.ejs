@@ -19,38 +19,47 @@
                 <div class="sm:w-3/4 sm:px-8">
                     <div class="flex items-center justify-between">
                         <h1 class="font-extrabold text-xl">Shopping Cart</h1>
-                        <p class="text-lg font-semibold"><span id="cart_count"><%= totalQty %></span> Items</p>
+                        <p class="text-lg font-semibold"><span id="cart_count">
+                                <%= totalQty %>
+                            </span> Items</p>
                     </div>
 
                     <hr class="w-10/12 text-gray-400 text-bold my-4 block mx-auto">
 
                     <% cart.length && cart.map((cartProduct)=> { %>
-                        <% cartProduct.variants.map((product) => { %> 
-                        <div class="flex items-center justify-between mt-6">
-                            <div class="h-20">
-                                <img class="w-full h-full" src="/images/model.jpg" alt="product">
-                            </div>
-
-                            <div class="px-4">
-                                <h1 class="capitalize"><%= cartProduct.product.title %></h1>
-                                <div class="flex">
-                                    <div class="w-6 h-6 rounded-md cart_color_badge" data-color="<%= product.color %>"></div>
-                                    <div class="w-6 h-6 rounded-md cart_size_badge ml-4 flex-center text-sm"><%= product.size %></div>
+                        <% cartProduct.variants.map((product)=> { %>
+                            <div class="flex items-center justify-between mt-6">
+                                <div class="h-20">
+                                    <img class="w-full h-full" src="/images/model.jpg" alt="product">
                                 </div>
-                            </div>
 
-                            <div>
-                                <button
-                                    class="w-8 h-8 bg-black focus:bg-orange-500 text-white font-bold text-xl cursor-pointer rounded-md">-</button>
-                                <input disabled class="w-8 text-center bg-gray-50 h-8" type="text" value="<%= product.qty %>">
-                                <button
-                                    class="w-8 h-8 bg-black focus:bg-orange-500 text-white font-bold text-xl cursor-pointer rounded-md">+</button>
-                            </div>
+                                <div class="px-4">
+                                    <h1 class="capitalize">
+                                        <%= cartProduct.product.title %>
+                                    </h1>
+                                    <div class="flex">
+                                        <div class="w-6 h-6 rounded-md cart_color_badge"
+                                            data-color="<%= product.color %>"></div>
+                                        <div class="w-6 h-6 rounded-md cart_size_badge ml-4 flex-center text-sm">
+                                            <%= product.size %>
+                                        </div>
+                                    </div>
+                                </div>
 
-                            <div class="text-orange-500 font-bold">&#8377;<%= cartProduct.product.price%></div>
-                            <span class="text-sm cursor-pointer hover:text-red-500">Remove</span>
-                        </div>
-                        <% }) }) %>
+                                <div>
+                                    <button
+                                        class="w-8 h-8 bg-black focus:bg-orange-500 text-white font-bold text-xl cursor-pointer rounded-md">-</button>
+                                    <input disabled class="w-8 text-center bg-gray-50 h-8" type="text"
+                                        value="<%= product.qty %>">
+                                    <button
+                                        class="w-8 h-8 bg-black focus:bg-orange-500 text-white font-bold text-xl cursor-pointer rounded-md">+</button>
+                                </div>
+
+                                <div class="text-orange-500 font-bold">&#8377;<%= cartProduct.product.price%>
+                                </div>
+                                <span class="text-sm cursor-pointer hover:text-red-500">Remove</span>
+                            </div>
+                            <% }) }) %>
 
                 </div>
                 <div class="sm:w-1/4 px-8 bg-gray-50 min-h-screen">
@@ -72,7 +81,11 @@
 
                     <div class="flex items-center justify-between">
                         <p class="font-bold text-sm">TOTAL PRICE</p>
-                        <span class="font-bold text-sm">&#8377;<span id="total">0</span></span>
+                        <span class="font-bold text-sm">&#8377;<span id="total">
+                                <%= totalPrice %>
+                            </span>
+                        </span>
+                        <input type="hidden" name="totalPrice" id="total_price_hidden" value="<%= totalPrice %>">
                     </div>
                     <div class="flex items-center justify-between">
                         <p class="text-sm">Discount</p>
@@ -80,7 +93,7 @@
                     </div>
                     <div class="flex items-center justify-between">
                         <p class="text-sm">Shipping</p>
-                        <span id="total" class="font-bold text-sm">&#8377;30</span>
+                        <span id="total_shipping" class="font-bold text-sm">&#8377;30</span>
                     </div>
                     <div class="flex items-center justify-between mt-6">
                         <p class="font-bold">Billed Amount</p>
@@ -95,6 +108,31 @@
 
     <script src="/js/app.js"></script>
     <script>
+
+        const standardShipping = 30
+        const totalPrice = document.getElementById('total_price_hidden')
+        const billedAmount = document.getElementById('billed_amt')
+        let totalBilledAmount = parseInt(totalPrice.value) + standardShipping
+        billedAmount.innerText = totalBilledAmount
+
+        const shippingSelectBox = document.getElementById('shipping')
+        shippingSelectBox.addEventListener('change', (e) => {
+            const shippingOption = e.target.value
+            const totalShipping = document.getElementById('total_shipping')
+
+            const standardShipping = 30
+            const expressShipping = 100
+            const totalPrice = document.getElementById('total_price_hidden')
+            const billedAmount = document.getElementById('billed_amt')
+            let totalBilledAmount = parseInt(totalPrice.value) + standardShipping
+
+            if (shippingOption === 'express') {
+                totalShipping.innerText = expressShipping
+                totalBilledAmount = parseInt(totalPrice.value) + expressShipping
+            }
+
+            billedAmount.innerText = totalBilledAmount
+        })
 
     </script>
 </body>

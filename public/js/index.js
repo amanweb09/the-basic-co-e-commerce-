@@ -115,13 +115,3 @@ careBadge.addEventListener('click', () => {
     care.classList.toggle('open')
     careChev.classList.toggle('open')
 })
-
-// document.querySelector('body.cart').addEventListener('load', getItemsInCart)
-// async function getItemsInCart() {
-//     try {
-//         const { data } = await axios.post('http://localhost:3100/cart', { cart: window.localStorage.cart })
-//         console.log(data);
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
