@@ -56,11 +56,13 @@
         <h1 onclick="window.location.href = '/'" id="logo" class="text-xl font-extrabold cursor-pointer">TBC</h1>
     </div>
 
-    <div 
-    onclick="showCart()"
-    class="cart px-2 relative cursor-pointer">
+    <div onclick="showCart()" class="cart px-2 relative cursor-pointer">
         <div class="w-6 h-6 rounded-full bg-orange-400 absolute left-4 bottom-6 flex-center">
-            <span class="font-bold text-white cart_counter">0</span>
+            <% if (session.cart) { %> 
+            <span class="font-bold text-white cart_counter"><%= session.cart.totalQty %></span>
+            <% } else {%> 
+                <span class="font-bold text-white cart_counter">0</span>
+                <% } %> 
         </div>
         <img class="w-6 h-8" src="/images/cart.png" alt="cart">
     </div>
@@ -96,24 +98,24 @@
     <script src="/js/app.js"></script>
     <script>
 
-        function showLoading() {
-            const loadingOverlay = document.querySelector('.loading_overlay')
-            loadingOverlay.classList.add('open')
+        // function showLoading() {
+        //     const loadingOverlay = document.querySelector('.loading_overlay')
+        //     loadingOverlay.classList.add('open')
 
-            const cart = window.localStorage.getItem('cart')
-            let items = 0
+        //     const cart = window.localStorage.getItem('cart')
+        //     let items = 0
 
-            if (cart) {
-                items = JSON
-                    .parse(cart)
-                    .totalQty
-            }
+        //     if (cart) {
+        //         items = JSON
+        //             .parse(cart)
+        //             .totalQty
+        //     }
 
-            const cartCounter = document.querySelector('.cart_counter')
-            cartCounter.innerText = items
-            loadingOverlay.classList.remove('open')
-        }
-        showLoading()
+        //     const cartCounter = document.querySelector('.cart_counter')
+        //     cartCounter.innerText = items
+        //     loadingOverlay.classList.remove('open')
+        // }
+        // showLoading()
 
         function showCart() {
             window.location.href = '/cart'

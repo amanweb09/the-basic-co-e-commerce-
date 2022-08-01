@@ -110,6 +110,17 @@ input[type='radio'].color_badge#green::before {
     left: 50%;
     transform: translateX(-50%);
 }
+.error_badge {
+    top: -500px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: 0.5s;
+}
+.error_badge.show {
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
 .desc {
     height: 0;
     transition: 0.4s;

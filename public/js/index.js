@@ -74,30 +74,30 @@ async function addToCart(e) {
         alert('please select a valid a color and size')
         return
     }
-    axios.post('/cart', { cart: { _id: productId, color, size: size.value } })
 
-    const cartCounter = document.querySelector('.cart_counter')
+    try {
+        await axios.post('/cart', { cart: { _id: productId, color, size: size.value } })
+        const cartCounter = document.querySelector('.cart_counter')
+        const successBadge = document.querySelector('.success_badge')
+        successBadge.classList.add('show')
 
-    // if (cart) {
-    //     let totalItems = JSON.parse(cart).totalQty
-    //     cartCounter.innerText = totalItems + 1
-    // }
-    // else {
-    //     cartCounter.innerText = 1
-    // }
+        setTimeout(() => {
+            successBadge
+                .classList
+                .remove('show')
+        }, 2500)
 
+    } catch (error) {
+        console.log(error);
+        const errorBadge = document.querySelector('.error_badge')
+        errorBadge.classList.add('show')
 
-    const successBadge = document
-        .querySelector('.success_badge')
-    successBadge
-        .classList
-        .add('show')
-
-    setTimeout(() => {
-        successBadge
-            .classList
-            .remove('show')
-    }, 2500)
+        setTimeout(() => {
+            errorBadge
+                .classList
+                .remove('show')
+        }, 2500)
+    }
 }
 
 const descBadge = document.querySelector('.desc-badge')

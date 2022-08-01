@@ -3,7 +3,7 @@
 
 <head>
     <%- include('../partials/head.ejs') %>
-        <title>Products - The Basic Co.</title>
+        <title><%= product.title %> - The Basic Co.</title>
 </head>
 
 <body>
@@ -14,6 +14,10 @@
                 <div class="w-64 h-12 rounded-lg fixed shadow-xl bg-white flex-center success_badge">
                     <i class="fa-solid fa-circle-check text-green-500"></i>
                     <p class="font-bold text-lg text-green-500">ADDED TO CART!</p>
+                </div>
+                <div class="w-64 h-12 rounded-lg fixed shadow-xl bg-white flex-center error_badge">
+                    <i class="fa-solid fa-circle-check text-red-500"></i>
+                    <p class="font-bold text-lg text-red-500">TRY AGAIN!</p>
                 </div>
 
                 <div class="flex-center flex-col w-full mx-auto my-4">
