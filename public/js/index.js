@@ -115,3 +115,16 @@ careBadge.addEventListener('click', () => {
     care.classList.toggle('open')
     careChev.classList.toggle('open')
 })
+
+const removeProductButton = document.querySelector('.remove_product_btn')
+removeProductButton.addEventListener('click', sendProductDeleteRequest)
+
+function sendProductDeleteRequest() {
+    const size = this.dataset.size
+    const color = this.dataset.color
+    const _id = this.dataset._id
+
+    const body = { _id, color, size }
+    console.log(body);
+}
+

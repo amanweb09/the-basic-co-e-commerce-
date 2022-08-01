@@ -22,6 +22,7 @@ router.get('/product/:_id', productController.showIndividualProduct)
 
 router.post('/cart', cartController.addToCart)
 router.get('/cart', cartController.renderCart)
+router.post('/cart/remove', cartController.removeProduct)
 
 
 module.exports = router

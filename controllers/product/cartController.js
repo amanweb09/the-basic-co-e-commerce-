@@ -93,6 +93,46 @@ class CartController {
             })
     }
 
+    async removeProduct(req, res) {
+        const { _id, color, size, qty } = req.body
+        if (!_id || !color || !size || !qty) {
+            return res.status(422).json({ err: "Incomplete Product Information" })
+        }
+
+        const product = req.session.cart.items[_id]
+        if (!product) {
+            return res.status(422).json({ err: "Invalid Product Information" })
+        }
+
+        const variants = product.filter((prod) => {
+            return prod.color !== color && prod.size !== size
+        })
+
+        const products = await getProducts({ _id })
+        const totalProductPrice = qty * parseInt(products[0].price)
+
+        console.log('product price: ', parseInt(products[0].price), 'qty: ', qty, 'cart price: ', req.session.cart.totalPrice);
+        if (variants.length <= 0) {
+            delete req.session.cart.items[_id]
+
+            req.session.cart.totalPrice = req.session.cart.totalPrice - totalProductPrice 
+            req.session.cart.totalQty = req.session.cart.totalQty - qty
+
+            return res.status(200).json({ message: "Removed from cart!" })
+        }
+
+        req.session.cart = {
+            items: {
+                ...req.session.cart.items,
+                [_id]: variants
+            },
+            totalPrice: req.session.cart.totalPrice - totalProductPrice,
+            totalQty: req.session.cart.totalQty - qty
+        }
+        return res.status(200).json({ message: "Removed from cart" })
+
+    }
+
 }
 
 module.exports = new CartController()

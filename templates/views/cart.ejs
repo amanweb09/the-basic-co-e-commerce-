@@ -24,7 +24,7 @@
                     </div>
 
                     <hr class="w-10/12 text-gray-400 text-bold my-4 block mx-auto">
-
+<% console.log(session.cart) %> 
                     <% cart.length && cart.map((cartProduct)=> { %>
                         <% cartProduct.variants.map((product)=> { %>
                             <div class="flex items-center justify-between mt-6">
@@ -56,52 +56,66 @@
 
                                 <div class="text-orange-500 font-bold">&#8377;<%= cartProduct.product.price%>
                                 </div>
-                                <span class="cursor-pointer text-gray-500 hover:text-red-500">&times;</span>
+                                <span data-_id="<%= cartProduct.product._id %>" data-color="<%= product.color %>"
+                                    data-size="<%= product.size %>" data-qty="<%= product.qty %>"
+                                    class="remove_product_btn cursor-pointer text-gray-500 hover:text-red-500">&times;</span>
                             </div>
                             <% }) }) %>
 
                 </div>
-                <div class="sm:w-1/4 sm:px-8 px-4 bg-gray-50 sm:min-h-screen pb-8 sm:pb-0">
-                    <h1 class="font-bold my-4 text-xl">Order Summary</h1>
-                    <hr class="w-10/12 text-gray-400 text-bold my-4 block mx-auto">
 
-                    <p class="font-bold uppercase text-sm">shipping</p>
-                    <select name="shipping" id="shipping" class="w-full h-10 mt-4">
-                        <option value="standard">Standard Shipping - <span>&#8377;</span>30</option>
-                        <option value="express">Express Shipping - <span>&#8377;</span>100</option>
-                    </select>
+                <% if (cart.length) { %>
+                    <div class="sm:w-1/4 sm:px-8 px-4 bg-gray-50 sm:min-h-screen pb-8 sm:pb-0">
+                        <h1 class="font-bold my-4 text-xl">Order Summary</h1>
+                        <hr class="w-10/12 text-gray-400 text-bold my-4 block mx-auto">
 
-                    <p class="font-bold uppercase text-sm mt-8">promo code</p>
-                    <input type="text"
-                        class="w-full h-10 mt-4 focus:border-b-2 focus:border-b-solid focus:border-b-orange-500">
-                    <button class="bg-black text-white font-bold w-24 h-10 hover:bg-orange-500 mt-4">APPLY</button>
+                        <p class="font-bold uppercase text-sm">shipping</p>
+                        <select name="shipping" id="shipping" class="w-full h-10 mt-4">
+                            <option value="standard">Standard Shipping - <span>&#8377;</span>30</option>
+                            <option value="express">Express Shipping - <span>&#8377;</span>100</option>
+                        </select>
 
-                    <hr class="w-10/12 text-gray-400 text-bold my-4 block mx-auto">
+                        <p class="font-bold uppercase text-sm mt-8">promo code</p>
+                        <input type="text"
+                            class="w-full h-10 mt-4 focus:border-b-2 focus:border-b-solid focus:border-b-orange-500">
+                        <button class="bg-black text-white font-bold w-24 h-10 hover:bg-orange-500 mt-4">APPLY</button>
 
-                    <div class="flex items-center justify-between">
-                        <p class="font-bold text-sm">TOTAL PRICE</p>
-                        <span class="font-bold text-sm">&#8377;<span id="total">
-                                <%= totalPrice %>
+                        <hr class="w-10/12 text-gray-400 text-bold my-4 block mx-auto">
+
+                        <div class="flex items-center justify-between">
+                            <p class="font-bold text-sm">TOTAL PRICE</p>
+
+                            <span class="font-bold text-sm">&#8377;
+                                <% if (totalPrice) { %>
+                                    <span id="total">
+                                        <%= totalPrice %>
+                                    </span>
+                                    <% } else { %>
+                                        <span id="total">0</span>
+                                        <% } %>
                             </span>
-                        </span>
-                        <input type="hidden" name="totalPrice" id="total_price_hidden" value="<%= totalPrice %>">
+                            <input type="hidden" name="totalPrice" id="total_price_hidden"
+                                value="<%= totalPrice ? totalPrice : 0 %>">
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <p class="text-sm">Discount</p>
+                            <span id="total" class="font-bold text-sm">&#8377;0</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <p class="text-sm">Shipping</p>
+                            <span id="total_shipping" class="font-bold text-sm">&#8377;30</span>
+                        </div>
+                        <div class="flex items-center justify-between mt-6">
+                            <p class="font-bold">Billed Amount</p>
+                            <span id="total" class="font-bold text-sm">&#8377;<span id="billed_amt"></span></span>
+                        </div>
+                        <button class="bg-orange-500 w-full mt-4 text-white h-10 hover:bg-orange-600 font-bold">
+                            CHECKOUT
+                        </button>
                     </div>
-                    <div class="flex items-center justify-between">
-                        <p class="text-sm">Discount</p>
-                        <span id="total" class="font-bold text-sm">&#8377;0</span>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <p class="text-sm">Shipping</p>
-                        <span id="total_shipping" class="font-bold text-sm">&#8377;30</span>
-                    </div>
-                    <div class="flex items-center justify-between mt-6">
-                        <p class="font-bold">Billed Amount</p>
-                        <span id="total" class="font-bold text-sm">&#8377;<span id="billed_amt"></span></span>
-                    </div>
-                    <button class="bg-orange-500 w-full mt-4 text-white h-10 hover:bg-orange-600 font-bold">
-                        CHECKOUT
-                    </button>
-                </div>
+                    <% } else { %>
+                        <div></div>
+                        <% } %>
             </div>
     </div>
 
@@ -132,6 +146,29 @@
 
             billedAmount.innerText = totalBilledAmount
         })
+
+        const removeProductButton = document.querySelector('.remove_product_btn')
+        removeProductButton.addEventListener('click', sendProductDeleteRequest)
+
+        async function sendProductDeleteRequest() {
+
+            const confirmation = confirm('Are You Sure You Want to Delete This Product?')
+
+            if (!confirmation) { return }
+
+            const size = this.dataset.size
+            const color = this.dataset.color
+            const _id = this.dataset._id
+            const qty = this.dataset.qty
+
+            try {
+                const { data } = await axios.post('/cart/remove', { _id, color, size, qty })
+                window.location.reload()
+
+            } catch (error) {
+                console.log(error.response.data);
+            }
+        }
 
     </script>
 </body>
