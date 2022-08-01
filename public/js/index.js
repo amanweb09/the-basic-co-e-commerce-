@@ -117,11 +117,11 @@ careBadge.addEventListener('click', () => {
 })
 
 // document.querySelector('body.cart').addEventListener('load', getItemsInCart)
-async function getItemsInCart() {
-    try {
-        const { data } = await axios.post('http://localhost:3100/cart', { cart: window.localStorage.cart })
-        console.log(data);
-    } catch (error) {
-        console.log(error);
-    }
-}
+// async function getItemsInCart() {
+//     try {
+//         const { data } = await axios.post('http://localhost:3100/cart', { cart: window.localStorage.cart })
+//         console.log(data);
+//     } catch (error) {
+//         console.log(error);
+//     }
+// }

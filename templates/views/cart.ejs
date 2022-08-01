@@ -19,12 +19,12 @@
                 <div class="sm:w-3/4 sm:px-8">
                     <div class="flex items-center justify-between">
                         <h1 class="font-extrabold text-xl">Shopping Cart</h1>
-                        <p class="text-lg font-semibold"><span id="cart_count">3</span> Items</p>
+                        <p class="text-lg font-semibold"><span id="cart_count"><%= cart.length %></span> Items</p>
                     </div>
 
                     <hr class="w-10/12 text-gray-400 text-bold my-4 block mx-auto">
 
-                    <% cart.map((cartProduct)=> { %>
+                    <% cart.length && cart.map((cartProduct)=> { %>
                         <% cartProduct.variants.map((product) => { %> 
                         <div class="flex items-center justify-between mt-6">
                             <div class="h-20">
@@ -34,7 +34,7 @@
                             <div class="px-4">
                                 <h1 class="capitalize"><%= cartProduct.product.title %></h1>
                                 <div class="flex">
-                                    <div class="w-6 h-6 rounded-md bg-red-500 cart_color_badge" data-color="<%= product.color %>"></div>
+                                    <div class="w-6 h-6 rounded-md cart_color_badge" data-color="<%= product.color %>"></div>
                                     <div class="w-6 h-6 rounded-md cart_size_badge ml-4 flex-center text-sm"><%= product.size %></div>
                                 </div>
                             </div>
@@ -42,7 +42,7 @@
                             <div>
                                 <button
                                     class="w-8 h-8 bg-black focus:bg-orange-500 text-white font-bold text-xl cursor-pointer rounded-md">-</button>
-                                <input disabled class="w-8 text-center bg-gray-50 h-8" type="text" value="1">
+                                <input disabled class="w-8 text-center bg-gray-50 h-8" type="text" value="<%= product.qty %>">
                                 <button
                                     class="w-8 h-8 bg-black focus:bg-orange-500 text-white font-bold text-xl cursor-pointer rounded-md">+</button>
                             </div>
