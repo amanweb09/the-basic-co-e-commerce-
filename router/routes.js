@@ -26,5 +26,6 @@ router.get('/cart', cartController.renderCart)
 router.post('/cart/remove', cartController.removeProduct)
 
 router.get('/checkout', orderController.renderCheckout)
+router.post('/checkout', orderController.initPayment)
 
 module.exports = router

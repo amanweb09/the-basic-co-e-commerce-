@@ -75,11 +75,15 @@ async function addToCart(e) {
         return
     }
 
+    this.classList.add('show_loading')
+    this.disabled = true
     try {
         await axios.post('/cart', { cart: { _id: productId, color, size: size.value } })
         const cartCounter = document.querySelector('.cart_counter')
         const successBadge = document.querySelector('.success_badge')
         successBadge.classList.add('show')
+        this.classList.remove('show_loading')
+        this.disabled = false
 
         setTimeout(() => {
             successBadge
@@ -91,6 +95,8 @@ async function addToCart(e) {
         console.log(error);
         const errorBadge = document.querySelector('.error_badge')
         errorBadge.classList.add('show')
+        this.classList.remove('show_loading')
+        this.disabled = false
 
         setTimeout(() => {
             errorBadge

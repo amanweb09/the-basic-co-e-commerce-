@@ -183,6 +183,21 @@ input[type='radio'].color_badge#green::before {
 .steps.active::before {
     background: teal;
 }
+.cart_loader {
+    display: none;
+}
+.add_to_cart_text {
+    display: block;
+}
+button#add_to_cart_btn.show_loading .cart_loader{
+    display: block;
+}
+button#add_to_cart_btn.show_loading .add_to_cart_text{
+    display: none;
+}
+.loading {
+    animation: loading 0.4s infinite linear;
+}
 @media only screen and (max-width: 500px) {
     .steps::before {
         content: '';
@@ -193,5 +208,10 @@ input[type='radio'].color_badge#green::before {
         top: 50%;
         right: 3rem;
         transform: translateY(-50%);
+    }
+}
+@keyframes loading {
+    100% {
+        transform: rotateZ(360deg);
     }
 }

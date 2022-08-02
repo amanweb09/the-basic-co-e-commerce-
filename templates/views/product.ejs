@@ -68,9 +68,10 @@
                 </div>
                 <div class="flex-center px-2 my-8">
                     <button id="add_to_cart_btn" data-product="<%= product._id %>"
-                        class="flex-1 border-b-solid border-b-4 border-b-orange-600 mr-4 w-64 font-bold bg-orange-400 hover:bg-orange-500 h-12">
-                        ADD TO CART
-                        <span class="w-16 font-bold text-white text-xl">&#8594;</span>
+                        class="flex-1 border-b-solid flex-center border-b-4 border-b-orange-600 mr-4 w-64 font-bold bg-orange-400 hover:bg-orange-500 h-12">
+                        <span class="add_to_cart_text">ADD TO CART</span>
+                        <span class="w-16 font-bold add_to_cart_text text-white text-xl">&#8594;</span>
+                        <div class="w-6 h-6 cart_loader loading rounded-full border-4 border-solid border-x-white border-t-white border-b-transparent"></div>
                     </button>
                 </div>
                 <div>
