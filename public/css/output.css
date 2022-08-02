@@ -815,6 +815,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 66.666667%;
 }
 
+.w-48 {
+  width: 12rem;
+}
+
+.w-96 {
+  width: 24rem;
+}
+
 .max-w-full {
   max-width: 100%;
 }
@@ -1266,6 +1274,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
   .sm\:mt-4 {
     margin-top: 1rem;
+  }
+
+  .sm\:block {
+    display: block;
   }
 
   .sm\:h-8 {
