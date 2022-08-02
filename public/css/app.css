@@ -161,3 +161,37 @@ input[type='radio'].color_badge#green::before {
 .cart_size_badge {
     border: 1px solid #ececec;
 }
+.steps {
+    position: relative;
+}
+.step_badge {
+    background: #f8f6f6;
+}
+.step_badge.active {
+    background: teal;
+}
+.steps::before {
+    content: '';
+    width: 16rem;
+    height: 5px;
+    background: #dcdcdc;
+    position: absolute;
+    top: 50%;
+    right: 3.5rem;
+    transform: translateY(-50%);
+}
+.steps.active::before {
+    background: teal;
+}
+@media only screen and (max-width: 500px) {
+    .steps::before {
+        content: '';
+        width: 5rem;
+        height: 5px;
+        background: #dcdcdc;
+        position: absolute;
+        top: 50%;
+        right: 3rem;
+        transform: translateY(-50%);
+    }
+}
