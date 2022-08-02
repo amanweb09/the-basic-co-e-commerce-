@@ -2,6 +2,7 @@ const router = require('express').Router()
 
 const loginController = require('../controllers/auth/loginController')
 const signupController = require('../controllers/auth/signupController')
+const orderController = require('../controllers/order/orderController')
 const cartController = require('../controllers/product/cartController')
 const productController = require('../controllers/product/productController')
 
@@ -24,5 +25,6 @@ router.post('/cart', cartController.addToCart)
 router.get('/cart', cartController.renderCart)
 router.post('/cart/remove', cartController.removeProduct)
 
+router.get('/checkout', orderController.renderCheckout)
 
 module.exports = router

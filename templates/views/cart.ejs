@@ -24,43 +24,43 @@
                     </div>
 
                     <hr class="w-10/12 text-gray-400 text-bold my-4 block mx-auto">
-<% console.log(session.cart) %> 
-                    <% cart.length && cart.map((cartProduct)=> { %>
-                        <% cartProduct.variants.map((product)=> { %>
-                            <div class="flex items-center justify-between mt-6">
-                                <div class="h-20">
-                                    <img class="h-full" src="/images/model.jpg" alt="product">
-                                </div>
+                    <% console.log(session.cart) %>
+                        <% cart.length && cart.map((cartProduct)=> { %>
+                            <% cartProduct.variants.map((product)=> { %>
+                                <div class="flex items-center justify-between mt-6">
+                                    <div class="h-20">
+                                        <img class="h-full" src="/images/model.jpg" alt="product">
+                                    </div>
 
-                                <div class="px-4">
-                                    <h1 class="capitalize sm:text-base text-sm mb-2 sm:mb-0">
-                                        <%= cartProduct.product.title %>
-                                    </h1>
-                                    <div class="flex">
-                                        <div class="w-6 h-6 rounded-md cart_color_badge"
-                                            data-color="<%= product.color %>"></div>
-                                        <div class="w-6 h-6 rounded-md cart_size_badge ml-4 flex-center text-sm">
-                                            <%= product.size %>
+                                    <div class="px-4">
+                                        <h1 class="capitalize sm:text-base text-sm mb-2 sm:mb-0">
+                                            <%= cartProduct.product.title %>
+                                        </h1>
+                                        <div class="flex">
+                                            <div class="w-6 h-6 rounded-md cart_color_badge"
+                                                data-color="<%= product.color %>"></div>
+                                            <div class="w-6 h-6 rounded-md cart_size_badge ml-4 flex-center text-sm">
+                                                <%= product.size %>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="flex-center">
-                                    <button
-                                        class="sm:w-8 sm:h-8 h-6 w-6 flex-center bg-black focus:bg-orange-500 text-white font-bold sm:text-xl text-lg cursor-pointer rounded-md">-</button>
-                                    <input disabled class="sm:w-8 sm:h-8 h-6 w-6 text-center bg-gray-50" type="text"
-                                        value="<%= product.qty %>">
-                                    <button
-                                        class="sm:w-8 sm:h-8 h-6 w-6 flex-center bg-black focus:bg-orange-500 text-white font-bold text-xl cursor-pointer rounded-md">+</button>
-                                </div>
+                                    <div class="flex-center">
+                                        <button
+                                            class="sm:w-8 sm:h-8 h-6 w-6 flex-center bg-black focus:bg-orange-500 text-white font-bold sm:text-xl text-lg cursor-pointer rounded-md">-</button>
+                                        <input disabled class="sm:w-8 sm:h-8 h-6 w-6 text-center bg-gray-50" type="text"
+                                            value="<%= product.qty %>">
+                                        <button
+                                            class="sm:w-8 sm:h-8 h-6 w-6 flex-center bg-black focus:bg-orange-500 text-white font-bold text-xl cursor-pointer rounded-md">+</button>
+                                    </div>
 
-                                <div class="text-orange-500 font-bold">&#8377;<%= cartProduct.product.price%>
+                                    <div class="text-orange-500 font-bold">&#8377;<%= cartProduct.product.price%>
+                                    </div>
+                                    <span data-_id="<%= cartProduct.product._id %>" data-color="<%= product.color %>"
+                                        data-size="<%= product.size %>" data-qty="<%= product.qty %>"
+                                        class="remove_product_btn cursor-pointer text-gray-500 hover:text-red-500">&times;</span>
                                 </div>
-                                <span data-_id="<%= cartProduct.product._id %>" data-color="<%= product.color %>"
-                                    data-size="<%= product.size %>" data-qty="<%= product.qty %>"
-                                    class="remove_product_btn cursor-pointer text-gray-500 hover:text-red-500">&times;</span>
-                            </div>
-                            <% }) }) %>
+                                <% }) }) %>
 
                 </div>
 
@@ -109,7 +109,8 @@
                             <p class="font-bold">Billed Amount</p>
                             <span id="total" class="font-bold text-sm">&#8377;<span id="billed_amt"></span></span>
                         </div>
-                        <button class="bg-orange-500 w-full mt-4 text-white h-10 hover:bg-orange-600 font-bold">
+                        <button
+                            class="bg-orange-500 proceed_to_checkout w-full mt-4 text-white h-10 hover:bg-orange-600 font-bold">
                             CHECKOUT
                         </button>
                     </div>
@@ -169,6 +170,9 @@
                 console.log(error.response.data);
             }
         }
+
+        const proceedToCheckoutBtn = document.querySelector('button.proceed_to_checkout')
+        proceedToCheckoutBtn.addEventListener('click', () => window.location.href = '/checkout')
 
     </script>
 </body>

@@ -100,8 +100,9 @@ async function addToCart(e) {
     }
 }
 
+//product page
 const descBadge = document.querySelector('.desc-badge')
-descBadge.addEventListener('click', () => {
+if (descBadge) descBadge.addEventListener('click', () => {
     const desc = document.querySelector('.desc')
     const descChev = document.querySelector('.desc_chev')
     desc.classList.toggle('open')
@@ -109,22 +110,36 @@ descBadge.addEventListener('click', () => {
 })
 
 const careBadge = document.querySelector('.care-badge')
-careBadge.addEventListener('click', () => {
+if (careBadge) careBadge.addEventListener('click', () => {
     const care = document.querySelector('.care')
     const careChev = document.querySelector('.care_chev')
     care.classList.toggle('open')
     careChev.classList.toggle('open')
 })
 
-const removeProductButton = document.querySelector('.remove_product_btn')
-removeProductButton.addEventListener('click', sendProductDeleteRequest)
+const continueTPaymentBtn = document.querySelector("#continue_to_payment_btn")
+continueTPaymentBtn.addEventListener('click', continueToPayment)
 
-function sendProductDeleteRequest() {
-    const size = this.dataset.size
-    const color = this.dataset.color
-    const _id = this.dataset._id
+function continueToPayment(e) {
+    e.preventDefault()
+    const form = document.querySelector('#address_form')
+    let formData = new FormData(form)
+    let formObject = {}
 
-    const body = { _id, color, size }
-    console.log(body);
+    for (let [key, value] of formData.entries()) {
+        if (value === "") {
+            alert(`Please add a valid ${key}`)
+            return
+        }
+        formObject[key] = value
+    }
+    if (!Object.keys(formObject).length) {
+        return
+    }
+    const address = `${formObject.addressLine1}, ${formObject.addressLine2}, ${formObject.landmark}, ${formObject.state}-${formObject.pin}, ${formObject.country}`
+    const customerName = formObject.name
+    const customerTel = formObject.tel
+
+    window.localStorage.setItem('address', JSON.stringify({ address, customerName, customerTel }))
+    alert('added')
 }
-
