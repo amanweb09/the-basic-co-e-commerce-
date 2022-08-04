@@ -166,14 +166,14 @@ function continueToPayment(e) {
     const customerTel = formObject.tel
 
     const localAddress = window.localStorage.getItem('address')
-    if (!localAddress || localAddress === '' || localAddress == null) {
-        window.localStorage.setItem('address', JSON.stringify({
-            addressObj: JSON.stringify(address),
-            address: addressStr,
-            customerName,
-            customerTel
-        }))
-    }
+    // if (!localAddress || localAddress === '' || localAddress == null) {
+    window.localStorage.setItem('address', JSON.stringify({
+        addressObj: JSON.stringify(address),
+        address: addressStr,
+        customerName,
+        customerTel
+    }))
+    // }
 
     form.submit()
 }
@@ -185,6 +185,12 @@ if (useThisAddressBtn) useThisAddressBtn.addEventListener('click', async functio
 
     const local_form = document.getElementById('existing_address_form')
     const address = window.localStorage.getItem('address')
+
+    if (!address || address === '' || address == undefined) {
+        alert('Please Try Adding a New Address')
+        return
+    }
+
     const addressObj = JSON.parse(address).addressObj
     const name = JSON.parse(address).customerName
     const tel = JSON.parse(address).customerTel

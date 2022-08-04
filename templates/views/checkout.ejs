@@ -43,14 +43,15 @@
                             deliver your products.
                         </p>
                         <div id="local_address_container" style="border: 1px solid #dcdcdc;"
-                            class="w-max hidden flex items-center py-4 pr-4 my-4 rounded-lg">
+                            class="sm:w-max w-full hidden flex items-center py-4 pr-4 my-4 rounded-lg">
                             <div>
                                 <img class="h-10 mx-2" src="https://img.icons8.com/dotty/80/000000/order-delivered.png"
                                     alt="address">
                             </div>
-                            <form id="existing_address_form" action="/checkout" method="POST">
+                            <form 
+                            id="existing_address_form" action="/checkout" method="POST">
                                 <div class="mx-4">
-                                    <p class="break-all capitalize" id="existing_address_container"></p>
+                                    <p class="break-all capitalize mb-4 sm:mb-0" id="existing_address_container"></p>
                                     <button id="use_this_address_btn"
                                         class="bg-red-500 hover:bg-red-600 py-2 px-4 mt-2 font-bold text-white block">
                                         Use This Address
