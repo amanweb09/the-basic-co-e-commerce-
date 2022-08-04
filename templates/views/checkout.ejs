@@ -40,10 +40,30 @@
                     <div class="sm:w-3/4 w-full px-4 sm:px-0 mb-10 sm:mb-0">
                         <h1 class="font-extrabold text-xl sm:mt-4 mt-6">Shipping Address</h1>
                         <p class="text-gray-500 text-sm mt-2 mb-6 sm:mb-0">Enter the address where you want us to
-                            deliver
-                            your products.
+                            deliver your products.
                         </p>
+                        <div id="local_address_container" style="border: 1px solid #dcdcdc;"
+                            class="w-max hidden flex items-center py-4 pr-4 my-4 rounded-lg">
+                            <div>
+                                <img class="h-10 mx-2" src="https://img.icons8.com/dotty/80/000000/order-delivered.png"
+                                    alt="address">
+                            </div>
+                            <form id="existing_address_form" action="/checkout" method="POST">
+                                <div class="mx-4">
+                                    <p class="break-all capitalize" id="existing_address_container"></p>
+                                    <button id="use_this_address_btn"
+                                        class="bg-red-500 hover:bg-red-600 py-2 px-4 mt-2 font-bold text-white block">
+                                        Use This Address
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
 
+                        <button id="add_new_address_btn"
+                            class="bg-purple-500 hover:bg-purple-600 w-80 py-2 px-4 mt-4 my-8 text-white font-bold">
+                            <span class="text-xl">&plus;</span>
+                            ADD NEW ADDRESS
+                        </button>
                         <form method="POST" action="/checkout" id="address_form" class="sm:mt-8">
                             <label for="add_1">Customer's Name <span class="text-red-500">*</span></label>
                             <input name="name" placeholder="Full name here"
@@ -102,38 +122,16 @@
                     <div class="sm:w-1/4 hidden sm:block">
                         <img class="mx-auto block w-full" src="/images/address.png" alt="address">
                     </div>
-                    <!-- <div class="sm:w-1/4 w-full">
-                    <h1 class="font-extrabold text-xl mt-4">Payment Method</h1>
-                    <p class="text-gray-500 text-sm mt-2">Select the method you want to pay through.</p>
-
-                    <div class="mt-8">
-                        <div class="flex items-center">
-                            <div class="w-16 h-16 mr-4 rounded-lg shadow-xl flex-center bg-orange-100">
-                                <img class="w-10 h-10" alt="COD"
-                                    src="https://img.icons8.com/external-icongeek26-outline-icongeek26/64/000000/external-cash-currency-icongeek26-outline-icongeek26-2.png" />
-                            </div>
-                            <span class="font-semibold">Cash On Delivery</span>
-                        </div>
-
-                        <div class="flex items-center mt-4">
-                            <div class="w-16 h-16 mr-4 rounded-lg shadow-xl flex-center bg-orange-100">
-                                <img class="h-10 w-10"
-                                    src="https://img.icons8.com/external-others-iconmarket/64/000000/external-pay-hand-gestures-others-iconmarket-2.png" />
-                            </div>
-                            <span class="font-semibold">Pay Now</span>
-                        </div>
-                    </div>
-
-                    <div class="rounded-lg w-10/12 shadow-xl flex-center flex-col py-4 mt-6">
-                        <span class="font-bold block">Total Billed Amount</span>
-                        <span>&#8377;700</span>
-                        <button class="w-8/12 h-10 bg-black text-white mt-4">View Cart</button>
-                    </div>
-                </div> -->
                 </div>
             </div>
 
             <script src="/js/app.js"></script>
+            <script>
+                const existingAddressContainer = document.getElementById('existing_address_container')
+                const address = window.localStorage.getItem('address')
+                existingAddressContainer.innerText = JSON.parse(address).address
+
+            </script>
 </body>
 
 </html>

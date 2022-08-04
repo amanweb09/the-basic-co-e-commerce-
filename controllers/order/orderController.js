@@ -8,11 +8,22 @@ class OrderController {
     }
 
     async initPayment(req, res) {
-        const { name, tel, addressLine1, addressLine2, landmark, state, pin, country } = req.body
 
-        if (!name || !tel || !addressLine1 || !addressLine2 || !landmark || !state || !pin || !country) {
-            req.flash('err', 'Please fill all the fields!')
-            return res.status(422).redirect('/checkout')
+        console.log(req.body);
+        if (req.body.addressString) {
+            const address = JSON.parse(req.body.addressString)
+            const { addressLine1, addressLine2, landmark, state, pin, country } = address
+            if (!req.body.name || !req.body.tel || !addressLine1 || !addressLine2 || !landmark || !state || !pin || !country) {
+                req.flash('err', 'Please fill all the fields!')
+                return res.status(422).redirect('/checkout')
+            }
+        }
+        else {
+            const { name, tel, addressLine1, addressLine2, landmark, state, pin, country } = req.body
+            if (!name || !tel || !addressLine1 || !addressLine2 || !landmark || !state || !pin || !country) {
+                req.flash('err', 'Please fill all the fields!')
+                return res.status(422).redirect('/checkout')
+            }
         }
 
         const order = await createOrder({

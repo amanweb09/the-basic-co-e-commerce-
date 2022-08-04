@@ -198,6 +198,12 @@ button#add_to_cart_btn.show_loading .add_to_cart_text{
 .loading {
     animation: loading 0.4s infinite linear;
 }
+#address_form {
+    display: none;
+}
+#address_form.open {
+    display: block;
+}
 @media only screen and (max-width: 500px) {
     .steps::before {
         content: '';
