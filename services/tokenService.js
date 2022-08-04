@@ -9,9 +9,7 @@ class TokenService {
     }
 
     validateToken(token, secret) {
-        const val = verify(token, secret)
-        console.log(val);
-        return val
+        return verify(token, secret)
     }
 
 }   

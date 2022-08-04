@@ -20,7 +20,10 @@ app.set('views', views_path)
 const session = require('express-session')
 const flash = require('connect-flash')
 
+const cookieParser = require('cookie-parser')
 const MongoStore = require('connect-mongo');
+
+app.use(cookieParser(process.env.COOKIE_SECRET))
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,

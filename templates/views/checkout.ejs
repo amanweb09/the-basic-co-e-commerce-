@@ -11,16 +11,30 @@
             <div>
                 <div class="w-full h-20 flex items-center justify-center sm:my-8 my-6">
                     <div class="sm:w-14 sm:h-14 w-12 h-12 step_badge active rounded-full flex-center font-bold text-lg">
-                        <img class="sm:h-10 h-6" alt="address" src="https://img.icons8.com/ios/50/EBEBEB/marker--v1.png" />
+                        <img class="sm:h-10 h-6" alt="address"
+                            src="https://img.icons8.com/ios/50/EBEBEB/marker--v1.png" />
                     </div>
                     <div
                         class="sm:w-14 sm:h-14 w-12 h-12 step_badge steps sm:mx-64 mx-20 rounded-full flex-center font-bold text-lg">
-                        <img class="sm:h-10 h-6" alt="payment" src="https://img.icons8.com/ios/50/EBEBEB/card-security.png"/>
-                        </div>
+                        <img class="sm:h-10 h-6" alt="payment"
+                            src="https://img.icons8.com/ios/50/EBEBEB/card-security.png" />
+                    </div>
                     <div class="sm:w-14 sm:h-14 w-12 h-12 step_badge steps rounded-full flex-center font-bold text-lg">
-                        <img class="sm:h-10 h-6" alt="placed" src="https://img.icons8.com/ios/50/EBEBEB/checkmark--v1.png"/>
+                        <img class="sm:h-10 h-6" alt="placed"
+                            src="https://img.icons8.com/ios/50/EBEBEB/checkmark--v1.png" />
                     </div>
 
+                </div>
+                <div>
+                    <% if (err.length) {%>
+                        <div class="bg-red-200 w-10/12 block mx-auto text-center py-2">
+                            <%= err %>
+                        </div>
+                        <% } else if (success.length) {%>
+                            <div class="bg-green-200 w-10/12 block mx-auto text-center py-2">
+                                <%= success %>
+                            </div>
+                            <% } %>
                 </div>
                 <div class="flex justify-center sm:flex-row flex-col">
                     <div class="sm:w-3/4 w-full px-4 sm:px-0 mb-10 sm:mb-0">
@@ -30,7 +44,7 @@
                             your products.
                         </p>
 
-                        <form id="address_form" class="sm:mt-8">
+                        <form method="POST" action="/checkout" id="address_form" class="sm:mt-8">
                             <label for="add_1">Customer's Name <span class="text-red-500">*</span></label>
                             <input name="name" placeholder="Full name here"
                                 class="sm:w-9/12 w-11/12 h-10 block border-b-2 border-b-solid border-b-orange-200 focus:border-pink-500"

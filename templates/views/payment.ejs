@@ -1,0 +1,224 @@
+<html>
+
+<head>
+    <%- include('../partials/head.ejs') %>
+        <title>Payment - The Basic Company</title>
+</head>
+
+<body>
+    <div class="container mx-auto">
+        <%- include('../partials/navbar.ejs') %>
+            <div class="w-full h-20 flex items-center justify-center sm:my-8 my-6">
+                <div class="sm:w-14 sm:h-14 w-12 h-12 step_badge active rounded-full flex-center font-bold text-lg">
+                    <img class="sm:h-10 h-6" alt="address" src="https://img.icons8.com/ios/50/EBEBEB/marker--v1.png" />
+                </div>
+                <div
+                    class="sm:w-14 sm:h-14 w-12 h-12 active step_badge steps sm:mx-64 mx-20 rounded-full flex-center font-bold text-lg">
+                    <img class="sm:h-10 h-6" alt="payment"
+                        src="https://img.icons8.com/ios/50/EBEBEB/card-security.png" />
+                </div>
+                <div class="sm:w-14 sm:h-14 w-12 h-12 step_badge steps rounded-full flex-center font-bold text-lg">
+                    <img class="sm:h-10 h-6" alt="placed"
+                        src="https://img.icons8.com/ios/50/EBEBEB/checkmark--v1.png" />
+                </div>
+            </div>
+            <!-- <div style="border: 1px solid #ececec;"
+                class="w-9/12 flex-center mx-auto flex-col py-2 rounded-lg mb-6 bg-purple-100">
+                <span class="text-sm uppercase">Total billed Amount</span>
+                <span class="font-bold text-lg">&#8377; 630</span>
+            </div> -->
+            <h1 class="font-extrabold text-xl">Select a Mode of Payment</h1>
+            <p class="text-gray-500 text-sm mt-2">Select the method you want to pay through</p>
+            <div class="flex w-full">
+                <div class="mx-2 w-3/4">
+                    <div class="flex items-center py-2 w-full mt-4">
+                        <img alt="mastercard" class="h-8 mr-2"
+                            src="https://img.icons8.com/color/48/000000/mastercard-logo.png" />
+                        <img alt="visa" class="h-8 mr-2" src="https://img.icons8.com/color/48/000000/visa.png" />
+                        <img alt="paytm" class="h-8 mr-2" src="https://img.icons8.com/color/48/000000/paytm.png" />
+                        <img alt="google pay" class="h-8 mr-2"
+                            src="https://img.icons8.com/color/48/000000/google-pay-india.png" />
+                        <img alt="upi" class="h-8 mr-2" src="https://img.icons8.com/fluency/48/000000/bhim.png" />
+                    </div>
+                    <div class="mt-8">
+                        <div class="flex items-center">
+                            <div class="w-16 h-16 mr-4 rounded-lg shadow-xl flex-center bg-orange-100">
+                                <img class="w-10 h-10" alt="COD"
+                                    src="https://img.icons8.com/external-icongeek26-outline-icongeek26/64/000000/external-cash-currency-icongeek26-outline-icongeek26-2.png" />
+                            </div>
+                            <span class="font-semibold">Cash On Delivery</span>
+                        </div>
+
+                        <button id="rzp-button1" class="flex items-center mt-4">
+                            <div class="w-16 h-16 mr-4 rounded-lg shadow-xl flex-center bg-orange-100">
+                                <img class="h-10 w-10"
+                                    src="https://img.icons8.com/external-others-iconmarket/64/000000/external-pay-hand-gestures-others-iconmarket-2.png" />
+                            </div>
+                            <span class="font-semibold">Pay Now</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="mx-2 w-full">
+                    <div style="border: 1px solid #ececec;" class="w-80 rounded-lg py-2 px-8 flex-center">
+                        <div class="w-24">
+                            <img class="h-8" src="https://img.icons8.com/ios/50/000000/user--v1.png" alt="user">
+                        </div>
+                        <div class="flex-1">
+                            <span class="text-sm">LOGIN &check;</span>
+                            <span class="font-bold block uppercase">
+                                <%= user.name %>
+                            </span>
+                        </div>
+                    </div>
+                    <div style="border: 1px solid #ececec;" class="mt-4 rounded-lg py-2 px-8 flex-center">
+                        <div class="w-24">
+                            <img class="h-8" src="https://img.icons8.com/dotty/80/000000/order-delivered.png"
+                                alt="user">
+                        </div>
+                        <div class="flex-1">
+                            <span class="text-sm">SHIPPING ADDRESS &check;</span>
+                            <span class="font-bold block uppercase" id="shipping_address_local"></span>
+                        </div>
+                    </div>
+                    <div style="border: 1px solid #ececec;" class="mt-4 rounded-lg py-2 px-8 flex-center">
+                        <div class="w-24">
+                            <img class="h-8" src="https://img.icons8.com/wired/64/000000/shopping-cart--v1.png"
+                                alt="user">
+                        </div>
+                        <div class="flex-1 mb-8">
+                            <span class="text-sm">CART DETAILS &check;</span>
+                            <div class="w-full">
+                                <div class="flex items-center justify-between text-sm mt-2">
+                                    <span>Cart Total</span>
+                                    <span class="font-semibold">&#8377; 599</span>
+                                </div>
+                                <div class="text-sm flex items-center justify-between">
+                                    <span>Shipping</span>
+                                    <span class="font-semibold">&#8377; 50</span>
+                                </div>
+                                <div class="text-sm flex items-center justify-between">
+                                    <span>Discount</span>
+                                    <span class="font-semibold">&#8377; 0</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span>Total Amount to be Paid</span>
+                                    <span class="font-bold">&#8377; 649</span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="flex w-full mt-8 bg-gray-50">
+                <div class="w-1/4 bg-white m-2 p-4 rounded-lg">
+                    <h1 class="font-extrabold text-xl">Select a Mode of Payment</h1>
+                    <p class="text-gray-500 text-sm mt-2">Select the method you want to pay through</p>
+                    <div class="mt-8">
+                        <div class="flex items-center">
+                            <div class="w-16 h-16 mr-4 rounded-lg shadow-xl flex-center bg-orange-100">
+                                <img class="w-10 h-10" alt="COD"
+                                    src="https://img.icons8.com/external-icongeek26-outline-icongeek26/64/000000/external-cash-currency-icongeek26-outline-icongeek26-2.png" />
+                            </div>
+                            <span class="font-semibold">Cash On Delivery</span>
+                        </div>
+
+                        <button id="rzp-button1" class="flex items-center mt-4">
+                            <div class="w-16 h-16 mr-4 rounded-lg shadow-xl flex-center bg-orange-100">
+                                <img class="h-10 w-10"
+                                    src="https://img.icons8.com/external-others-iconmarket/64/000000/external-pay-hand-gestures-others-iconmarket-2.png" />
+                            </div>
+                            <span class="font-semibold">Pay Now</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="w-3/4 h-max flex-center flex-col">
+                    <div class="w-full bg-white rounded-lg my-2 mx-6 p-6">
+                        <h1 class="font-extrabold text-xl text-center">Shipping Details</h1>
+                        <p class="text-gray-500 text-sm mt-2 text-center mt-2 mb-6">Where to ship your parcel</p>
+                        <div class="rounded-lg w-8/12 block mx-auto mt-6">
+                            <div class="flex items-center">
+                                <img alt="address" class="h-6"
+                                    src="https://img.icons8.com/dotty/80/000000/order-delivered.png" />
+                                <p class="ml-2">25B/4 New Rohtak Road, 1st Floor, New Delhi-110005, India</p>
+                            </div>
+                            <div class="flex items-center mt-4">
+                                <img alt="name" class="h-6" src="https://img.icons8.com/ios/50/000000/user--v1.png" />
+                                <p class="ml-2">Aman Khanna</p>
+                            </div>
+                            <div class="flex items-center mt-4">
+                                <img alt="contact number" class="h-6"
+                                    src="https://img.icons8.com/ios/50/000000/phone-disconnected.png" />
+                                <p class="ml-2">9818267849</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full">
+
+                    </div>
+                </div>
+            </div> -->
+            <!-- <button id="rzp-button1">Pay</button> -->
+            <footer class="bg-black text-white text-center py-2 text-sm mt-8">
+                The Basic Co.&copy; || Payments Powered by Razorpay
+            </footer>
+            <input id="hidden_rp_key" type="hidden" name="key" value="<%= process.env.RAZORPAY_KEY_ID %>">
+            <input id="hidden_rp_amount" type="hidden" name="amount" value="<%= amount * 100 %>">
+            <input id="hidden_rp_orderId" type="hidden" name="amount" value="<%= orderId %>">
+            <input id="hidden_rp_user" type="hidden" name="amount" value="<%= JSON.stringify(user) %>">
+    </div>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <!-- <script src="/js/app.js"></script> -->
+    <script>
+        const shippingAddressLocal = document.getElementById('shipping_address_local')
+
+        const address = window.localStorage.getItem('address') || ""
+        shippingAddressLocal.innerText = JSON.parse(address).address
+
+        let user = document.getElementById('hidden_rp_user').value
+        user = JSON.parse(user)
+
+        const options = {
+            "key": document.getElementById('hidden_rp_key').value, // Enter the Key ID generated from the Dashboard
+            "amount": document.getElementById('hidden_rp_amount').value, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "currency": "INR",
+            "name": "The Basic Company",
+            "description": "Pay securely with Razorpay",
+            "image": "https://example.com/your_logo",
+            "order_id": document.getElementById('hidden_rp_orderId').value, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "handler": function (response) {
+                alert(response.razorpay_payment_id);
+                alert(response.razorpay_order_id);
+                alert(response.razorpay_signature)
+            },
+            "prefill": {
+                "name": user.name,
+                "email": user.email,
+                "contact": user.tel
+            },
+            "notes": {
+                "Contact Number": "+91-1234567890"
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+        };
+        const rzp1 = new Razorpay(options);
+        rzp1.on('payment.failed', function (response) {
+            alert(response.error.code);
+            alert(response.error.description);
+            alert(response.error.source);
+            alert(response.error.step);
+            alert(response.error.reason);
+            alert(response.error.metadata.order_id);
+            alert(response.error.metadata.payment_id);
+        });
+        document.getElementById('rzp-button1').onclick = function (e) {
+            rzp1.open();
+            e.preventDefault();
+        }
+    </script>
+</body>
+
+</html>

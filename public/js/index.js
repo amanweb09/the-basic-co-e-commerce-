@@ -146,6 +146,11 @@ function continueToPayment(e) {
     const customerName = formObject.name
     const customerTel = formObject.tel
 
-    window.localStorage.setItem('address', JSON.stringify({ address, customerName, customerTel }))
-    alert('added')
+    const localAddress = window.localStorage.getItem('address')
+    if (!localAddress || localAddress === '' || localAddress == null) {
+        window.localStorage.setItem('address', JSON.stringify({ address, customerName, customerTel }))
+    }
+    
+    form.submit()
 }
+

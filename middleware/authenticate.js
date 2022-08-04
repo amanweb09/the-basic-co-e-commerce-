@@ -2,31 +2,44 @@ const { validateToken } = require('../services/tokenService');
 const { findUsers } = require('../services/userService')
 
 const authenticate = async (req, res, next) => {
-    const { accessToken } = req.cookies;
 
-    if (!accessToken) {
+    if (!req.cookies) {
         req.flash('errMessage', 'Please login to continue!')
         return res
             .status(401)
             .redirect('/login')
     }
 
-    const payload = validateToken(accessToken, process.env.AT_SECRET)
+    const { at } = req.cookies;
 
-    if (payload) {
-        const authUser = await findUsers({ _id: payload._id });
-        req._id = authUser[0]._id;
-        req.name = authUser[0].name;
-        req.email = authUser[0].email;
-        req.tel = authUser[0].tel;
-
-        return next()
+    if (!at) {
+        req.flash('errMessage', 'Please login to continue!')
+        return res
+            .status(401)
+            .redirect('/login')
     }
 
-    req.flash('errMessage', 'Please login to continue!')
-    return res
-        .status(401)
-        .redirect('/login')
+    const payload = validateToken(at, process.env.AT_SECRET)
+
+    if (payload) {
+        try {
+            const authUser = await findUsers({ _id: payload._id });
+            req.user = authUser[0]
+
+            return next()
+        } catch (error) {
+            req.flash('errMessage', 'Internal Server Error!')
+            return res
+                .status(500)
+                .redirect('/login')
+        }
+    }
+    else {
+        req.flash('errMessage', 'Please login to continue!')
+        return res
+            .status(401)
+            .redirect('/login')
+    }
 
 }
 
