@@ -19,7 +19,7 @@ class CartController {
 
             if (!_cart || _cart == undefined) {
                 req.session.cart = {
-                    items: {}, totalPrice: 0, totalQty: 0
+                    items: {}, totalPrice: 0, totalQty: 0, shipping: { type: 'standard', cost: 30 }
                 }
             }
             if (!req.session.cart.items[_id]) {
@@ -30,7 +30,8 @@ class CartController {
                         [_id]: [{ color, size, qty: 1 }]
                     },
                     totalPrice: req.session.cart.totalPrice += parseInt(product.price),
-                    totalQty: req.session.cart.totalQty += 1
+                    totalQty: req.session.cart.totalQty += 1,
+                    shipping: { type: 'standard', cost: 30 }
                 }
                 return res.status(200).json({ message: 'ADDED TO CART', cart: req.session.cart })
             }
@@ -66,7 +67,6 @@ class CartController {
         if (req.session.cart) {
             const products = await getProducts({ $in: { _id: Object.keys(req.session.cart.items) } })
 
-            // console.log(products);
             function transformProduct(_id) {
                 const product = products.filter((product) => {
                     return product._id.toString() === _id
@@ -115,7 +115,7 @@ class CartController {
         if (variants.length <= 0) {
             delete req.session.cart.items[_id]
 
-            req.session.cart.totalPrice = req.session.cart.totalPrice - totalProductPrice 
+            req.session.cart.totalPrice = req.session.cart.totalPrice - totalProductPrice
             req.session.cart.totalQty = req.session.cart.totalQty - qty
 
             return res.status(200).json({ message: "Removed from cart!" })
@@ -133,6 +133,25 @@ class CartController {
 
     }
 
+    changeShipping(req, res) {
+        const { type } = req.body
+        if (!type) {
+            return res.status(422).json({ err: 'Please specify the shipping type' })
+        }
+
+        if (type === 'express') {
+            req.session.cart.shipping.type = type
+            req.session.cart.shipping.cost = 100
+
+            return res.status(200).json({ cart: req.session.cart })
+        }
+        else if (type === 'standard') {
+            req.session.cart.shipping.type = type
+            req.session.cart.shipping.cost = 30
+            
+            return res.status(200).json({ cart: req.session.cart })
+        }
+    }
 }
 
 module.exports = new CartController()

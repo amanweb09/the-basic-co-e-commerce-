@@ -71,8 +71,19 @@
 
                         <p class="font-bold uppercase text-sm">shipping</p>
                         <select name="shipping" id="shipping" class="w-full h-10 mt-4">
-                            <option value="standard">Standard Shipping - <span>&#8377;</span>30</option>
-                            <option value="express">Express Shipping - <span>&#8377;</span>100</option>
+                            <% if (session.cart.shipping.type==='standard' ) {%>
+                                <option selected value="standard">Standard Shipping - <span>&#8377;</span>30</option>
+                                <% } else {%>
+                                    <option selected value="standard">Standard Shipping - <span>&#8377;</span>30
+                                    </option>
+                                    <% } %>
+                                        <% if (session.cart.shipping.type==='express' ) {%>
+                                            <option selected value="express">Express Shipping - <span>&#8377;</span>100
+                                            </option>
+                                            <% } else {%>
+                                                <option value="express">Express Shipping - <span>&#8377;</span>100
+                                                </option>
+                                                <% } %>
                         </select>
 
                         <p class="font-bold uppercase text-sm mt-8">promo code</p>
@@ -103,11 +114,11 @@
                         </div>
                         <div class="flex items-center justify-between">
                             <p class="text-sm">Shipping</p>
-                            <span id="total_shipping" class="font-bold text-sm">&#8377;30</span>
+                            <span id="total_shipping" class="font-bold text-sm">&#8377;<%= session.cart.shipping.cost %></span>
                         </div>
                         <div class="flex items-center justify-between mt-6">
                             <p class="font-bold">Billed Amount</p>
-                            <span id="total" class="font-bold text-sm">&#8377;<span id="billed_amt"></span></span>
+                            <span id="total" class="font-bold text-sm">&#8377;<span id="billed_amt"><%= session.cart.shipping.cost + totalPrice %></span></span>
                         </div>
                         <button
                             class="bg-orange-500 proceed_to_checkout w-full mt-4 text-white h-10 hover:bg-orange-600 font-bold">
@@ -121,60 +132,6 @@
     </div>
 
     <script src="/js/app.js"></script>
-    <script>
-
-        const standardShipping = 30
-        const totalPrice = document.getElementById('total_price_hidden')
-        const billedAmount = document.getElementById('billed_amt')
-        let totalBilledAmount = parseInt(totalPrice.value) + standardShipping
-        billedAmount.innerText = totalBilledAmount
-
-        const shippingSelectBox = document.getElementById('shipping')
-        shippingSelectBox.addEventListener('change', (e) => {
-            const shippingOption = e.target.value
-            const totalShipping = document.getElementById('total_shipping')
-
-            const standardShipping = 30
-            const expressShipping = 100
-            const totalPrice = document.getElementById('total_price_hidden')
-            const billedAmount = document.getElementById('billed_amt')
-            let totalBilledAmount = parseInt(totalPrice.value) + standardShipping
-
-            if (shippingOption === 'express') {
-                totalShipping.innerText = expressShipping
-                totalBilledAmount = parseInt(totalPrice.value) + expressShipping
-            }
-
-            billedAmount.innerText = totalBilledAmount
-        })
-
-        const removeProductButton = document.querySelector('.remove_product_btn')
-        removeProductButton.addEventListener('click', sendProductDeleteRequest)
-
-        async function sendProductDeleteRequest() {
-
-            const confirmation = confirm('Are You Sure You Want to Delete This Product?')
-
-            if (!confirmation) { return }
-
-            const size = this.dataset.size
-            const color = this.dataset.color
-            const _id = this.dataset._id
-            const qty = this.dataset.qty
-
-            try {
-                const { data } = await axios.post('/cart/remove', { _id, color, size, qty })
-                window.location.reload()
-
-            } catch (error) {
-                console.log(error.response.data);
-            }
-        }
-
-        const proceedToCheckoutBtn = document.querySelector('button.proceed_to_checkout')
-        proceedToCheckoutBtn.addEventListener('click', () => window.location.href = '/checkout')
-
-    </script>
 </body>
 
 </html>

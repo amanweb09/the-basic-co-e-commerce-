@@ -26,8 +26,9 @@ class OrderController {
             }
         }
 
+        const totalPrice = req.session.cart.totalPrice + req.session.cart.shipping.cost
         const order = await createOrder({
-            amount: req.session.cart.totalPrice * 100,
+            amount: totalPrice * 100,
             userId: req.user._id
         })
 

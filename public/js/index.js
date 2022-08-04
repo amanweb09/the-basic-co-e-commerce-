@@ -106,6 +106,45 @@ async function addToCart(e) {
     }
 }
 
+const shippingSelectBox = document.getElementById('shipping')
+shippingSelectBox.addEventListener('change', async (e) => {
+
+    const shippingOption = e.target.value
+    
+    try {
+        await axios.post('/cart/shipping', { type: shippingOption })
+        window.location.reload()
+    } catch (error) {
+        console.log(error);
+    }
+})
+
+const removeProductButton = document.querySelector('.remove_product_btn')
+removeProductButton.addEventListener('click', sendProductDeleteRequest)
+
+async function sendProductDeleteRequest() {
+
+    const confirmation = confirm('Are You Sure You Want to Delete This Product?')
+
+    if (!confirmation) { return }
+
+    const size = this.dataset.size
+    const color = this.dataset.color
+    const _id = this.dataset._id
+    const qty = this.dataset.qty
+
+    try {
+        await axios.post('/cart/remove', { _id, color, size, qty })
+        window.location.reload()
+
+    } catch (error) {
+        console.log(error.response.data);
+    }
+}
+
+const proceedToCheckoutBtn = document.querySelector('button.proceed_to_checkout')
+proceedToCheckoutBtn.addEventListener('click', () => window.location.href = '/checkout')
+
 //product page
 const descBadge = document.querySelector('.desc-badge')
 if (descBadge) descBadge.addEventListener('click', () => {
