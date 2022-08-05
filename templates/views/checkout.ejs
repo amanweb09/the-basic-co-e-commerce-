@@ -48,8 +48,7 @@
                                 <img class="h-10 mx-2" src="https://img.icons8.com/dotty/80/000000/order-delivered.png"
                                     alt="address">
                             </div>
-                            <form 
-                            id="existing_address_form" action="/checkout" method="POST">
+                            <form id="existing_address_form" action="/checkout" method="POST">
                                 <div class="mx-4">
                                     <p class="break-all capitalize mb-4 sm:mb-0" id="existing_address_container"></p>
                                     <button id="use_this_address_btn"
@@ -127,12 +126,7 @@
             </div>
 
             <script src="/js/app.js"></script>
-            <script>
-                const existingAddressContainer = document.getElementById('existing_address_container')
-                const address = window.localStorage.getItem('address')
-                existingAddressContainer.innerText = JSON.parse(address).address
-
-            </script>
+            <script src="/js/order.js"></script>
 </body>
 
 </html>

@@ -37,7 +37,7 @@
                         <img alt="upi" class="h-8 mr-2" src="https://img.icons8.com/fluency/48/000000/bhim.png" />
                     </div>
                     <div class="mt-8 mb-12 sm:mb-0">
-                        <div class="flex items-center">
+                        <div class="flex items-center cursor-pointer">
                             <div class="w-16 h-16 mr-4 rounded-lg shadow-xl flex-center bg-orange-100">
                                 <img class="w-10 h-10" alt="COD"
                                     src="https://img.icons8.com/external-icongeek26-outline-icongeek26/64/000000/external-cash-currency-icongeek26-outline-icongeek26-2.png" />
@@ -86,11 +86,11 @@
                             <div class="w-full">
                                 <div class="flex items-center justify-between text-sm mt-2">
                                     <span>Cart Total</span>
-                                    <span class="font-semibold">&#8377; 599</span>
+                                    <span class="font-semibold">&#8377; <%= session.cart.totalPrice %></span>
                                 </div>
                                 <div class="text-sm flex items-center justify-between">
                                     <span>Shipping</span>
-                                    <span class="font-semibold">&#8377; 50</span>
+                                    <span class="font-semibold">&#8377; <%= session.cart.shipping.cost %></span>
                                 </div>
                                 <div class="text-sm flex items-center justify-between">
                                     <span>Discount</span>
@@ -98,7 +98,7 @@
                                 </div>
                                 <div class="flex items-center justify-between mt-2 sm:mt-0">
                                     <span class="font-bold">Total Amount</span>
-                                    <span class="font-bold">&#8377; 649</span>
+                                    <span class="font-bold">&#8377; <%= session.cart.totalPrice + session.cart.shipping.cost %> </span>
                                 </div>
 
                             </div>
@@ -106,55 +106,7 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="flex w-full mt-8 bg-gray-50">
-                <div class="w-1/4 bg-white m-2 p-4 rounded-lg">
-                    <h1 class="font-extrabold text-xl">Select a Mode of Payment</h1>
-                    <p class="text-gray-500 text-sm mt-2">Select the method you want to pay through</p>
-                    <div class="mt-8">
-                        <div class="flex items-center">
-                            <div class="w-16 h-16 mr-4 rounded-lg shadow-xl flex-center bg-orange-100">
-                                <img class="w-10 h-10" alt="COD"
-                                    src="https://img.icons8.com/external-icongeek26-outline-icongeek26/64/000000/external-cash-currency-icongeek26-outline-icongeek26-2.png" />
-                            </div>
-                            <span class="font-semibold">Cash On Delivery</span>
-                        </div>
-
-                        <button id="rzp-button1" class="flex items-center mt-4">
-                            <div class="w-16 h-16 mr-4 rounded-lg shadow-xl flex-center bg-orange-100">
-                                <img class="h-10 w-10"
-                                    src="https://img.icons8.com/external-others-iconmarket/64/000000/external-pay-hand-gestures-others-iconmarket-2.png" />
-                            </div>
-                            <span class="font-semibold">Pay Now</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="w-3/4 h-max flex-center flex-col">
-                    <div class="w-full bg-white rounded-lg my-2 mx-6 p-6">
-                        <h1 class="font-extrabold text-xl text-center">Shipping Details</h1>
-                        <p class="text-gray-500 text-sm mt-2 text-center mt-2 mb-6">Where to ship your parcel</p>
-                        <div class="rounded-lg w-8/12 block mx-auto mt-6">
-                            <div class="flex items-center">
-                                <img alt="address" class="h-6"
-                                    src="https://img.icons8.com/dotty/80/000000/order-delivered.png" />
-                                <p class="ml-2">25B/4 New Rohtak Road, 1st Floor, New Delhi-110005, India</p>
-                            </div>
-                            <div class="flex items-center mt-4">
-                                <img alt="name" class="h-6" src="https://img.icons8.com/ios/50/000000/user--v1.png" />
-                                <p class="ml-2">Aman Khanna</p>
-                            </div>
-                            <div class="flex items-center mt-4">
-                                <img alt="contact number" class="h-6"
-                                    src="https://img.icons8.com/ios/50/000000/phone-disconnected.png" />
-                                <p class="ml-2">9818267849</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="w-full">
-
-                    </div>
-                </div>
-            </div> -->
-            <!-- <button id="rzp-button1">Pay</button> -->
+          
             <footer class="bg-black text-white text-center py-2 text-sm mt-8">
                 The Basic Co.&copy; || Payments Powered by Razorpay
             </footer>
