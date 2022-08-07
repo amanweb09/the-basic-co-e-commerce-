@@ -57,7 +57,7 @@ const orderSchema = new Schema({
         required: true
     },
     status: {
-        type: String, 
+        type: String,
         default: 'placed'
     },
     promoCode: {
@@ -92,6 +92,6 @@ const orderSchema = new Schema({
             }
         }
     }
-})
+}, { timestamps: true })
 
 module.exports = new model('orders', orderSchema, 'orders')
