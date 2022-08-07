@@ -10,7 +10,7 @@ class PaymentController {
         }
 
         const order = await fetchOrder(orderId)
-        if (order) {
+        if (order.id) {
             return res.status(200).render('payment', {
                 orderId: order.id,
                 amount: order.amount,
@@ -18,9 +18,11 @@ class PaymentController {
                 user: req.user
             })
         }
-        else {
+        else if (order.error){
+            req.flash('err', 'Payment Validation Failed')
             return res.status(401).redirect('/checkout')
         }
+        return res.status(401).redirect('/checkout')
     }
 }
 
