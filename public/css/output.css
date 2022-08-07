@@ -654,6 +654,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-bottom: 2rem;
 }
 
+.mt-16 {
+  margin-top: 4rem;
+}
+
 .block {
   display: block;
 }
@@ -726,6 +730,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .h-2 {
   height: 0.5rem;
+}
+
+.h-80 {
+  height: 20rem;
 }
 
 .max-h-16 {
@@ -826,6 +834,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 50%;
 }
 
+.w-96 {
+  width: 24rem;
+}
+
 .max-w-full {
   max-width: 100%;
 }
@@ -922,6 +934,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-width: 4px;
 }
 
+.border-2 {
+  border-width: 2px;
+}
+
 .border-b-2 {
   border-bottom-width: 2px;
 }
@@ -937,6 +953,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .border-orange-500 {
   --tw-border-opacity: 1;
   border-color: rgb(249 115 22 / var(--tw-border-opacity));
+}
+
+.border-red-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(239 68 68 / var(--tw-border-opacity));
 }
 
 .border-x-white {
@@ -1032,6 +1053,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .bg-gray-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+}
+
+.bg-red-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 242 242 / var(--tw-bg-opacity));
 }
 
 .p-4 {
@@ -1188,6 +1214,16 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-orange-600 {
   --tw-text-opacity: 1;
   color: rgb(234 88 12 / var(--tw-text-opacity));
+}
+
+.underline {
+  -webkit-text-decoration-line: underline;
+          text-decoration-line: underline;
+}
+
+.decoration-orange-500 {
+  -webkit-text-decoration-color: #f97316;
+          text-decoration-color: #f97316;
 }
 
 .shadow-xl {
@@ -1350,6 +1386,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
   .sm\:h-10 {
     height: 2.5rem;
+  }
+
+  .sm\:h-96 {
+    height: 24rem;
   }
 
   .sm\:min-h-screen {

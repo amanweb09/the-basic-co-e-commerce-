@@ -204,6 +204,15 @@ button#add_to_cart_btn.show_loading .add_to_cart_text{
 #address_form.open {
     display: block;
 }
+.overlay {
+    background: linear-gradient(135deg, rgb(0,0,0,0.4), rgb(0,0,0,0.6));
+}
+.cod_order_placement_overlay {
+    display: none;
+}
+.cod_order_placement_overlay.open {
+    display: flex;
+}
 @media only screen and (max-width: 500px) {
     .steps::before {
         content: '';

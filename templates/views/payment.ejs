@@ -23,6 +23,33 @@
                 </div>
             </div>
 
+            <div id="cod_order_placement_overlay"
+                class="w-full fixed inset-0 overlay flex-center cod_order_placement_overlay">
+                <div class="bg-white sm:w-96 w-80 sm:h-96 h-80 rounded-xl">
+                    <h1 class="font-extrabold text-center my-8 uppercase">Order Summary</h1>
+                    <form action="/order" method="post" id="cod_order_placement_form">
+                        <div class="flex items-center justify-between px-4 mt-16">
+                            <span class="font-bold">Total Amount: </span>
+                            <span>&#8377; 699</span>
+                            <input type="hidden" name="address" id="address_hidden">
+                        </div>
+                        <div class="flex items-center justify-between px-4 my-2">
+                            <span class="font-bold">Mode of Payment: </span>
+                            <span class="sm:text-base text-sm">Cash on Delivery</span>
+                            <input type="hidden" name="paymentMethod" id="payment_method_hidden" value="COD">
+                        </div>
+                        <div class="flex-center px-4 mt-16">
+                            <button id="order_submit_btn" class="bg-purple-500 text-white flex-1 rounded-full mr-4 py-2 font-bold"
+                                type="submit">Place
+                                Order</button>
+                            <div onclick="closeOrder()" id="order_cancel_btn"
+                                class="border-solid border-2 cursor-pointer flex-center border-red-500 text-red-500 rounded-full flex-1 py-2 font-bold">
+                                Cancel</div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
             <h1 class="font-extrabold text-xl ml-2 sm:ml-0">Select a Mode of Payment</h1>
             <p class="text-gray-500 text-sm mt-2 ml-2 sm:ml-0">Select the method you want to pay through</p>
             <div class="flex sm:flex-row flex-col w-full">
@@ -37,13 +64,13 @@
                         <img alt="upi" class="h-8 mr-2" src="https://img.icons8.com/fluency/48/000000/bhim.png" />
                     </div>
                     <div class="mt-8 mb-12 sm:mb-0">
-                        <div class="flex items-center cursor-pointer">
+                        <button onclick="showOverlay()" id="cod_option_btn" class="flex items-center cursor-pointer">
                             <div class="w-16 h-16 mr-4 rounded-lg shadow-xl flex-center bg-orange-100">
                                 <img class="w-10 h-10" alt="COD"
                                     src="https://img.icons8.com/external-icongeek26-outline-icongeek26/64/000000/external-cash-currency-icongeek26-outline-icongeek26-2.png" />
                             </div>
                             <span class="font-semibold">Cash On Delivery</span>
-                        </div>
+                        </button>
 
                         <button id="rzp-button1" class="flex items-center mt-4">
                             <div class="w-16 h-16 mr-4 rounded-lg shadow-xl flex-center bg-orange-100">
@@ -66,17 +93,20 @@
                             </span>
                         </div>
                     </div>
-                    <div style="border: 1px solid #ececec;" class="mt-4 w-11/12 sm:w-max rounded-lg py-2 sm:px-8 flex-center">
+                    <div style="border: 1px solid #ececec;"
+                        class="mt-4 w-11/12 sm:w-max rounded-lg py-2 sm:px-8 flex-center">
                         <div class="sm:w-24 px-4 sm:px-0">
                             <img class="h-8" src="https://img.icons8.com/dotty/80/000000/order-delivered.png"
                                 alt="address">
                         </div>
                         <div class="flex-1">
                             <span class="text-sm">SHIPPING ADDRESS</span>
-                            <span class="font-bold block uppercase text-sm sm:text-base mt-4 sm:mt-0" id="shipping_address_local"></span>
+                            <span class="font-bold block uppercase text-sm sm:text-base mt-4 sm:mt-0"
+                                id="shipping_address_local"></span>
                         </div>
                     </div>
-                    <div style="border: 1px solid #ececec;" class="mt-4 rounded-lg py-2 sm:px-8 px-4 w-11/12 flex-center">
+                    <div style="border: 1px solid #ececec;"
+                        class="mt-4 rounded-lg py-2 sm:px-8 px-4 w-11/12 flex-center">
                         <div class="sm:w-24 mr-4 sm:mr-0">
                             <img class="h-8" src="https://img.icons8.com/wired/64/000000/shopping-cart--v1.png"
                                 alt="user">
@@ -98,7 +128,8 @@
                                 </div>
                                 <div class="flex items-center justify-between mt-2 sm:mt-0">
                                     <span class="font-bold">Total Amount</span>
-                                    <span class="font-bold">&#8377; <%= session.cart.totalPrice + session.cart.shipping.cost %> </span>
+                                    <span class="font-bold">&#8377; <%= session.cart.totalPrice +
+                                            session.cart.shipping.cost %> </span>
                                 </div>
 
                             </div>
@@ -106,7 +137,7 @@
                     </div>
                 </div>
             </div>
-          
+
             <footer class="bg-black text-white text-center py-2 text-sm mt-8">
                 The Basic Co.&copy; || Payments Powered by Razorpay
             </footer>
@@ -117,12 +148,33 @@
     </div>
 
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-    <!-- <script src="/js/app.js"></script> -->
+    <script src="/js/order.js"></script>
     <script>
+        const submitOrderBtn = document.querySelector('button[type="submit"]#order_submit_btn')
+        submitOrderBtn.onclick = placeOrder
+        function placeOrder(e) {
+            e.preventDefault()
+
+            const address = window.localStorage.getItem('address')
+            const { addressObj } = JSON.parse(address)
+
+            const addressInput = document.getElementById('address_hidden')
+            const paymentForm = document.getElementById('cod_order_placement_form')
+
+            addressInput.value = addressObj
+
+            paymentForm.submit()
+        }
+        
+        function closeOrder(e) {
+            const codOrderOverlay = document.getElementById('cod_order_placement_overlay')
+            codOrderOverlay.classList.remove('open')
+        }
+
         const shippingAddressLocal = document.getElementById('shipping_address_local')
 
-        const address = window.localStorage.getItem('address') || ""
-        shippingAddressLocal.innerText = JSON.parse(address).address
+        const address__local = window.localStorage.getItem('address') || ""
+        shippingAddressLocal.innerText = JSON.parse(address__local).address
 
         let user = document.getElementById('hidden_rp_user').value
         user = JSON.parse(user)

@@ -1,0 +1,25 @@
+<html>
+
+<head>
+    <title>Orders - The Basic Co.</title>
+    <%- include('../partials/head.ejs') %>
+</head>
+
+<body>
+    <div class="container mx-auto">
+        <%- include('../partials/navbar.ejs') %>
+            <% if (err.length) {%>
+                <div class="sm:w-9/12 w-10/12 block mx-auto bg-red-200 text-center my-4 p-2 rounded-full font-semibold">
+                    <%= err %>
+                </div>
+                <% } else if (success.length) {%>
+                    <div
+                        class="sm:w-9/12 w-10/12 block mx-auto bg-green-200 text-center my-4 p-2 rounded-full font-semibold">
+                        <%= success %>
+                    </div>
+                    <% } %>
+    </div>
+    <script src="/js/order.js"></script>
+</body>
+
+</html>

@@ -63,7 +63,6 @@ if (useThisAddressBtn) useThisAddressBtn.addEventListener('click', async functio
     e.preventDefault()
 
     const local_form = document.getElementById('existing_address_form')
-    const address = window.localStorage.getItem('address')
 
     if (!address || address === '' || address == undefined) {
         alert('Please Try Adding a New Address')
@@ -87,3 +86,32 @@ if (useThisAddressBtn) useThisAddressBtn.addEventListener('click', async functio
 
     local_form.submit()
 })
+
+function showOverlay() {
+    const codOrderOverlay = document.getElementById('cod_order_placement_overlay')
+    codOrderOverlay.classList.add('open')
+}
+// const submitOrderBtn = document.getElementById('order_submit_btn')
+// submitOrderBtn.addEventListener('click', (e) => {
+//     e.preventDefault()
+//     const addressObj = window.localStorage.getItem('addressObj') || ''
+//     const addressInput = document.getElementById('address_hidden')
+//     const paymentForm = document.getElementById('cod_order_placement_form')
+
+//     addressInput.value = addressObj
+
+//     paymentForm.submit()
+// })
+
+document.getElementById('order_cancel_btn').addEventListener('click', closeOrder)
+function closeOrder(e) {
+    e.preventDefault()
+
+    const codOrderOverlay = document.getElementById('cod_order_placement_overlay')
+    codOrderOverlay.classList.remove('open')
+
+}
+// const codBtn = document.getElementById('cod_option_btn')
+// codBtn.onclick = function() {
+//     alert('clicked')
+// }

@@ -6,6 +6,7 @@ const orderController = require('../controllers/order/orderController')
 const cartController = require('../controllers/product/cartController')
 const productController = require('../controllers/product/productController')
 const paymentController = require('../controllers/order/paymentController')
+const customerOrderController = require('../controllers/order/customerOrdersController')
 
 const authenticate = require('../middleware/authenticate')
 
@@ -28,6 +29,9 @@ router.post('/cart', cartController.addToCart)
 router.get('/cart', cartController.renderCart)
 router.post('/cart/shipping', cartController.changeShipping)
 router.post('/cart/remove', cartController.removeProduct)
+
+router.get('/customer/orders', authenticate, customerOrderController.renderOrders)
+router.post('/order', authenticate, orderController.saveNewOrder)
 
 router.get('/checkout', orderController.renderCheckout)
 router.post('/checkout', authenticate, orderController.initPayment)
