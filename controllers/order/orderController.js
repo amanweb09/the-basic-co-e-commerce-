@@ -87,7 +87,7 @@ class OrderController {
             shipping: cart.shipping.type,
             promoCode: cart.promoCode ? { isApplied: true, code: cart.promo } : { isApplied: false },
             payment: {
-                status: paymentMethod === 'COD' ? false : paymentMethod === 'rp' ? true : false,
+                status: paymentMethod === 'COD' ? false : paymentMethod === 'razorpay' ? true : false,
                 method: paymentMethod
             }
         }

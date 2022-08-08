@@ -23,6 +23,8 @@
                 </div>
             </div>
 
+            <div id="online_payments_form_container" class="hidden"></div>
+
             <div id="cod_order_placement_overlay"
                 class="w-full fixed inset-0 overlay flex-center cod_order_placement_overlay">
                 <div class="bg-white sm:w-96 w-80 sm:h-96 h-80 rounded-xl">
@@ -39,7 +41,8 @@
                             <input type="hidden" name="paymentMethod" id="payment_method_hidden" value="COD">
                         </div>
                         <div class="flex-center px-4 mt-16">
-                            <button id="order_submit_btn" class="bg-purple-500 text-white flex-1 rounded-full mr-4 py-2 font-bold"
+                            <button id="order_submit_btn"
+                                class="bg-purple-500 text-white flex-1 rounded-full mr-4 py-2 font-bold"
                                 type="submit">Place
                                 Order</button>
                             <div onclick="closeOrder()" id="order_cancel_btn"
@@ -165,7 +168,7 @@
 
             paymentForm.submit()
         }
-        
+
         function closeOrder(e) {
             const codOrderOverlay = document.getElementById('cod_order_placement_overlay')
             codOrderOverlay.classList.remove('open')
@@ -188,9 +191,30 @@
             "image": "https://example.com/your_logo",
             "order_id": document.getElementById('hidden_rp_orderId').value, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
             "handler": function (response) {
-                alert(response.razorpay_payment_id);
-                alert(response.razorpay_order_id);
-                alert(response.razorpay_signature)
+                const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = response
+                const paymentCredForm = document.createElement('form')
+                paymentCredForm.action = '/order'
+                paymentCredForm.method = 'POST'
+                paymentCredForm.classList.add('hidden')
+
+                function createInput(name, value) {
+                    const input = document.createElement('input')
+                    input.name = name
+                    input.value = value
+                    input.type = 'hidden'
+                    paymentCredForm.appendChild(input)
+                }
+                const address = window.localStorage.getItem('address')
+                const { addressObj } = JSON.parse(address)
+
+                createInput('razorpay_payment_id', razorpay_payment_id)
+                createInput('razorpay_order_id', razorpay_order_id)
+                createInput('razorpay_signature', razorpay_signature)
+                createInput('address', addressObj)
+                createInput('paymentMethod', 'razorpay')
+
+                document.getElementById('online_payments_form_container').appendChild(paymentCredForm)
+                paymentCredForm.submit()
             },
             "prefill": {
                 "name": user.name,
@@ -206,13 +230,7 @@
         };
         const rzp1 = new Razorpay(options);
         rzp1.on('payment.failed', function (response) {
-            alert(response.error.code);
             alert(response.error.description);
-            alert(response.error.source);
-            alert(response.error.step);
-            alert(response.error.reason);
-            alert(response.error.metadata.order_id);
-            alert(response.error.metadata.payment_id);
         });
         document.getElementById('rzp-button1').onclick = function (e) {
             rzp1.open();
