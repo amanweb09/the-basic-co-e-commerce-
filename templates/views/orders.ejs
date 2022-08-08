@@ -9,20 +9,20 @@
     <div class="container mx-auto">
         <%- include('../partials/navbar.ejs') %>
             <% if (err.length) {%>
-                <div class="sm:w-9/12 w-10/12 block mx-auto bg-red-200 text-center my-4 p-2 rounded-full font-semibold">
+                <div class="sm:w-9/12 w-10/12 block mx-auto bg-red-100 text-red-600 text-center my-4 p-2 rounded-full font-semibold">
                     <%= err %>
                 </div>
                 <% } else if (success.length) {%>
                     <div
-                        class="sm:w-9/12 w-10/12 block mx-auto bg-green-200 text-center my-4 p-2 rounded-full font-semibold">
+                        class="sm:w-9/12 w-10/12 block mx-auto bg-green-100 text-green-600 text-center my-4 p-2 rounded-full font-semibold">
                         <%= success %>
                     </div>
                     <% } %>
                         <% if (orders.length) { %>
-                            <h1 class="font-extrabold text-xl mt-6 sm:mx-0 mx-2">Your Orders</h1>
+                            <h1 class="font-extrabold text-xl mt-6 sm:mx-0 mx-2 pb-4 sm:pb-0">Your Orders</h1>
                             <div class="w-full py-6 sm:px-4 px-2 bg-gray-50">
                                 <% orders.map((order)=> { %>
-                                    <div class="w-full bg-white p-2 rounded-md mb-4">
+                                    <div class="w-full bg-white p-4 rounded-md mb-4">
                                         <span class="font-bold uppercase text-gray-600">
                                             <%= order.orderId %>
                                         </span>
@@ -70,7 +70,7 @@
                                         <div class="flex items-center justify-between mt-6">
                                             <a class="sm:w-48 w-40 text-sm sm:text-base h-10 flex-center bg-orange-500 text-white font-bold hover:bg-orange-600"
                                                 href="/orders/status/<%= order.orderId %>">TRACK STATUS</a>
-                                            <a class="sm:w-48 text-sm sm:text-base h-10 flex-center text-gray-600 hover:text-red-500"
+                                            <a class="sm:w-48 text-xs sm:text-base h-10 flex-center text-gray-600 hover:text-red-500"
                                                 href="/orders/cancel/<%= order.orderId %>">cancel order</a>
                                         </div>
                                     </div>

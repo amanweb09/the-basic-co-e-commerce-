@@ -1002,6 +1002,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-bottom-color: rgb(251 146 60 / var(--tw-border-opacity));
 }
 
+.border-b-gray-500 {
+  --tw-border-opacity: 1;
+  border-bottom-color: rgb(107 114 128 / var(--tw-border-opacity));
+}
+
 .bg-black {
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
@@ -1072,6 +1077,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(254 242 242 / var(--tw-bg-opacity));
 }
 
+.bg-red-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 226 226 / var(--tw-bg-opacity));
+}
+
+.bg-green-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 252 231 / var(--tw-bg-opacity));
+}
+
 .p-4 {
   padding: 1rem;
 }
@@ -1137,6 +1152,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .pt-4 {
   padding-top: 1rem;
+}
+
+.pb-4 {
+  padding-bottom: 1rem;
 }
 
 .text-center {
@@ -1238,6 +1257,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   color: rgb(234 88 12 / var(--tw-text-opacity));
 }
 
+.text-green-600 {
+  --tw-text-opacity: 1;
+  color: rgb(22 163 74 / var(--tw-text-opacity));
+}
+
+.text-red-600 {
+  --tw-text-opacity: 1;
+  color: rgb(220 38 38 / var(--tw-text-opacity));
+}
+
 .underline {
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
@@ -1329,6 +1358,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .focus\:border-b-orange-500:focus {
   --tw-border-opacity: 1;
   border-bottom-color: rgb(249 115 22 / var(--tw-border-opacity));
+}
+
+.focus\:border-b-pink-500:focus {
+  --tw-border-opacity: 1;
+  border-bottom-color: rgb(236 72 153 / var(--tw-border-opacity));
 }
 
 .focus\:bg-orange-500:focus {
@@ -1473,6 +1507,14 @@ Ensure the default browser behavior of the `hidden` attribute.
     width: 12rem;
   }
 
+  .sm\:w-1\/2 {
+    width: 50%;
+  }
+
+  .sm\:w-5\/6 {
+    width: 83.333333%;
+  }
+
   .sm\:grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
@@ -1488,6 +1530,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   .sm\:bg-gray-100 {
     --tw-bg-opacity: 1;
     background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+  }
+
+  .sm\:p-2 {
+    padding: 0.5rem;
+  }
+
+  .sm\:p-4 {
+    padding: 1rem;
   }
 
   .sm\:px-0 {
@@ -1507,6 +1557,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
   .sm\:pb-0 {
     padding-bottom: 0px;
+  }
+
+  .sm\:pt-6 {
+    padding-top: 1.5rem;
   }
 
   .sm\:text-base {

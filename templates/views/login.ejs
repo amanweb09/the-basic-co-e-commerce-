@@ -7,72 +7,56 @@
 
 <body>
     <%- include('../partials/navbar.ejs') %>
-        <div class="container mx-auto">
+        <div class="container mx-auto bg-gray-50 sm:pt-6">
+            
+            <div class="flex-center">
+                <div class="bg-white sm:w-1/2 w-11/12 sm:p-4 py-4 my-4 rounded-xl">
+                    <h4 class="text-center">Welcome</h4>
+                    <h1 class="text-center text-xl font-semibold mt-4 mb-12">Login to Your Account</h1>
 
-            <h4 class="text-center text-lg mt-10">Welcome</h4>
-
-        <h1 class="text-center text-3xl font-semibold mt-4 mb-12">Login to Your Account</h1>
-
-        <% if (errMessage.length) { %> 
-            <div class="w-5/6 h-10 my-4 rounded-lg mx-auto bg-red-200 flex-center">
-                <h1 class="text-center font-semibold"><%= errMessage %></h1>
+                    <% if (errMessage.length) { %>
+                            <h1 class="text-center text-red-500 font-semibold text-sm">
+                                <%= errMessage %>
+                            </h1>
+                        <% } %>
+                            <% if (successMessage.length) { %>
+                                    <h1 class="text-center text-green-500 font-semibold text-sm">
+                                        <%= successMessage %>
+                                    </h1>
+                                <% } %>
+    
+                    <form class="pt-4 block" action="#" method="POST">
+                        <label class="text-center block sm:mt-8" for="name">
+                            Email or Telephone Number
+                            <span class="text-red-500 font-bold">*</span>
+                        </label>
+                        <input style="border: 1px solid #ececec;"
+                            class="block mx-auto w-11/12 px-2 h-10 border-b-2 border-b-solid border-b-gray-500 focus:border-b-pink-500"
+                            placeholder="Email or telephone number here ..." type="text" required name="email_tel">
+    
+    
+                        <label class="text-center block mt-8" for="password">
+                            Password
+                            <span class="text-red-500 font-bold">*</span>
+                        </label>
+                        <input style="border: 1px solid #ececec;"
+                            class="block mx-auto w-11/12 px-2 h-10 border-b-2 border-b-solid border-b-gray-500 focus:border-b-pink-500" placeholder="Password here ..."
+                            required type="password" name="password">
+    
+                        <button type="submit"
+                            class="w-56 h-10 font-bold text-white block mx-auto mt-12 mb-6 rounded-full bg-orange-500 hover:bg-orange-600">
+                            Login
+                        </button>
+                    </form>
+    
+                    <a class="font-semibold text-sm mb-4 mt-8 w-max block mx-auto hover:text-orange-500" href="#">
+                        Forgot Password?
+                    </a>
+                    <p class="text-center mb-6">Don't have an account?
+                        <a class="font-bold hover:text-orange-500" href="/signup">Signup</a>
+                    </p>
+                </div>
             </div>
-            <% } %> 
-        <% if (successMessage.length) { %> 
-            <div class="w-5/6 h-10 my-4 rounded-lg mx-auto bg-green-200 flex-center">
-                <h1 class="text-center font-semibold"><%= successMessage %></h1>
-            </div>
-            <% } %> 
-
-            <form 
-            class="pt-4 block"
-            action="#" 
-            method="POST">
-                <label 
-                class="text-center block mt-8"
-                for="name">
-                    Email or Telephone Number
-                    <span class="text-red-500 font-bold">*</span>
-                </label>
-                <input 
-                style="border: 1px solid #ececec;"
-                class="block mx-auto w-5/6 px-2 h-8 rounded-full singup_input"
-                placeholder="Email or telephone number here ..."
-                type="text" 
-                required
-                name="email_tel">
-
-                
-            <label 
-            class="text-center block mt-8"
-            for="password">
-                Password
-                <span class="text-red-500 font-bold">*</span>
-            </label>
-            <input
-            style="border: 1px solid #ececec;"
-            class="block mx-auto w-5/6 px-2 h-8 rounded-full singup_input"
-            placeholder="Password here ..."
-            required
-            type="password" 
-            name="password">
-
-            <button 
-            type="submit"
-            class="w-56 h-10 font-bold text-white block mx-auto mt-12 mb-6 rounded-full bg-orange-500 hover:bg-orange-600">
-                Login
-            </button>
-            </form>
-
-            <a
-                class="font-semibold text-sm mb-4 mt-8 w-max block mx-auto hover:text-orange-500" 
-                href="#">
-                Forgot Password?
-            </a>
-            <p class="text-center mb-6">Don't have an account? 
-                <a
-                class="font-bold hover:text-orange-500" 
-                href="/signup">Signup</a></p>
         </div>
 </body>
 
