@@ -18,6 +18,60 @@
                         <%= success %>
                     </div>
                     <% } %>
+                        <h1 class="font-extrabold text-xl mt-6 sm:mx-0 mx-2">Your Orders</h1>
+                        <% if (orders) { orders.map((order)=> { %>
+                            <div class="w-full py-6 sm:px-4 px-2 bg-gray-50">
+                                <div class="w-full bg-white p-2 rounded-md mb-4">
+                                    <span class="font-bold uppercase text-gray-600">
+                                        <%= order.orderId %>
+                                    </span>
+                                    <div class="py-4">
+                                        <div class="flex text-sm">
+                                            <span class="">Total Amount: &nbsp;</span>
+                                            <span class="font-semibold">&#8377;<%= order.totalPrice %></span>
+                                        </div>
+                                        <div class="flex text-sm">
+                                            <span class="">Mode of Payment: &nbsp;</span>
+                                            <span class="font-semibold">
+                                                <%= order.payment.method %>
+                                            </span>
+                                        </div>
+                                        <div class="flex text-sm mt-2">
+                                            <span class="">Placed At &nbsp;</span>
+                                            <span class="font-semibold text-orange-500">
+                                                <%= moment(order.createdAt).format('MMMM Do YYYY, h:mm a') %>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <h2 class="font-bold mt-2">ITEMS:</h2>
+                                    <% order.products.map((product)=> { product.variants.map((variant) => { %>
+                                        <div class="flex items-center mt-4">
+                                            <img src="/images/model.jpg" class="h-20" alt="product image">
+                                            <div class="ml-4">
+                                                <span class="uppercase">
+                                                    <%= product._id.title %>
+                                                </span>
+                                                <div class="flex items-center">
+                                                    <div class="cart_color_badge mt-2 w-6 h-6 rounded-md"
+                                                        data-color="<%= variant.color%>">
+                                                    </div>
+                                                    <div
+                                                        class="mt-2 w-6 h-6 rounded-md text-sm flex-center uppercase bg-gray-100 ml-4">
+                                                        <%= variant.size %>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <% })}) %>
+                                            <div class="flex items-center justify-between mt-6">
+                                                <a class="sm:w-48 w-40 text-sm sm:text-base h-10 flex-center bg-orange-500 text-white font-bold hover:bg-orange-600"
+                                                    href="/orders/status/<%= order.orderId %>">TRACK STATUS</a>
+                                                <a class="sm:w-48 text-sm sm:text-base h-10 flex-center text-gray-600 hover:text-red-500"
+                                                    href="/orders/cancel/<%= order.orderId %>">cancel order</a>
+                                            </div>
+                                </div>
+                            </div>
+                            <% })} %>
     </div>
     <script src="/js/order.js"></script>
 </body>

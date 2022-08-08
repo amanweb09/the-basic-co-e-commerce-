@@ -13,8 +13,8 @@ const orderSchema = new Schema({
         required: true
     },
     address: {
-        customerName: { type: String, required: true },
-        customerTel: { type: String, required: true },
+        customerName: { type: String },
+        customerTel: { type: String },
         addressLine1: { type: String, required: true },
         addressLine2: { type: String, required: true },
         landmark: { type: String, required: true },

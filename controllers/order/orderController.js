@@ -103,6 +103,7 @@ class OrderController {
         const saveOrder = await createNewOrder(order)
 
         if (saveOrder) {
+            delete req.session.cart
             req.flash('success', 'Your Order has Been Placed!')
             return res.status(201).redirect('/customer/orders')
         }
