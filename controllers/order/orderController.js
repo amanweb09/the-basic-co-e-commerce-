@@ -88,7 +88,12 @@ class OrderController {
             promoCode: cart.promoCode ? { isApplied: true, code: cart.promo } : { isApplied: false },
             payment: {
                 status: paymentMethod === 'COD' ? false : paymentMethod === 'razorpay' ? true : false,
-                method: paymentMethod
+                method: paymentMethod,
+                razorpay: paymentMethod === 'razorpay' ? {
+                    razorpay_payment_id: req.body.razorpay_payment_id,
+                    razorpay_order_id: req.body.razorpay_order_id,
+                    razorpay_signature: req.body.razorpay_signature
+                }: {}
             }
         }
 
