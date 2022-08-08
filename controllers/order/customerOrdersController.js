@@ -4,7 +4,7 @@ const moment = require('moment')
 class CustomerOrderController {
 
     async renderOrders(req, res) {
-        const orders = await findOrders({ customer: req.user._id })
+        const orders = await findOrders({ customer: req.user._id, status: { $ne: 'cancelled' } })
 
         if (orders) {
             return res.status(200).render('orders', {
@@ -19,7 +19,7 @@ class CustomerOrderController {
             return res.status(200).render('orders', {
                 success: req.flash('success'),
                 err: req.flash('err')
-            }) 
+            })
         }
     }
 }
