@@ -213,6 +213,23 @@ button#add_to_cart_btn.show_loading .add_to_cart_text{
 .cod_order_placement_overlay.open {
     display: flex;
 }
+.admin_nav_link {
+    color: #d1d5db;
+}
+.admin_nav_link.active {
+    color: #fff;
+    background: #f59e0b;
+}
+.sales_chart_canvas {
+    width: 400px !important;
+    height: 400px !important;
+    /* background: linear-gradient(135deg, #ffcf7c, #ffe0a9); */
+    /* background: #ffcf7c; */
+}
+.payment_chart_canvas {
+    width: 200px !important;
+    height: 200px !important;
+}
 @media only screen and (max-width: 500px) {
     .steps::before {
         content: '';
