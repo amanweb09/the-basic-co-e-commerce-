@@ -1,5 +1,6 @@
 const { validateToken } = require('../services/tokenService');
 const { findUsers } = require('../services/userService')
+const { TokenExpiredError } = require('jsonwebtoken')
 
 const authenticate = async (req, res, next) => {
 

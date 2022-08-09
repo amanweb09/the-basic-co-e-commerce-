@@ -1,4 +1,4 @@
-const { sign, verify } = require('jsonwebtoken')
+const { sign, verify, TokenExpiredError } = require('jsonwebtoken')
 
 class TokenService {
 
@@ -9,7 +9,15 @@ class TokenService {
     }
 
     validateToken(token, secret) {
-        return verify(token, secret)
+        return verify(token, secret, (err, payload) => {
+            if (err) {
+                return null
+            }
+            if (payload) {
+                return payload
+            }
+        })
+
     }
 
 }   
