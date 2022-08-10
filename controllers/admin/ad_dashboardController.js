@@ -63,7 +63,8 @@ class DashboardController {
             totalSales,
             statusWiseOrders,
             username: req.user.name,
-            date: `${new Date().getDate()} ${new Date().getMonth()}, ${new Date().getFullYear()}`
+            date: moment(Date.now()).format('MMMM DD YYYY')
+            // date: `${new Date().getDate()} ${moment(new Date().getMonth()).format('MMMM')}, ${new Date().getFullYear()}`
         })
 
     }
