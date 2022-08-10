@@ -12,8 +12,11 @@ const authenticate = require('../middleware/authenticate')
 
 router.get('/', (req, res) => {
     return res
-    .status(200)
-    .render('index')
+        .status(200)
+        .render('index', {
+            errMessage: req.flash('errMessage'),
+            successMessage: req.flash('successMessage')
+        })
 })
 
 router.get('/signup', signupController.render)

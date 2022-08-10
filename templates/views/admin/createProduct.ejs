@@ -36,14 +36,14 @@
                         <a class="admin_nav_link flex-center w-full py-2 font-bold rounded-full mt-4" href="#">Blogs</a>
                     </div>
                 </div>
-                <div class="flex-1 bg-neutral-50 px-4">
-                    <div class="flex items-center justify-between">
+                <div class="flex-1 bg-neutral-50">
+                    <div class="flex items-center justify-between w-full px-4 bg-white shadow-md">
                         <div class="date_nav font-bold capitalize h-10 flex-center py-8 text-sm">october 19, 2022</div>
                         <div
                             class="h-10 px-4 py-2 text-sm text-gray-500 flex-center rounded-full border-solid border-2 border-amber-500">
                             EESH CHADHA</div>
                     </div>
-                    <h1 class="font-bold text-xl text-center my-4">Create a Product</h1>
+                    <h1 class="font-extrabold uppercase text-xl text-center my-4">Create a Product</h1>
                     <% if (successMessage.length) { %>
                         <div class="w-9/12 bg-green-100 block mx-auto my-4 py-2 rounded-full text-green-500 text-center font-bold text-lg">
                             <%= successMessage %>
@@ -53,82 +53,84 @@
                                 <%= errMessage %>
                             </div>
                             <% } %>
-                                <form action="/admin/products/create" method="POST">
-                                    <label for="title">Product Title<span class="text-red-500">*</span></label>
+                                <form class="px-4" action="/admin/products/create" method="POST">
+                                    <label class="font-bold" for="title">Product Title<span class="text-red-500">*</span></label>
                                     <input name="title"
-                                        class="sm:w-9/12 w-11/12 h-8 border-b-2 border-b-solid border-b-orange-200 focus:bg-orange-100 block mb-4"
+                                    placeholder="Ex. Round-Neck T-Shirt"
+                                        class="sm:w-9/12 w-11/12 h-8 px-4 border-b-2 rounded-full border-b-solid border-b-orange-200 focus:bg-orange-100 block mb-6"
                                         type="text">
 
-                                    <label for="price">Price<span class="text-red-500">*</span></label>
+                                    <label class="font-bold" for="price">Price<span class="text-red-500">*</span></label>
                                     <input name="price"
-                                        class="sm:w-9/12 w-11/12 h-8 border-b-2 border-b-solid border-b-orange-200 focus:bg-orange-100 block mb-4"
+                                    placeholder="Ex. 599"
+                                        class="sm:w-9/12 w-11/12 px-4 rounded-full h-8 border-b-2 border-b-solid border-b-orange-200 focus:bg-orange-100 block mb-6"
                                         type="text">
 
-                                    <label for="desc">Description<span class="text-red-500">*</span></label>
-                                    <input name="desc" spellcheck="true"
-                                        class="sm:w-9/12 w-11/12 h-8 border-b-2 border-b-solid border-b-orange-200 focus:bg-orange-100 block mb-4"
+                                    <label class="font-bold" for="desc">Description<span class="text-red-500">*</span></label>
+                                    <input placeholder="Something about the product..." name="desc" spellcheck="true"
+                                        class="sm:w-9/12 w-11/12 px-4 rounded-full h-8 border-b-2 border-b-solid border-b-orange-200 focus:bg-orange-100 block mb-6"
                                         type="text">
 
-                                    <label class="mt-8 block" for="category">Select a Category <span
+                                    <label class="mt-8 block font-bold" for="category">Select a Category <span
                                             class="text-red-500">*</span></label>
-                                    <select class="w-64 py-2 block sm:bg-gray-100" name="category" id="category">
+                                    <select class="w-64 py-2 block rounded-full px-4 sm:bg-orange-100" name="category" id="category">
                                         <option value=""></option>
                                         <% categories.map((cat)=> { %>
-                                            <option value="<%= cat.title %>">
+                                            <option class="capitalize" value="<%= cat.title %>">
                                                 <%= cat.title %>
                                             </option>
                                             <% }) %>
                                     </select>
 
-                                    <label class="mt-8 block" for="subcategory">Select a Sub-Category</label>
-                                    <select class="w-64 py-2 block sm:bg-gray-100 mb-4" name="subCategory"
+                                    <label class="mt-8 block font-bold" for="subcategory">Select a Sub-Category</label>
+                                    <select class="w-64 py-2 block rounded-full px-4 sm:bg-orange-100 mb-4" name="subCategory"
                                         id="subCategory">
                                         <option value=""></option>
                                         <% subCategories.map((subcat)=> { %>
-                                            <option value="<%= subcat.title %>">
+                                            <option class="capitalize" value="<%= subcat.title %>">
                                                 <%= subcat.title %>
                                             </option>
                                             <% }) %>
                                     </select>
 
-                                    <label class="mt-8 block" for="tags">Tags</label>
+                                    <label class="mt-8 block font-bold" for="tags">Tags</label>
                                     <input name="tags" placeholder="Separated by commas without any spaces"
-                                        class="sm:w-9/12 w-11/12 h-8 border-b-2 border-b-solid border-b-orange-200 focus:bg-orange-100 block mb-4"
+                                        class="sm:w-9/12 w-11/12 px-4 rounded-full h-8 border-b-2 border-b-solid border-b-orange-200 focus:bg-orange-100 block mb-4"
                                         type="text">
 
-                                    <label class="mt-8 block" for="img_primary">Primary Image <span
+                                    <label class="mt-8 block font-bold" for="img_primary">Primary Image <span
                                             class="text-red-500">*</span></label>
                                     <input class="mt-2 mb-8" accept="image/*" type="file" name="imgPrimary" id="img_p">
 
-                                    <label class=" block" for="img_primary">Secondary Images</label>
+                                    <label class=" block font-bold" for="img_primary">Secondary Images</label>
                                     <input class="mt-2 mb-8" multiple accept="image/*" type="file" name="imgSec"
                                         id="img_p">
 
-                                    <label class="block" for="colors">Colors Available</label>
+                                    <label class="block font-bold" for="colors">Colors Available</label>
                                     <div class="flex items-center justify-start">
                                         <input placeholder="Enter a color" id="color_selector"
                                             class="sm:w-5/12 w-6/12 h-8 border-b-2 border-b-solid border-b-orange-200 focus:bg-orange-100 block mb-4"
                                             type="text">
                                         <div onclick="addToColors()"
-                                            class="w-8 h-8 ml-2 cursor-pointer rounded-full bg-orange-500 text-2xl font-bold flex-center">
+                                            class="w-8 h-8 ml-2 text-white cursor-pointer rounded-full bg-orange-500 text-2xl font-extrabold flex-center">
                                             &#8594;</div>
                                     </div>
                                     <div class="flex items-center justify-start p-2 badge_container"></div>
 
-                                    <label for="colors">Sizes Available</label>
+                                    <label class="font-bold" for="colors">Sizes Available</label>
                                     <div class="flex items-center justify-start">
                                         <input placeholder="Enter a Size" id="size_selector"
                                             class="sm:w-5/12 w-6/12 h-8 border-b-2 border-b-solid border-b-orange-200 focus:bg-orange-100 block mb-4"
                                             type="text">
                                         <div onclick="addToSizes()"
-                                            class="w-8 h-8 ml-2 cursor-pointer rounded-full bg-orange-500 text-2xl font-bold flex-center">
+                                            class="w-8 h-8 ml-2 cursor-pointer rounded-full bg-orange-500 text-white text-2xl font-extrabold flex-center">
                                             &#8594;</div>
                                     </div>
                                     <div class="flex items-center justify-start p-2 size_badge_container"></div>
 
-                                    <label class="mt-8 block" for="category">Select Season <span
+                                    <label class="mt-8 block font-bold" for="category">Select Season <span
                                             class="text-red-500">*</span></label>
-                                    <select class="w-64 py-2 block sm:bg-gray-100" name="season" id="season">
+                                    <select class="w-64 py-2 block rounded-full px-4 sm:bg-orange-100" name="season" id="season">
                                         <option value=""></option>
                                         <option value="winter">Winter</option>
                                         <option value="summer">Summer</option>

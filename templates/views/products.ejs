@@ -18,11 +18,11 @@
                     <div class="flex-center flex-col w-full shadow-xl px-2">
                         <img class="w-full" src="/images/model.jpg" alt="product">
                         <div class="flex-1">
-                            <p class="capitalize"><%= product.title %></p>
+                            <p class="capitalize text-sm mt-2 text-center"><%= product.title %></p>
                             <p class="text-center font-bold">&#8377;<%= product.price %></p>
                             <button
                             onclick="redirect('/product/<%= product._id %>')" 
-                            class="bg-orange-400 w-32 font-bold p-2 my-2 text-sm">View Product</button>
+                            class="bg-orange-400 w-32 block mx-auto font-bold p-2 my-2 text-sm">View Product</button>
                         </div>
                     </div>
                         <% }) %>

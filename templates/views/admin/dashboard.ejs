@@ -28,48 +28,48 @@
         </div>
         <div class="w-10/12 pt-6 px-4 bg-neutral-50">
             <div class="flex items-center justify-between">
-                <div class="date_nav font-bold capitalize h-10 flex-center py-8 text-sm">october 19, 2022</div>
+                <div class="date_nav font-bold capitalize h-10 flex-center py-8 text-sm"><%= date %></div>
                 <div
-                    class="h-10 px-4 py-2 text-sm text-gray-500 flex-center rounded-full border-solid border-2 border-amber-500">
-                    EESH CHADHA</div>
+                    class="h-10 px-4 py-2 text-sm text-gray-500 flex-center rounded-full border-solid border-2 border-amber-500 uppercase">
+                    <%= username %></div>
             </div>
             <div class="w-full">
                 <div class="flex items-center">
                     <div class="w-48 h-32 rounded-md flex-center flex-col mr-8 shadow-lg bg-white">
                         <span class="font-bold text-sm uppercase text-gray-500">Total Sales in January</span>
                         <div class="flex">
-                            <span class="text-3xl font-bold text-amber-500">&#8377; 5900</span>
+                            <span class="text-3xl font-bold text-amber-500">&#8377; <%= totalSales %></span>
                         </div>
                     </div>
                     <div
                         class="w-48 h-32 bg-sky-50 rounded-md flex-center flex-col border-solid border-2 border-sky-300">
                         <span class="font-bold text-sm uppercase">new orders</span>
                         <div class="flex">
-                            <span class="text-3xl font-bold text-sky-500">12</span>
+                            <span class="text-3xl font-bold text-sky-500"><%= statusWiseOrders.new %></span>
                         </div>
                     </div>
                     <div
                         class="w-48 h-32 bg-purple-50 rounded-md mx-8 flex-center flex-col  border-solid border-2 border-purple-300">
                         <span class="font-bold text-sm uppercase">Pending Orders</span>
                         <div class="flex">
-                            <span class="text-3xl font-bold text-purple-500">8</span>
+                            <span class="text-3xl font-bold text-purple-500"><%= statusWiseOrders.pending %></span>
                         </div>
                     </div>
                     <div
                         class="w-48 h-32 bg-amber-50 rounded-md flex-center flex-col  border-solid border-2 border-amber-300">
                         <span class="font-bold text-sm uppercase">Delivered Orders</span>
                         <div class="flex">
-                            <span class="text-3xl font-bold text-amber-500">140</span>
+                            <span class="text-3xl font-bold text-amber-500"><%= statusWiseOrders.completed %></span>
                         </div>
                     </div>
                 </div>
                 <div class="flex items-center">
                     <div class="flex-center flex-col w-max">
-                        <canvas id="sales_chart_canvas" class="sales_chart_canvas mt-8"></canvas>
+                        <canvas data-sales="<%= JSON.stringify(monthWiseSale) %>" id="sales_chart_canvas" class="sales_chart_canvas mt-8"></canvas>
                         <span class="font-bold">Sales Analysis</span>
                     </div>
                     <div class="flex-center flex-col w-max ml-10">
-                        <canvas id="payment_chart_canvas" class="payment_chart_canvas mt-8"></canvas>
+                        <canvas data-payment="<%= JSON.stringify(paymentWiseSales) %>" id="payment_chart_canvas" class="payment_chart_canvas mt-8"></canvas>
                         <span class="font-bold">Payment Method Analysis</span>
                     </div>
                 </div>
@@ -90,12 +90,15 @@
         }
 
         const sales_ctx = document.getElementById('sales_chart_canvas');
+        const sales = JSON.parse(sales_ctx.dataset.sales)
         drawChart({
             ctx: sales_ctx,
             type: 'bar',
             label: 'sales in 2022',
-            labels: ['january', 'feburary', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'],
-            data: [5, 15, 25, 30, 45, 30, 15, 60, 62, 55, 75, 100],
+            labels: Object.keys(sales),
+            // labels: ['january', 'feburary', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'],
+            // data: [5, 15, 25, 30, 45, 30, 15, 60, 62, 55, 75, 100],
+            data: Object.values(sales),
             borderColor: new Array(12).fill('white'),
             backgroundColor: new Array(12).fill('orange'),
             borderWidth: 5,
@@ -103,12 +106,14 @@
         })
 
         const payment_ctx = document.getElementById('payment_chart_canvas')
+        const payment = JSON.parse(payment_ctx.dataset.payment)
+
         drawChart({
             ctx: payment_ctx,
             type: 'doughnut',
             label: 'Payment Types',
-            labels: ['cash', 'online'],
-            data: [10, 60],
+            labels: Object.keys(payment),
+            data: Object.values(payment),
             backgroundColor: ['rgb(167, 255, 35)', 'rgb(35, 112, 255)'],
         })
     </script>
