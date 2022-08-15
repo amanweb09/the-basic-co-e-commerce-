@@ -41,4 +41,8 @@ router.post('/checkout', authenticate, orderController.initPayment)
 
 router.get('/payment/:orderId', authenticate, paymentController.renderPaymentsPage)
 
+router.get('/order/status/:_id', customerOrderController.renderStatusPage)
+
+
+
 module.exports = router

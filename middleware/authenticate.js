@@ -4,6 +4,8 @@ const { TokenExpiredError } = require('jsonwebtoken')
 
 const authenticate = async (req, res, next) => {
 
+    const originalUrl = req.originalUrl
+    req.session.returnTo = originalUrl
     if (!req.cookies) {
         req.flash('errMessage', 'Please login to continue!')
         return res

@@ -1,0 +1,52 @@
+<html>
+
+<head>
+    <title>Status - The Basic Co</title>
+    <%- include('../partials/head.ejs') %>
+</head>
+
+<body>
+    <div class="container mx-auto">
+        <%- include('../partials/navbar.ejs') %>
+            <div
+                class="w-full h-10 px-2 sm:px-0 flex items-center justify-between bg-neutral-50 border-b-2 border-b-solid border-b-gray-100">
+                <span data-orderId="<%= orderId %>" id="orderId" class="font-bold text-gray-500 uppercase ">
+                    <%= orderId %>
+                </span>
+            </div>
+            <div class="w-full bg-neutral-50 relative">
+                <div class="rounded-full w-8/12 py-2 px-4 shadow-xl fixed top-32 bg-white right-0 text-center text-sm">
+                    Status Updated At: <span class="font-semibold block"><%= moment(updatedAt).format('Do MMMM YYYY hh:mm a') %></span>
+                </div>
+                <div class="w-full flex-center pt-8">
+                    <% const statuses={ 'placed' : 'click.png' , 'confirmed' : 'confirm.png' , 'packed': 'logistics.png' , 'out for delivery' : 'shipped.png' , 'completed' : 'delivered.png', 'cancelled' : 'close.png' , } %>
+
+                        <div class="w-48 h-48 bg-white flex-center flex-col rounded-lg shadow-xl">
+                            <img src="/images/<%= statuses[status] %>" alt="status" class="w-20">
+                            <span class="font-bold uppercase mt-6">
+                                <%= status %>
+                            </span>
+                        </div>
+                </div>
+
+                <div class="bg-white rounded-md w-10/12 mx-auto block mt-6 pt-8 pb-4">
+                    <span class="font-bold capitalize text-center block">estimated Delivery date</span>
+                    <span class="block text-center font-extrabold text-green-500 text-lg mt-2 mb-4"><%= moment(createdAt).add(3, 'days').format('Do MMMM YYYY') %></span>
+                </div>
+            </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io()
+
+        const orderId = document.querySelector('span#orderId').dataset.orderId
+        socket.emit('join_user', { orderId })
+
+        socket.on('status_updated', (status) => {
+            console.log(status);
+        })
+    </script>
+</body>
+
+</html>

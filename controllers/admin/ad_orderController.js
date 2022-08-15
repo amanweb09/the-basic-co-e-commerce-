@@ -13,11 +13,16 @@ class AdminProductController {
     async changeOrderStatus(req, res) {
         const { status, _id } = req.body
         if (!status || !_id) {
-            return res.status(422).json({err: 'please enter a valid status and id'})
+            return res.status(422).json({ err: 'please enter a valid status and id' })
         }
         try {
-            const order = await Orders.updateOne({ _id }, { status })
-            return res.status(200).json({ status: order.status })
+            await Orders.updateOne({ _id }, { status })
+            const [order] = await findOrders({ _id })
+
+            const emitter = req.app.get('emitter')
+            emitter.emit('status_updated', { status, orderId: order.orderId })
+
+            return res.status(200).json({ status })
         } catch (error) {
             console.log(error);
             return res.status(500).json({ err: 'Server Unavailable! Please Retry' })

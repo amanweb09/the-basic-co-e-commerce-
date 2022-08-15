@@ -12,10 +12,12 @@ db()
 const path = require('path')
 const views_path = path.join(__dirname, './templates/views')
 const static_path = path.join(__dirname, './public')
-
+const eventEmitter = require('events')
+const emitter = new eventEmitter()
 
 app.set('view engine', 'ejs')
 app.set('views', views_path)
+app.set('emitter', emitter)
 
 const session = require('express-session')
 const flash = require('connect-flash')
@@ -51,5 +53,19 @@ app.use(express.static(static_path))
 app.use(require('./router/routes'))
 app.use('/admin', require('./router/admin'))
 
+const io = require('socket.io')(server)
 server
     .listen(PORT, () => console.log(`Listening server on port ${PORT}!`))
+
+io.on('connection', (socket) => {
+
+    socket.on('join-user', ({ orderId }) => {
+        socket.join(orderId)
+    })
+
+    emitter.on('status_updated', ({ status, orderId }) => {
+        socket
+            .to(orderId)
+            .emit('status_updated', { status })
+    })
+})

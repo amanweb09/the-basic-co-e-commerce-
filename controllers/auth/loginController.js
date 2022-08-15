@@ -41,8 +41,11 @@ class LoginController {
             req.flash('successMessage', 'Logged in Successfully!')
             res.cookie('at', at)
             res.cookie('rt', rt)
-            return res
-                .redirect('/')
+
+            const redirectTo = req.session.returnTo || '/'
+            res.redirect(redirectTo)
+            delete req.session.returnTo
+            return;
         }
 
         req.flash('errMessage', 'Invalid credentials!')

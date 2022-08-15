@@ -38,7 +38,7 @@
                                                 </span>
                                             </div>
                                             <div class="flex text-sm mt-2">
-                                                <span class="">Placed At &nbsp;</span>
+                                                <img src="/images/clock.png" alt="" class="w-4 h-4 mr-2">
                                                 <span class="font-semibold text-orange-500">
                                                     <%= moment(order.createdAt).format('MMMM Do YYYY, h:mm a') %>
                                                 </span>
@@ -69,9 +69,9 @@
                                         </div>
                                         <div class="flex items-center justify-between mt-6">
                                             <a class="sm:w-48 w-40 text-sm sm:text-base h-10 flex-center bg-orange-500 text-white font-bold hover:bg-orange-600"
-                                                href="/orders/status/<%= order.orderId %>">TRACK STATUS</a>
+                                                href="/order/status/<%= order._id %>">TRACK STATUS</a>
                                             <a class="sm:w-48 text-xs sm:text-base h-10 flex-center text-gray-600 hover:text-red-500"
-                                                href="/orders/cancel/<%= order.orderId %>">cancel order</a>
+                                                href="/order/cancel/<%= order._id %>">cancel order</a>
                                         </div>
                                     </div>
                             </div>
