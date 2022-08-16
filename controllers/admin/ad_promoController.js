@@ -1,4 +1,4 @@
-const { findPromo, createPromo } = require('../../services/promoService')
+const { findPromo, createPromo, updatedPromo, deletePromoCode } = require('../../services/promoService')
 
 class PromoController {
 
@@ -8,7 +8,7 @@ class PromoController {
             success: req.flash('success'),
             err: req.flash('err'),
             promos
-        })   
+        })
     }
 
     async createPromo(req, res) {
@@ -43,6 +43,36 @@ class PromoController {
 
         req.flash('err', 'Something Went Wrong!')
         return res.status(422).redirect('/admin/promo')
+    }
+
+    async changePromoStatus(req, res) {
+        const { _id, status } = req.body
+
+        if (!_id || !status) {
+            return res.status(422).json({ err: 'Promo ID and Status are Required!' })
+        }
+
+        const changes = await updatedPromo(_id, { status })
+        if (changes) {
+            return res.status(200).json({ message: 'Status Updated Successfully!' })
+        }
+
+        return res.status(500).json({ err: 'Internal Server Error!' })
+    }
+
+    async deletePromo(req, res) {
+        const { _id } = req.body
+        if (!_id) {
+            return res.status(422).json({ err: 'Promo ID is Required!' })
+        }
+
+        const delCode = await deletePromoCode(_id)
+
+        if(delCode) {
+            return res.status(200).json({ message: 'Code Deleted Successfully!' })
+        }
+
+        return res.status(500).json({ err: 'Internal Server Error!' })
     }
 }
 

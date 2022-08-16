@@ -18,6 +18,8 @@ router.get('/orders/all', authenticate, ad_orderController.renderOrdersPage)
 router.post('/status', authenticate, ad_orderController.changeOrderStatus)
 
 router.get('/promo', authenticate, ad_promoController.renderPromo)
-router.post('/promo', authenticate, ad_promoController.createPromo)
+router.post('/promo/create', authenticate, ad_promoController.createPromo)
+router.post('/promo/update', authenticate, ad_promoController.changePromoStatus)
+router.post('/promo/delete', authenticate, ad_promoController.deletePromo)
 
 module.exports = router
