@@ -110,7 +110,7 @@ const shippingSelectBox = document.getElementById('shipping')
 shippingSelectBox.addEventListener('change', async (e) => {
 
     const shippingOption = e.target.value
-    
+
     try {
         await axios.post('/cart/shipping', { type: shippingOption })
         window.location.reload()
@@ -162,5 +162,18 @@ if (careBadge) careBadge.addEventListener('click', () => {
     careChev.classList.toggle('open')
 })
 
+async function applyPromoCode() {
+    const codeInput = document.getElementById('promo_code_input')
 
+    if (codeInput.value === '') {
+        alert('Please Enter a Valid Code1')
+        return
+    }
+    try {
+        const { data } = await axios.post('/promo/apply', { code: codeInput.value })
+        console.log(data.message);
+    } catch (error) {
+        console.log(error.response.data.err);
+    }
+}
 

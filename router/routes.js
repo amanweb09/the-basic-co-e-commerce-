@@ -9,6 +9,7 @@ const paymentController = require('../controllers/order/paymentController')
 const customerOrderController = require('../controllers/order/customerOrdersController')
 
 const authenticate = require('../middleware/authenticate')
+const promoController = require('../controllers/order/promoController')
 
 router.get('/', (req, res) => {
     return res
@@ -32,6 +33,8 @@ router.post('/cart', cartController.addToCart)
 router.get('/cart', cartController.renderCart)
 router.post('/cart/shipping', cartController.changeShipping)
 router.post('/cart/remove', cartController.removeProduct)
+
+router.post('/promo/apply', promoController.applyPromo)
 
 router.get('/customer/orders', authenticate, customerOrderController.renderOrders)
 router.post('/order', authenticate, orderController.saveNewOrder)

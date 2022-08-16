@@ -24,7 +24,6 @@
                     </div>
 
                     <hr class="w-10/12 text-gray-400 text-bold my-4 block mx-auto">
-                    <% console.log(session.cart) %>
                         <% cart.length && cart.map((cartProduct)=> { %>
                             <% cartProduct.variants.map((product)=> { %>
                                 <div class="flex items-center justify-between mt-6">
@@ -66,6 +65,12 @@
 
                 <% if (cart.length) { %>
                     <div class="sm:w-1/4 sm:px-8 px-4 bg-gray-50 sm:min-h-screen pb-8 sm:pb-0">
+                        <% if(session.cart.promo && session.cart.promo.isApplied === true) {%> 
+                        <div class="border-2 border-solid border-green-500 bg-green-100 w-max px-4 py-2 rounded-full mt-4 flex-center">
+                            <span class="text-green-500 font-bold"><%= session.cart.promo.code %></span>
+                            <span class="text-xl font-extrabold ml-6">&times;</span>
+                        </div>
+                        <% } %> 
                         <h1 class="font-bold my-4 text-xl">Order Summary</h1>
                         <hr class="w-10/12 text-gray-400 text-bold my-4 block mx-auto">
 
@@ -87,9 +92,10 @@
                         </select>
 
                         <p class="font-bold uppercase text-sm mt-8">promo code</p>
-                        <input type="text"
+                        <input type="text" id="promo_code_input"
                             class="w-full h-10 mt-4 focus:border-b-2 focus:border-b-solid focus:border-b-orange-500">
-                        <button class="bg-black text-white font-bold w-24 h-10 hover:bg-orange-500 mt-4">APPLY</button>
+                        <button onclick="applyPromoCode()"
+                            class="bg-black text-white font-bold w-24 h-10 hover:bg-orange-500 mt-4">APPLY</button>
 
                         <hr class="w-10/12 text-gray-400 text-bold my-4 block mx-auto">
 
@@ -110,15 +116,28 @@
                         </div>
                         <div class="flex items-center justify-between">
                             <p class="text-sm">Discount</p>
-                            <span id="total" class="font-bold text-sm">&#8377;0</span>
+                            <% if(session.cart.discount) {%>
+                            <span id="total" class="font-bold text-sm">&#8377;<%= session.cart.discount %> </span>
+                            <% } else { %> 
+                            <span id="total" class="font-bold text-sm">&#8377;0 </span>
+                            <% } %> 
                         </div>
                         <div class="flex items-center justify-between">
                             <p class="text-sm">Shipping</p>
-                            <span id="total_shipping" class="font-bold text-sm">&#8377;<%= session.cart.shipping.cost %></span>
+                            <span id="total_shipping" class="font-bold text-sm">&#8377;<%= session.cart.shipping.cost %>
+                                    </span>
                         </div>
                         <div class="flex items-center justify-between mt-6">
                             <p class="font-bold">Billed Amount</p>
-                            <span id="total" class="font-bold text-sm">&#8377;<span id="billed_amt"><%= session.cart.shipping.cost + totalPrice %></span></span>
+                            <% if(session.cart.promo && session.cart.promo.isApplied === true) {%> 
+                            <span id="total" class="font-bold text-sm">&#8377;<span id="billed_amt">
+                                    <%= session.cart.shipping.cost + totalPrice - session.cart.discount %>
+                                </span></span>
+                                <% } else { %> 
+                                    <span id="total" class="font-bold text-sm">&#8377;<span id="billed_amt">
+                                            <%= session.cart.shipping.cost + totalPrice %>
+                                        </span></span>
+                                    <% } %> 
                         </div>
                         <button
                             class="bg-orange-500 proceed_to_checkout w-full mt-4 text-white h-10 hover:bg-orange-600 font-bold">
@@ -132,6 +151,24 @@
     </div>
 
     <script src="/js/app.js"></script>
+    <script>
+        async function applyPromoCode() {
+            const codeInput = document.getElementById('promo_code_input')
+
+            if (codeInput.value === '') {
+                alert('Please Enter a Valid Code1')
+                return
+            }
+            try {
+                const { data } = await axios.post('/promo/apply', { code: codeInput.value })
+                window.location.reload()
+            } catch (error) {
+                console.log(error.response.data.err);
+                alert(error.response.data.err)
+            }
+        }
+
+    </script>
 </body>
 
 </html>
