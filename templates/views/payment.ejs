@@ -32,7 +32,7 @@
                     <form action="/order" method="post" id="cod_order_placement_form">
                         <div class="flex items-center justify-between px-4 mt-16">
                             <span class="font-bold">Total Amount: </span>
-                            <span>&#8377; 699</span>
+                            <span>&#8377; <%= session.cart.totalPrice + session.cart.shipping.cost - session.cart.shipping.discount %> </span>
                             <input type="hidden" name="address" id="address_hidden">
                         </div>
                         <div class="flex items-center justify-between px-4 my-2">
@@ -127,12 +127,21 @@
                                 </div>
                                 <div class="text-sm flex items-center justify-between">
                                     <span>Discount</span>
-                                    <span class="font-semibold">&#8377; 0</span>
+                                    <% if(session.cart.discount) {%> 
+                                    <span class="font-semibold">&#8377; <%= session.cart.discount %> </span>
+                                        <% } else { %> 
+                                    <span class="font-semibold">&#8377;0 </span>
+                                        <% } %> 
                                 </div>
                                 <div class="flex items-center justify-between mt-2 sm:mt-0">
                                     <span class="font-bold">Total Amount</span>
+                                    <% if(session.cart.discount) {%> 
                                     <span class="font-bold">&#8377; <%= session.cart.totalPrice +
-                                            session.cart.shipping.cost %> </span>
+                                            session.cart.shipping.cost - session.cart.discount %> </span>
+                                        <% } else {%> 
+                                    <span class="font-bold">&#8377; <%= session.cart.totalPrice +
+                                            session.cart.shipping.cost%> </span>
+                                        <% } %> 
                                 </div>
 
                             </div>

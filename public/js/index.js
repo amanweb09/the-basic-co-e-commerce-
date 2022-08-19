@@ -177,3 +177,54 @@ async function applyPromoCode() {
     }
 }
 
+const removePromoBtn = document.getElementById('remove_promo_btn')
+removePromoBtn.onclick = removePromo
+
+async function removePromo() {
+    try {
+        await axios.post('/promo/delete')
+        window.location.reload()
+    } catch (error) {
+        console.log(error.response);
+        alert('Something went wrong!')
+    }
+}
+
+const decrementBtn = document.querySelectorAll('button.decrement_btn')
+const incrementBtn = document.querySelectorAll('button.increment_btn')
+
+decrementBtn.forEach((btn) => {
+    decrementBtn.addEventListener('click', () => { updateProductQty('decrement') })
+})
+incrementBtn.forEach((btn) => {
+    incrementBtn.addEventListener('click', () => { updateProductQty('increment') })
+})
+
+async function updateProductQty(type) {
+
+    const size = this.dataset.size
+    const color = this.dataset.color
+    const _id = this.dataset._id
+
+    try {
+        await axios.post(`/cart/qty/${type}`, { _id, color, size })
+        window.location.reload()
+
+    } catch (error) {
+        console.log(error.response.data);
+    }
+}
+// async function changeQty(type, _id, color, size) {
+//     try {
+//         await axios.post(`/cart/qty/${type}`, { _id, color, size })
+//         window.location.reload()
+//     } catch (error) {
+//         console.log(error);
+//         alert(error.response.data.err)
+//     }
+// }
+// const pid = document.getElementById('hidden_product_id')
+// const color = document.getElementById('hidden_product_color')
+// const size = document.getElementById('hidden_product_size')
+// decrementBtn.onclick = () => {changeQty('decrement', pid.value, color.value, size.value)}
+// incrementBtn.onclick = () => {changeQty('increment', pid.value, color.value, size.value)}

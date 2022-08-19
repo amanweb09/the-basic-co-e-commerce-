@@ -33,8 +33,10 @@ router.post('/cart', cartController.addToCart)
 router.get('/cart', cartController.renderCart)
 router.post('/cart/shipping', cartController.changeShipping)
 router.post('/cart/remove', cartController.removeProduct)
+router.post('/cart/qty/:type', cartController.changeQty)
 
 router.post('/promo/apply', promoController.applyPromo)
+router.post('/promo/delete', promoController.removePromo)
 
 router.get('/customer/orders', authenticate, customerOrderController.renderOrders)
 router.post('/order', authenticate, orderController.saveNewOrder)

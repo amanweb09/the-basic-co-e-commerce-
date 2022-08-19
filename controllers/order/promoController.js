@@ -30,7 +30,7 @@ class PromoController {
 
             let discount
             if (promo[0].type === 'percentage') {
-                discount = Math.round(cart.totalPrice * promo[0].value/100)
+                discount = Math.round(cart.totalPrice * promo[0].value / 100)
             }
             else if (promo[0].type === 'amount') {
                 discount = promo[0].value
@@ -39,12 +39,21 @@ class PromoController {
             req.session.cart.promo = { isApplied: true, code }
             req.session.cart.discount = discount
 
-            console.log(req.session.cart);
             return res.status(200).json({ message: "Promo Code Applied Successfully" })
         }
         else {
             return res.status(422).json({ err: "Cart Not Found!" })
         }
+    }
+
+    removePromo(req, res) {
+        
+        const discount = req.session.cart.discount || 0
+        req.session.cart.promo = {isApplied: false, code: ''}
+        req.session.cart.totalPrice -= discount 
+        req.session.cart.discount = 0 
+
+        return res.status(200).json({message: 'Promo Code Removed Succesfully!'})
     }
 }
 

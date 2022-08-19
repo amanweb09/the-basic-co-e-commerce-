@@ -148,9 +148,42 @@ class CartController {
         else if (type === 'standard') {
             req.session.cart.shipping.type = type
             req.session.cart.shipping.cost = 30
-            
+
             return res.status(200).json({ cart: req.session.cart })
         }
+    }
+
+    changeQty(req, res) {
+        const { type } = req.params
+        const { _id, color, size } = req.body
+
+        if (!type || !_id) {
+            return res.status(422).json({ err: 'Please enter a valid type/product id' })
+        }
+
+        const product = req.session.cart.items[_id]
+
+        const cart = req.session.cart
+        if (!req.session.cart.items[_id]) {
+            return res.status(422).json({ err: 'Product not found in the cart' })
+        }
+
+        const item = req.session.cart.items[_id]
+        const variant = item.filter((item) => { return item.color === color && item.size === size })
+        // console.log(variant);
+
+        if (type === 'increment') {
+            variant.qty += 1
+        }
+        if (type === 'decrement') {
+            if (variant.qty <= 1) {
+                delete req.session.cart.items[_id]
+            }
+            else {
+                variant.qty -= 1
+            }
+        }
+        return res.status(200).json({ err: 'Quantity updated' })
     }
 }
 
