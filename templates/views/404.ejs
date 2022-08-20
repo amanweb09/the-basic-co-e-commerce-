@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <%- include('../partials/head.ejs') %> 
+        <title>Page not found - The Basic Co</title>
+    </head>
+    <body>
+        <div class="container mx-auto">
+            <%# include('../partials/navbar.ejs') %> 
+            <a href="/" class="w-full flex my-6 px-4 sm:px-0 hover:text-orange-500">
+                <span>&#8592;</span>
+                <span class="ml-2">Back to home</span>
+            </a>
+            <div class="flex-center flex-col sm:mt-10 mt-16">
+                <img class="sm:h-64 h-48" src="/images/_404.png" alt="404">
+                <p class="capitalize">SNAP! You Seem to be lost</p>
+                <a href="/" class="w-48 flex-center h-12 rounded-full bg-orange-500 hover:bg-orange-600 font-extrabold text-white sm:mt-4 mt-6 uppercase">back to home</a>
+            </div>
+        </div>
+    </body>
+</html>

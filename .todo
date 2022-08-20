@@ -1,9 +1,10 @@
-[-] reset password
+[+] reset password
 [-] remove product
 [-] clear cart
 [-] cancel order
 [-] collections
 [-] profile
-[-] logout
-[-] about us
+[+] logout
+[+] about us
 [-] reviews
+[+] 404 page

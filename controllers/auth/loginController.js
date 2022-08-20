@@ -54,6 +54,13 @@ class LoginController {
 
     }
 
+    logout(req, res) {
+        res.clearCookie('at')
+        res.clearCookie('rt')
+        req.flash('successMessage', 'logged out successfully')
+        return res.status(200).redirect('/login')
+    }
+
 }
 
 module.exports = new LoginController()

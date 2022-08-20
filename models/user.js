@@ -6,7 +6,8 @@ const userSchema = new Schema({
     tel: { type: String, required: true, unique: true },
     password: { type: String, required: true, unique: false },
     role: { type: String, default: 'user' },
-    accessToken: { type: String }
+    accessToken: { type: String },
+    resetToken: { type: String }
 })
 
 module.exports = new model('users', userSchema, 'users')

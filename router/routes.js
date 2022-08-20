@@ -7,6 +7,7 @@ const cartController = require('../controllers/product/cartController')
 const productController = require('../controllers/product/productController')
 const paymentController = require('../controllers/order/paymentController')
 const customerOrderController = require('../controllers/order/customerOrdersController')
+const passwordController = require('../controllers/auth/passwordController')
 
 const authenticate = require('../middleware/authenticate')
 const promoController = require('../controllers/order/promoController')
@@ -19,12 +20,19 @@ router.get('/', (req, res) => {
             successMessage: req.flash('successMessage')
         })
 })
+router.get('/about', (req, res) => {return res.status(200).render('about')})
 
 router.get('/signup', signupController.render)
 router.post('/signup', signupController.createUser)
 
 router.get('/login', loginController.render)
 router.post('/login', loginController.loginUser)
+router.post('/logout', authenticate, loginController.logout)
+
+router.get('/forget-password', passwordController.renderForgetPage)
+router.post('/forget-password', passwordController.buildResetLink)
+router.get('/reset-password/:link', passwordController.verifyResetLink)
+router.post('/reset-password/:link', passwordController.updatePassword)
 
 router.get('/products', productController.renderProductsPage)
 router.get('/product/:_id', productController.showIndividualProduct)
