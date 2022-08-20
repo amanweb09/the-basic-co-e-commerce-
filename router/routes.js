@@ -20,14 +20,15 @@ router.get('/', (req, res) => {
             successMessage: req.flash('successMessage')
         })
 })
-router.get('/about', (req, res) => {return res.status(200).render('about')})
+router.get('/about', (req, res) => { return res.status(200).render('about') })
+router.get('/profile', authenticate, (req, res) => { return res.status(200).render('profile', { user: req.user }) })
 
 router.get('/signup', signupController.render)
 router.post('/signup', signupController.createUser)
 
 router.get('/login', loginController.render)
 router.post('/login', loginController.loginUser)
-router.post('/logout', authenticate, loginController.logout)
+router.get('/logout', authenticate, loginController.logout)
 
 router.get('/forget-password', passwordController.renderForgetPage)
 router.post('/forget-password', passwordController.buildResetLink)
@@ -41,6 +42,7 @@ router.post('/cart', cartController.addToCart)
 router.get('/cart', cartController.renderCart)
 router.post('/cart/shipping', cartController.changeShipping)
 router.post('/cart/remove', cartController.removeProduct)
+router.get('/cart/clear', cartController.clearCart)
 router.post('/cart/qty/:type', cartController.changeQty)
 
 router.post('/promo/apply', promoController.applyPromo)

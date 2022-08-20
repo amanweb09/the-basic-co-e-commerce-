@@ -1,0 +1,26 @@
+<html>
+
+<head>
+    <%- include('../partials/head.ejs') %>
+        <title>Profile - The Basic Co</title>
+</head>
+
+<body>
+    <div class="container mx-auto">
+        <%- include('../partials/navbar.ejs') %>
+        <div class="">
+            <h1 class="text-center mt-8 font-bold text-lg">Welcome <span class="text-orange-400 capitalize"><%= user.name %>!</span></h1>
+            <div style="border: 1px solid #dcdcdc;" class="mt-12 rounded-lg w-max block mx-auto pb-8 px-4">
+                <span class="text-center block mt-8">Registered Email: <span class="font-bold"><%= user.email %></span></span>
+                <span class="text-center block mt-4">Contact Number: <span class="font-bold"><%= user.tel %></span></span>
+            </div>
+            <div class="flex-center w-max mx-auto mt-10">
+                <a href="/forget-password" class="mr-6 text-orange-500 text-sm">Change password</a>
+                <a href="/logout" class="text-orange-500 text-sm mr-6">Logout</a>
+                <a href="/customer/orders" class="text-orange-500 text-sm">Your orders</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

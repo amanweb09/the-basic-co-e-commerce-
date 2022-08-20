@@ -111,24 +111,20 @@ class CartController {
         const products = await getProducts({ _id })
         const totalProductPrice = qty * parseInt(products[0].price)
 
-        console.log('product price: ', parseInt(products[0].price), 'qty: ', qty, 'cart price: ', req.session.cart.totalPrice);
         if (variants.length <= 0) {
-            delete req.session.cart.items[_id]
-
             req.session.cart.totalPrice = req.session.cart.totalPrice - totalProductPrice
             req.session.cart.totalQty = req.session.cart.totalQty - qty
+            delete req.session.cart.items[_id]
 
             return res.status(200).json({ message: "Removed from cart!" })
         }
 
-        req.session.cart = {
-            items: {
-                ...req.session.cart.items,
-                [_id]: variants
-            },
-            totalPrice: req.session.cart.totalPrice - totalProductPrice,
-            totalQty: req.session.cart.totalQty - qty
-        }
+        req.session.cart.items[_id] = variants
+        req.session.cart.totalPrice = req.session.cart.totalPrice - totalProductPrice
+        req.session.cart.totalQty = req.session.cart.totalQty - qty
+        req.session.cart.discount = 0
+        req.session.cart.promo = { isApplied: false, code: '' }
+
         return res.status(200).json({ message: "Removed from cart" })
 
     }
@@ -184,6 +180,11 @@ class CartController {
             }
         }
         return res.status(200).json({ err: 'Quantity updated' })
+    }
+
+    clearCart(req, res) {
+        delete req.session.cart
+        return res.status(200).redirect('/cart')
     }
 }
 

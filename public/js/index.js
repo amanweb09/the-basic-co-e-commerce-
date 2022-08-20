@@ -119,8 +119,10 @@ shippingSelectBox.addEventListener('change', async (e) => {
     }
 })
 
-const removeProductButton = document.querySelector('.remove_product_btn')
-removeProductButton.addEventListener('click', sendProductDeleteRequest)
+const removeProductButton = document.querySelectorAll('.remove_product_btn')
+removeProductButton.forEach((btn) => {
+    btn.addEventListener('click', sendProductDeleteRequest)
+})
 
 async function sendProductDeleteRequest() {
 

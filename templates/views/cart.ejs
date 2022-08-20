@@ -65,6 +65,9 @@
                                         class="remove_product_btn cursor-pointer text-gray-500 hover:text-red-500">&times;</span>
                                 </div>
                                 <% }) }) %>
+                                <% if(cart.length > 0) {%> 
+                                    <a class="text-sm text-gray-400 hover:text-red-500 mt-10 block" href="/cart/clear">clear cart</a>
+                                <% } %> 
 
                 </div>
 
