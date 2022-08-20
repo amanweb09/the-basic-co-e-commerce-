@@ -8,6 +8,7 @@ const ad_productController = require('../controllers/admin/ad_productController'
 const ad_dashboardController = require('../controllers/admin/ad_dashboardController')
 const ad_orderController = require('../controllers/admin/ad_orderController')
 const ad_promoController = require('../controllers/admin/ad_promoController')
+const ad_cancellationController = require('../controllers/admin/ad_cancellationController')
 
 router.get('/dashboard', authenticate, ad_dashboardController.buildDashboard)
 
@@ -21,5 +22,8 @@ router.get('/promo', authenticate, ad_promoController.renderPromo)
 router.post('/promo/create', authenticate, ad_promoController.createPromo)
 router.post('/promo/update', authenticate, ad_promoController.changePromoStatus)
 router.post('/promo/delete', authenticate, ad_promoController.deletePromo)
+
+router.get('/cancellations', authenticate, ad_cancellationController.renderCancellationView)
+router.post('/cancellations', authenticate, ad_cancellationController.changeRequeststatus)
 
 module.exports = router

@@ -11,6 +11,7 @@ const passwordController = require('../controllers/auth/passwordController')
 
 const authenticate = require('../middleware/authenticate')
 const promoController = require('../controllers/order/promoController')
+const cancellationController = require('../controllers/order/cancellationController')
 
 router.get('/', (req, res) => {
     return res
@@ -50,13 +51,15 @@ router.post('/promo/delete', promoController.removePromo)
 
 router.get('/customer/orders', authenticate, customerOrderController.renderOrders)
 router.post('/order', authenticate, orderController.saveNewOrder)
+router.get('/order/status/:_id', customerOrderController.renderStatusPage)
 
 router.get('/checkout', orderController.renderCheckout)
 router.post('/checkout', authenticate, orderController.initPayment)
 
 router.get('/payment/:orderId', authenticate, paymentController.renderPaymentsPage)
 
-router.get('/order/status/:_id', customerOrderController.renderStatusPage)
+router.get('/order/cancel', authenticate, cancellationController.renderCancellationView)
+router.post('/order/cancel', authenticate, cancellationController.submitRequest)
 
 
 

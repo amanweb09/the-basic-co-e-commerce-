@@ -5,7 +5,7 @@ const Orders = require('../../models/order')
 class AdminProductController {
 
     async renderOrdersPage(req, res) {
-        const orders = await findOrders()
+        const orders = await findOrders({ status: { $ne: 'completed' } })
 
         return res.status(200).render('admin/orders', { orders, moment })
     }
