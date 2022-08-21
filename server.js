@@ -48,11 +48,12 @@ app.use(flash())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static(static_path))
+app.use(require('express-fileupload')({ useTempFiles: true }))
 
 
 app.use(require('./router/routes'))
 app.use('/admin', require('./router/admin'))
-app.use('*', (req, res) => {return res.status(404).render('404')})
+app.use('*', (req, res) => { return res.status(404).render('404') })
 
 const io = require('socket.io')(server)
 server

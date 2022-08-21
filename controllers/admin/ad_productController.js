@@ -2,6 +2,8 @@ const categoryService = require("../../services/categoryService")
 const productService = require("../../services/productService")
 const Categories = require('../../models/category')
 const SubCategories = require('../../models/subCategory')
+const cld = require('../../util/cld')
+const cloudinary = require('cloudinary').v2
 
 class AdminProductController {
 
@@ -29,9 +31,9 @@ class AdminProductController {
 
     async createProduct(req, res) {
 
-        const { title, price, desc, category, subCategory, imgPrimary, season, sizes: sizeString, colors: colorsString } = req.body
+        const { title, price, desc, category, subCategory, season, sizes: sizeString, colors: colorsString } = req.body
 
-        if (!title || !price || !desc || !category || !subCategory || !imgPrimary || !sizeString || !colorsString || !season) {
+        if (!title || !price || !desc || !category || !subCategory || !sizeString || !colorsString || !season) {
             req.flash('err', 'All fields are required')
             return res
                 .redirect('/admin/products/create')
@@ -50,6 +52,33 @@ class AdminProductController {
             tags = tags.split(',')
         }
 
+        cloudinary.config({
+            cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+            api_key: process.env.CLOUDINARY_API_KEY,
+            api_secret: process.env.CLOUDINARY_API_SECRET
+        })
+        const imageP = req.files.imgPrimary
+        const imageS = req.files.imgSec || []
+
+        let image_p_url;
+        let image_s_url = [];
+
+        for (let i = 0; i < imageS.length; i++) {
+            const element = imageS[i];
+            async function upload() {
+                try {
+                    const { url } = await cld(element)
+                    image_s_url.push(url)
+                } catch (error) {
+                    return error
+                }
+            }
+            await upload()
+        }
+
+        const data = await cld(imageP)
+        if (data) { image_p_url = data.url }
+
         const product = {
             title, price, desc, season, tags,
             variants: {
@@ -57,8 +86,8 @@ class AdminProductController {
                 sizes: sizes
             },
             images: {
-                primary: imgPrimary,
-                sec: req.body.imgSec ? req.body.imgSec : []
+                primary: image_p_url,
+                sec: image_s_url
             },
             category: { categoryId: cat._id, title: category },
             subCategory: { subCategoryId: subCat._id, title: subCategory },

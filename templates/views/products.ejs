@@ -16,7 +16,7 @@
                 <% products.length && products.map((product)=> { %>
 
                     <div class="flex-center flex-col w-full shadow-xl px-2">
-                        <img class="w-full" src="/images/model.jpg" alt="product">
+                        <img class="w-full" src="<%= product.images.primary %> " alt="product">
                         <div class="flex-1">
                             <p class="capitalize text-sm mt-2 text-center"><%= product.title %></p>
                             <p class="text-center font-bold">&#8377;<%= product.price %></p>

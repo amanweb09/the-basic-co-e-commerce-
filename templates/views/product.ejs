@@ -21,11 +21,12 @@
                 </div>
 
                 <div class="flex-center flex-col w-full mx-auto my-4">
-                    <img class="sm:my-4 main_image sm:h-10/12 h-96" src="/images/model.jpg" alt="product">
+                    <img class="sm:my-4 main_image sm:h-10/12 h-96" src="<%= product.images.primary %> " alt="product">
                     <div class="w-9/12 h-16 mt-4 flex-center overflow-x-scroll slide-wrapper">
-                        <img class="max-h-16 mx-2 slide-img" src="/images/model.jpg" alt="product image">
-                        <img class="max-h-16 mx-2 slide-img" src="/images/gift.png" alt="product image">
-                        <img class="max-h-16 mx-2 slide-img" src="/images/search.png" alt="product image">
+                        <img class="max-h-16 mx-2 slide-img" src="<%= product.images.primary %> " alt="product image">
+                        <% product.images.sec.map((img) => { %> 
+                        <img class="max-h-16 mx-2 slide-img" src="<%= img %> " alt="product image">
+                        <% }) %> 
                     </div>
                 </div>
             </div>

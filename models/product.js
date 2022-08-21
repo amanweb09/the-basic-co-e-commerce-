@@ -35,7 +35,7 @@ const productSchema = new Schema({
             required: true
         },
         sec: {
-            type: [String],
+            type: Array,
             required: false
         }
     },
