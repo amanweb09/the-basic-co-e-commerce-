@@ -33,7 +33,7 @@
             <div class="m-4 bg-neutral-50 p-2">
                 <% orders.length && orders.map((order)=> { %>
                     <div class="bg-white mx-2 mt-2 mb-4 p-4 rounded-md">
-                        <span class="text-gray-500 font-bold uppercase">TBC_55ghuilkio</span>
+                        <span class="text-gray-500 font-bold uppercase"><%= order.orderId %> </span>
                         <div class="flex mt-4 items-center">
                             <span class="uppercase mr-6">
                                 <%= order.customer.name %>

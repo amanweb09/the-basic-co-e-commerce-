@@ -109,11 +109,12 @@
 
                                     <% const statuses={active: 'green' , draft: 'yellow' , inactive: 'red' } %>
                                         <div
-                                            class="w-32 flex-center py-2 rounded-full bg-<%= statuses[promo.status] %>-100 text-<%= statuses[promo.status] %>-500 font-bold">
+                                            class="w-32 flex-center py-2 rounded-full bg-<%=statuses[promo.status]%>-100 text-<%=statuses[promo.status]%>-500 font-bold">
                                             <%= promo.status %>
                                         </div>
-                                        <select name="status" id="status" class="px-4 uppercase">
-                                            <% Object.keys(statuses).map((st)=> { if(st === promo.status) {%>
+                                        <select name="status" id="status" class="change_promo_status px-4 uppercase">
+                                            <% const sts = ['active', 'draft', 'inactive'] %> 
+                                            <% sts.map((st)=> { if(st === promo.status) {%>
                                                 <option class="uppercase" selected value="<%= st %>">
                                                     <%= st %>
                                                 </option>
@@ -160,15 +161,16 @@
         }
 
 
-        const sb = document.querySelector('select#status')
-        sb.addEventListener('change', (e) => {
-            console.log(e);
-        })
+        // const sb = document.querySelector('select#status')
+        // sb.addEventListener('change', (e) => {
+        //     console.log(e);
+        // })
+        document.querySelector('.change_promo_status').addEventListener('change', sendUpdateRequest)
         async function sendUpdateRequest(e) {
             const _id = document.getElementById('promoId')
             try {
                 const { data } = await axios.post('/admin/promo/update', { _id: _id.value, status: e.target.value })
-                console.log(data);
+                window.location.reload()
 
             } catch (error) {
                 console.log(error);
