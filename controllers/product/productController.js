@@ -89,7 +89,7 @@ class ProductController {
 
         const product = await getProducts({ _id })
 
-        if (product) {
+        if (product.length) {
 
             const modProduct = new ProductDTO(product[0])
 

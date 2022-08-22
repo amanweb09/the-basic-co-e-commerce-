@@ -19,7 +19,7 @@
                 <a class="admin_nav_link flex-center w-full py-2 font-bold rounded-full my-4"
                     href="/admin/products/create">Create a
                     Product</a>
-                <a class="admin_nav_link flex-center w-full py-2 font-bold rounded-full my-4" href="#">All Products</a>
+                <a class="admin_nav_link flex-center w-full py-2 font-bold rounded-full my-4" href="/admin/products/all">All Products</a>
                 <a class="admin_nav_link flex-center w-full py-2 font-bold rounded-full my-4" href="/admin/promo">Promo Codes</a>
                 <a class="admin_nav_link flex-center w-full py-2 font-bold rounded-full my-4" href="#">Categories</a>
                 <a class="admin_nav_link flex-center w-full py-2 font-bold rounded-full my-4"
@@ -72,7 +72,7 @@
                                         </span>
                         </div>
 
-                        <% order.products.forEach((product)=> { %>
+                        <% if(orders.length > 0) { order.products.forEach((product)=> { %>
                             <div class="flex items-center mt-10">
                                 <span class="font-bold mr-6 text-gray-500">
                                     <%= product._id._id %>
@@ -80,7 +80,7 @@
                                 <span class="uppercase mx-6">
                                     <%= product._id.title %>
                                 </span>
-                                <% product.variants.map((variant)=> { %>
+                                <% order.products.length && product.variants.map((variant)=> { %>
                                     <span class="uppercase mx-6">
                                         <%= variant.color %>
                                     </span>
@@ -92,10 +92,10 @@
                                     </span>
                                     <% }) %>
                             </div>
-                            <% }) %>
+                            <% })} else {} %>
 
                     </div>
-                    <% }) %>
+                    <% })%>
             </div>
         </div>
     </div>

@@ -1,5 +1,6 @@
 const categoryService = require("../../services/categoryService")
 const productService = require("../../services/productService")
+const Products = require('../../models/product')
 const Categories = require('../../models/category')
 const SubCategories = require('../../models/subCategory')
 const cld = require('../../util/cld')
@@ -132,6 +133,23 @@ class AdminProductController {
             .redirect('/admin/products/create')
     }
 
+    async renderAllProducts(req, res) {
+        const products = await productService.getProducts()
+        return res.status(200).render('admin/all-products', {
+            products
+        })
+    }
+
+    async deleteProduct(req, res) {
+        const { _id } = req.body
+        try {
+            await Products.deleteOne({ _id })
+            return res.status(200).json({ message: 'product deleted successfully' })
+        } catch (error) {
+            return res.status(500).json({ err: 'server unavailable' })
+
+        }
+    }
 }
 
 
