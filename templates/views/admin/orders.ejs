@@ -21,10 +21,7 @@
                     Product</a>
                 <a class="admin_nav_link flex-center w-full py-2 font-bold rounded-full my-4" href="/admin/products/all">All Products</a>
                 <a class="admin_nav_link flex-center w-full py-2 font-bold rounded-full my-4" href="/admin/promo">Promo Codes</a>
-                <a class="admin_nav_link flex-center w-full py-2 font-bold rounded-full my-4" href="#">Categories</a>
-                <a class="admin_nav_link flex-center w-full py-2 font-bold rounded-full my-4"
-                    href="#">Sub-Categories</a>
-                <a class="admin_nav_link flex-center w-full py-2 font-bold rounded-full my-4" href="#">Users</a>
+                <a class="admin_nav_link flex-center w-full py-2 font-bold rounded-full my-4" href="/admin/categories/all">Categories</a>
                 <a class="admin_nav_link flex-center w-full py-2 font-bold rounded-full mt-4" href="/admin/cancellations">Cancellations</a>
             </div>
         </div>
@@ -72,10 +69,11 @@
                                         </span>
                         </div>
 
-                        <% if(orders.length > 0) { order.products.forEach((product)=> { %>
+                        <% order.products.forEach((product)=> { %>
+                            <% if(product._id != null) {%> 
                             <div class="flex items-center mt-10">
                                 <span class="font-bold mr-6 text-gray-500">
-                                    <%= product._id._id %>
+                                    <%= product._id %>
                                 </span>
                                 <span class="uppercase mx-6">
                                     <%= product._id.title %>
@@ -92,7 +90,7 @@
                                     </span>
                                     <% }) %>
                             </div>
-                            <% })} else {} %>
+                            <% }}) %>
 
                     </div>
                     <% })%>

@@ -7,7 +7,12 @@ class AdminProductController {
     async renderOrdersPage(req, res) {
         const orders = await findOrders({ status: { $ne: 'completed' } })
 
-        return res.status(200).render('admin/orders', { orders, moment })
+        if (orders) {
+            return res.status(200).render('admin/orders', { orders, moment })
+        }
+        else {
+            return res.status(500).render('admin/orders', { orders: [] })
+        }
     }
 
     async changeOrderStatus(req, res) {
