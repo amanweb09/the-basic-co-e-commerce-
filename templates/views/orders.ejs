@@ -47,7 +47,8 @@
                                         <h2 class="font-bold mt-2">ITEMS:</h2>
 
                                         <div>
-                                            <% order.products.map((product)=> { product.variants.map((variant) => { %>
+                                            <% order.products.map((product)=> { if(product._id != null) {product.variants.map((variant) => { %>
+
                                                 <div class="flex items-center mt-4">
                                                     <img src="/images/model.jpg" class="h-20" alt="product image">
                                                     <div class="ml-4">
@@ -65,7 +66,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <% })}) %>
+                                                <% })}}) %>
                                         </div>
                                         <div class="flex items-center justify-between mt-6">
                                             <a class="sm:w-48 w-40 text-sm sm:text-base h-10 flex-center bg-orange-500 text-white font-bold hover:bg-orange-600"

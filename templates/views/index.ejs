@@ -7,13 +7,13 @@
 </head>
 
 <body>
-    <div class="container mx-auto">
+    <div class="container mx-auto sm:bg-white bg-neutral-100">
         <%- include('../partials/navbar.ejs') %>
-            <% if (successMessage.length) {%>
-                <div class="w-10/12 mx-auto py-2 mb-4 flex-center bg-green-100 text-green-500 font-bold rounded-full">
+            <%# if (successMessage.length) {%>
+                <!-- <div class="w-10/12 mx-auto py-2 mb-4 flex-center bg-green-100 text-green-500 font-bold rounded-full">
                     <%= successMessage %>
-                </div>
-                <% } %>
+                </div> -->
+                <%# } %>
                     <div class="w-full px-4 sm:my-2 my-4">
                         <h1 class="font-bold uppercase sm:text-xl text-base">find your style</h1>
                     </div>
@@ -21,15 +21,15 @@
                     <!-- categories -->
                     <div class="w-full px-4 my-4 flex items-center justify-evenly">
                         <div style="border: 1px solid #ececec;"
-                            class="inline-block hover:bg-gray-50 px-4 py-2 rounded-md w-max cursor-pointer sm:text-sm text-xs">
+                            class="inline-block hover:bg-gray-50 bg-white shadow-md px-4 py-4 rounded-md w-max cursor-pointer sm:text-sm text-xs">
                             All
                         </div>
                         <div style="border: 1px solid #ececec;"
-                            class="px-4 py-2 hover:bg-gray-50 inline-block rounded-md w-max mx-2 cursor-pointer sm:text-sm text-xs">
+                            class="px-4 py-4 hover:bg-gray-50 bg-white shadow-md inline-block rounded-md w-max mx-2 cursor-pointer sm:text-sm text-xs">
                             Solid T-Shirts
                         </div>
                         <div style="border: 1px solid #ececec;"
-                            class="px-4 py-2 hover:bg-gray-50 inline-block rounded-md w-max cursor-pointer sm:text-sm text-xs">
+                            class="px-4 py-4 hover:bg-gray-50 bg-white shadow-md inline-block rounded-md w-max cursor-pointer sm:text-sm text-xs">
                             Printed T-Shirts
                         </div>
                     </div>
@@ -48,10 +48,12 @@
                             </a>
                         </div>
 
-                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                            <div class="w-max h-max cursor-pointer">
-                                <div class="h-64 rounded-xl overflow-hidden relative">
-                                    <img class="absolute right-4 top-4 w-6 h-6" src="/images/like.png" alt="wishlist">
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                            <% const newArr = new Array(4).fill() %>
+                            <% newArr.map((pr) => { %> 
+                            <div class="w-max h-max bg-white cursor-pointer">
+                                <div class="h-64 p-2 rounded-sm overflow-hidden relative">
+                                    <!-- <img class="absolute right-4 top-4 w-6 h-6" src="/images/like.png" alt="wishlist"> -->
                                     <img class="h-full" src="/images/model.jpg" alt="model">
                                 </div>
                                 <div class="w-full block py-2 text-center">
@@ -62,38 +64,13 @@
                                     </h1>
                                 </div>
                             </div>
-                            <div class="w-max h-max cursor-pointer">
-                                <div class="h-64 rounded-xl overflow-hidden relative">
-                                    <img class="absolute right-4 top-4 w-6 h-6" src="/images/like.png" alt="wishlist">
-                                    <img class="h-full" src="/images/model.jpg" alt="model">
-                                </div>
-                                <div class="w-full block py-2 text-center">
-                                    XYZ Printed T-Shirt
-                                    <h1 class="font-bold">
-                                        <span class="text-orange-500 inline-block">Rs. </span>
-                                        599
-                                    </h1>
-                                </div>
-                            </div>
-                            <div class="w-max h-max cursor-pointer">
-                                <div class="h-64 rounded-xl overflow-hidden relative">
-                                    <img class="absolute right-4 top-4 w-6 h-6" src="/images/like.png" alt="wishlist">
-                                    <img class="h-full" src="/images/model.jpg" alt="model">
-                                </div>
-                                <div class="w-full block py-2 text-center">
-                                    XYZ Printed T-Shirt
-                                    <h1 class="font-bold">
-                                        <span class="text-orange-500 inline-block">Rs. </span>
-                                        599
-                                    </h1>
-                                </div>
-                            </div>
+                            <% }) %> 
                         </div>
                     </div>
 
                     <!-- deals of the day -->
                     <div class="w-full h-2 bg-gray-100"></div>
-                    <div class="w-full flex-center flex-col mt-12 pb-8">
+                    <div class="w-11/12 mx-auto rounded-lg bg-white flex-center flex-col mt-12 pt-4 shadow-md pb-8">
                         <h1 class="font-extrabold uppercase text-2xl mb-12">deal of the <span
                                 class="text-orange-500">day</span>
                         </h1>
@@ -115,11 +92,12 @@
                                 View all
                             </a>
                         </div>
-
-                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                            <div class="w-max h-max cursor-pointer">
-                                <div class="h-64 rounded-xl overflow-hidden relative">
-                                    <img class="absolute right-4 top-4 w-6 h-6" src="/images/like.png" alt="wishlist">
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                            <% const popularArr = new Array(2).fill() %>
+                            <% popularArr.map((pr) => { %> 
+                            <div class="w-max h-max bg-white cursor-pointer">
+                                <div class="h-64 p-2 rounded-sm overflow-hidden relative">
+                                    <!-- <img class="absolute right-4 top-4 w-6 h-6" src="/images/like.png" alt="wishlist"> -->
                                     <img class="h-full" src="/images/model.jpg" alt="model">
                                 </div>
                                 <div class="w-full block py-2 text-center">
@@ -130,19 +108,7 @@
                                     </h1>
                                 </div>
                             </div>
-                            <div class="w-max h-max cursor-pointer">
-                                <div class="h-64 rounded-xl overflow-hidden relative">
-                                    <img class="absolute right-4 top-4 w-6 h-6" src="/images/like.png" alt="wishlist">
-                                    <img class="h-full" src="/images/model.jpg" alt="model">
-                                </div>
-                                <div class="w-full block py-2 text-center">
-                                    XYZ Printed T-Shirt
-                                    <h1 class="font-bold">
-                                        <span class="text-orange-500 inline-block">Rs. </span>
-                                        599
-                                    </h1>
-                                </div>
-                            </div>
+                            <% }) %> 
                         </div>
                     </div>
 
@@ -150,15 +116,17 @@
                     <div class="w-full px-4 my-6">
                         <div class="flex items-center mb-6 justify-between">
                             <h1 class="font-bold uppercase text-lg">on sale</h1>
-                            <a href="#" class="text-orange-500 font-semibold hover:text-orange-600">
+                            <a href="/products" class="text-orange-500 font-semibold hover:text-orange-600">
                                 View all
                             </a>
                         </div>
 
-                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                            <div class="w-max h-max cursor-pointer">
-                                <div class="h-64 rounded-xl overflow-hidden relative">
-                                    <img class="absolute right-4 top-4 w-6 h-6" src="/images/like.png" alt="wishlist">
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                            <% const saleArr = new Array(2).fill() %>
+                            <% saleArr.map((pr) => { %> 
+                            <div class="w-max h-max bg-white cursor-pointer">
+                                <div class="h-64 p-2 rounded-sm overflow-hidden relative">
+                                    <!-- <img class="absolute right-4 top-4 w-6 h-6" src="/images/like.png" alt="wishlist"> -->
                                     <img class="h-full" src="/images/model.jpg" alt="model">
                                 </div>
                                 <div class="w-full block py-2 text-center">
@@ -169,19 +137,7 @@
                                     </h1>
                                 </div>
                             </div>
-                            <div class="w-max h-max cursor-pointer">
-                                <div class="h-64 rounded-xl overflow-hidden relative">
-                                    <img class="absolute right-4 top-4 w-6 h-6" src="/images/like.png" alt="wishlist">
-                                    <img class="h-full" src="/images/model.jpg" alt="model">
-                                </div>
-                                <div class="w-full block py-2 text-center">
-                                    XYZ Printed T-Shirt
-                                    <h1 class="font-bold">
-                                        <span class="text-orange-500 inline-block">Rs. </span>
-                                        599
-                                    </h1>
-                                </div>
-                            </div>
+                            <% }) %> 
                         </div>
                     </div>
 

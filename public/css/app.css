@@ -22,10 +22,12 @@
 .loading_overlay.open {
     display: flex;
 }
-
+.ham {
+    border: 1px solid #dcdcdc;
+}
 .bars {
     transition: 0.3s;
-    height: 4px;
+    height: 2px;
 }
 
 .bars:first-child.open {

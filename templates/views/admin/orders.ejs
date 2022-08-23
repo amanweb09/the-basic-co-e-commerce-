@@ -8,8 +8,8 @@
 <body>
     <div class="flex">
         <div class="w-2/12 pt-6 h-full border-r-2 border-r-solid border-r-gray-100">
-            <div class="w-full h-10 flex-center font-extrabold uppercase py-8 border-b-solid border-b-2 border-b-white">
-                The Basic Co
+            <div class="w-full h-14 flex-center py-8 border-b-solid border-b-2 border-b-white">
+                <img src="/images/logo.jpg" class="h-14 border-b-solid border-b-2 border-b-white">
             </div>
             <div class="w-full px-2">
                 <a class="admin_nav_link flex-center w-full py-2 font-bold rounded-full my-4"
@@ -19,10 +19,14 @@
                 <a class="admin_nav_link flex-center w-full py-2 font-bold rounded-full my-4"
                     href="/admin/products/create">Create a
                     Product</a>
-                <a class="admin_nav_link flex-center w-full py-2 font-bold rounded-full my-4" href="/admin/products/all">All Products</a>
-                <a class="admin_nav_link flex-center w-full py-2 font-bold rounded-full my-4" href="/admin/promo">Promo Codes</a>
-                <a class="admin_nav_link flex-center w-full py-2 font-bold rounded-full my-4" href="/admin/categories/all">Categories</a>
-                <a class="admin_nav_link flex-center w-full py-2 font-bold rounded-full mt-4" href="/admin/cancellations">Cancellations</a>
+                <a class="admin_nav_link flex-center w-full py-2 font-bold rounded-full my-4"
+                    href="/admin/products/all">All Products</a>
+                <a class="admin_nav_link flex-center w-full py-2 font-bold rounded-full my-4" href="/admin/promo">Promo
+                    Codes</a>
+                <a class="admin_nav_link flex-center w-full py-2 font-bold rounded-full my-4"
+                    href="/admin/categories/all">Categories</a>
+                <a class="admin_nav_link flex-center w-full py-2 font-bold rounded-full mt-4"
+                    href="/admin/cancellations">Cancellations</a>
             </div>
         </div>
         <div class="flex-1">
@@ -30,7 +34,9 @@
             <div class="m-4 bg-neutral-50 p-2">
                 <% orders.length && orders.map((order)=> { %>
                     <div class="bg-white mx-2 mt-2 mb-4 p-4 rounded-md">
-                        <span class="text-gray-500 font-bold uppercase"><%= order.orderId %> </span>
+                        <span class="text-gray-500 font-bold uppercase">
+                            <%= order.orderId %>
+                        </span>
                         <div class="flex mt-4 items-center">
                             <span class="uppercase mr-6">
                                 <%= order.customer.name %>
@@ -47,10 +53,12 @@
                                         class="w-24 p-2 mx-6 bg-red-100 font-bold text-red-500 flex-center text-sm rounded-full">
                                         Unpaid</div>
                                     <% } %>
-                                    <input type="hidden" name="orderId" value="<%= order._id %>" id="order_id_hidden" >
+                                        <input type="hidden" name="orderId" value="<%= order._id %>"
+                                            id="order_id_hidden">
                                         <select name="status" data-orderId="<%= order._id %> " id="status"
                                             class="rounded-full p-2 mx-6">
-                                            <% const statuses=['placed', 'confirmed' , 'packed' , 'out for delivery', 'completed' , 'cancelled' ] %>
+                                            <% const statuses=['placed', 'confirmed' , 'packed' , 'out for delivery'
+                                                , 'completed' , 'cancelled' ] %>
                                                 <% statuses.map((status)=> { %>
                                                     <%if (order.status===status) { %>
                                                         <option selected class="status_select_option"
@@ -70,27 +78,27 @@
                         </div>
 
                         <% order.products.forEach((product)=> { %>
-                            <% if(product._id != null) {%> 
-                            <div class="flex items-center mt-10">
-                                <span class="font-bold mr-6 text-gray-500">
-                                    <%= product._id %>
-                                </span>
-                                <span class="uppercase mx-6">
-                                    <%= product._id.title %>
-                                </span>
-                                <% order.products.length && product.variants.map((variant)=> { %>
-                                    <span class="uppercase mx-6">
-                                        <%= variant.color %>
+                            <% if(product._id !=null) {%>
+                                <div class="flex items-center mt-10">
+                                    <span class="font-bold mr-6 text-gray-500">
+                                        <%= product._id %>
                                     </span>
                                     <span class="uppercase mx-6">
-                                        <%= variant.size %>
+                                        <%= product._id.title %>
                                     </span>
-                                    <span class="uppercase mx-6">
-                                        <%= variant.qty %>
-                                    </span>
-                                    <% }) %>
-                            </div>
-                            <% }}) %>
+                                    <% order.products.length && product.variants.map((variant)=> { %>
+                                        <span class="uppercase mx-6">
+                                            <%= variant.color %>
+                                        </span>
+                                        <span class="uppercase mx-6">
+                                            <%= variant.size %>
+                                        </span>
+                                        <span class="uppercase mx-6">
+                                            <%= variant.qty %>
+                                        </span>
+                                        <% }) %>
+                                </div>
+                                <% }}) %>
 
                     </div>
                     <% })%>
@@ -98,15 +106,17 @@
         </div>
     </div>
     <script>
+
         document.querySelector('select#status').onchange = async function (e) {
             try {
                 await axios.post('/admin/status', {
                     _id: document.querySelector('input[type="hidden"]#order_id_hidden').value,
                     status: e.target.value
                 }, { withCredentials: true })
+
                 window.location.reload()
             } catch (error) {
-                alert(error.response.message.err)
+                alert(error.response.data.err)
             }
 
         }
